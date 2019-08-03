@@ -1,0 +1,128 @@
+html, body {
+    background: #fff;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+/*
+* Navbar section
+*/
+.nav-container-fluid {
+    width: 100%;
+    background-color: #3490dc;
+    margin: 0;
+    padding: 0;
+
+    .nav-container {
+        margin: 0 auto!important;
+
+        .navbar {
+            padding: 0 1rem;
+
+            .navbar-brand {
+                font-size: 1.5rem;
+                font-weight: 500;
+            }
+
+            .navbar-collapse {
+                justify-content: flex-end;
+            }
+
+            a.nav-link {
+                font-size: 1rem;
+                padding: 0.75rem;
+                margin: 0 0.5rem;
+
+                &:hover {
+                    background: darken(#3490dc, 10);
+                }
+            }
+        }
+    }
+}
+
+
+/*
+* Hero image
+*/
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("/images/56f6990fcec12.jpg");
+    width: 100%;
+    min-height: 600px; //calc(100vh - 55px);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    .hero-text {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        color: white;
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            padding: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+    }
+}
+
+
+/*
+* Search container
+*/
+.search-container {
+    padding: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    border-top: 6px solid #3490dc;
+    background: #fff;
+    position: relative;
+    top: -80px;
+}
+
+
+/*
+* Cards section
+*/
+.cards-container {
+    margin: -2rem auto 3rem auto;
+}
+
+
+/*
+* Footer section
+*/
+.footer {
+    width: 100%;
+    background-color: #3490dc;
+    color: #fff;
+    content: '';
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2.5rem;
+
+        .footer-box {
+            padding: 1rem;
+        }
+
+        .icons > a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 0.5rem;
+        }
+    }
+}
