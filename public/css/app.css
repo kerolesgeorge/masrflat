@@ -10713,6 +10713,11 @@ body {
   text-align: center;
   transform: translate(-50%, -50%);
   color: white;
+  /* .hero-slogan {
+      padding: 2rem;
+      background: lighten(rgba(0,0,0,0.5), 5);
+      border: 1px solid #ddd;
+  } */
 }
 
 .hero-image .hero-text h1 {
@@ -10752,25 +10757,29 @@ body {
 */
 
 .footer {
-  width: 100%;
   background-color: #3490dc;
   color: #fff;
-  content: "";
 }
 
-.footer .container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2.5rem;
+.footer .icons {
+  color: #fff;
 }
 
-.footer .container .footer-box {
-  padding: 1rem;
+.footer .d-flex {
+  background: #2176bd;
 }
 
-.footer .container .icons > a {
+.footer .d-flex a {
   color: #fff;
   text-decoration: none;
+  margin-left: 0.5rem;
+}
+
+.footer .d-flex a:hover {
+  color: #eece1a;
+}
+
+.footer .d-flex .copy {
   margin-right: 0.5rem;
 }
 

@@ -66,6 +66,12 @@ html, body {
         transform: translate(-50%, -50%);
         color: white;
 
+        /* .hero-slogan {
+            padding: 2rem;
+            background: lighten(rgba(0,0,0,0.5), 5);
+            border: 1px solid #ddd;
+        } */
+
         h1 {
             font-size: 3rem;
             font-weight: 700;
@@ -105,24 +111,30 @@ html, body {
 * Footer section
 */
 .footer {
-    width: 100%;
     background-color: #3490dc;
     color: #fff;
-    content: '';
 
-    .container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 2.5rem;
+    .icons {
+        color: #fff;
+    }
 
-        .footer-box {
-            padding: 1rem;
-        }
+    .d-flex {
+        background: darken(#3490dc, 10);
 
-        .icons > a {
+        a {
             color: #fff;
             text-decoration: none;
+            margin-left: 0.5rem;
+
+            &:hover {
+                color: #eece1a;
+            }
+        }
+
+        .copy {
             margin-right: 0.5rem;
         }
+
     }
+
 }

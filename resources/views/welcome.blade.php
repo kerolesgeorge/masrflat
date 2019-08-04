@@ -47,8 +47,10 @@
     <!-- Hero image section -->
     <div class="hero-image">
         <div class="hero-text">
-            <h1>عقارات للبيع في مصر الجديده</h1>
-            <h2 class="mt-3">إبحث عن عقار</h2>
+            <div class="hero-slogan">
+                <h1>عقارات للبيع في مصر الجديده</h1>
+                <h2 class="mt-3">إبحث عن عقار</h2>
+            </div>
         </div>
     </div>
 
@@ -126,28 +128,28 @@
     <!-- Footer section -->
     <div class="footer">
         <div class="container">
+            <div class="row">
 
-            <div class="footer-box text-right">
-                <h2 class="mb-4">شقة فى مصر الجديده</h2>
-                <p style="line-height: 2.5">خدمات شقه في مصر الجديده تساعدك على بيع وشراء العقارات بسهولة بالإضافة إلى تزويدك بمعلومات أساسية لإتخاذ واحد من أهم القرارات المالية في حياتك.</p>
-            </div>
+                <div class="col-md-4 text-right p-4">
+                    <h2 class="mb-4">شقة فى مصر الجديده</h2>
+                    <p style="line-height: 2.5">خدمات شقه في مصر الجديده تساعدك على بيع وشراء العقارات بسهولة بالإضافة إلى تزويدك بمعلومات أساسية لإتخاذ واحد من أهم القرارات المالية في حياتك.</p>
+                </div>
 
-            <div class="footer-box text-right">
-                <p dir="rtl">رايك يهمنا</p>
-                <!-- feedback form -->
-                <form id="feedback-form">
-                    <div class="form-group text-right">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="البريد الاكتروني">
-                    </div>
-                    <div class="form-group text-right">
-                        <textarea id="comment" name="comment" cols="40" rows="5" class="form-control" placeholder="اترك تعليقك"></textarea>
-                    </div>
-                    <button class="fdbck-btn btn btn-light text-right">ارسل</button>
-                </form>
-            </div>
+                <div class="col-md-4 text-right p-4">
+                    <p dir="rtl">رايك يهمنا</p>
+                    <!-- feedback form -->
+                    <form id="feedback-form">
+                        <div class="form-group text-right">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="البريد الاكتروني">
+                        </div>
+                        <div class="form-group text-right">
+                            <textarea id="comment" name="comment" cols="40" rows="5" class="form-control" placeholder="اترك تعليقك"></textarea>
+                        </div>
+                        <button class="fdbck-btn btn btn-light text-right">ارسل</button>
+                    </form>
+                </div>
 
-            <div class="footer-box text-right">
-                <div class="icons">
+                <div class="col-md-4 text-right p-4">
                     <p>للأتصال</p>
                     <p> 012123456789</p>
                     <p>info@masrflat.com</p>
@@ -156,14 +158,21 @@
                         09:00 - 06:00
                     </p>
                     <p>تابع صفحتنا على الفيسبوك</p>
-                    <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+                    <a href="#" class="icons"><i class="fab fa-facebook-square fa-2x"></i></a>
                 </div>
+
             </div>
         </div>
+
+        <!-- Created by -->
+        <div class="d-flex justify-content-center p-1" dir="ltr">
+            <span class="copy">&copy; 2019 All rights reserved .</span>
+            Created by <a href="{{ url('http://kerolesgeorge.github.io') }}" target="_blank">Keroles George</a>
+        </div>
+
     </div>
 
     <!-- Javascript -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
 </html>
