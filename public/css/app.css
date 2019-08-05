@@ -10713,21 +10713,22 @@ body {
   text-align: center;
   transform: translate(-50%, -50%);
   color: white;
-  /* .hero-slogan {
-      padding: 2rem;
-      background: lighten(rgba(0,0,0,0.5), 5);
-      border: 1px solid #ddd;
-  } */
+}
+
+.hero-image .hero-text .hero-slogan {
+  padding: 1.5rem;
+  /* background: lighten(rgba(0,0,0,0.5), 5);
+  border-radius: 0.5rem; */
 }
 
 .hero-image .hero-text h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .hero-image .hero-text h2 {
-  font-size: 1.8rem;
+  font-size: 3rem;
 }
 
 /*
@@ -10735,7 +10736,7 @@ body {
 */
 
 .search-container {
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   border-top: 6px solid #3490dc;
