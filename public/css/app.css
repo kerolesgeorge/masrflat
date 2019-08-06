@@ -10695,7 +10695,7 @@ body {
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("/images/56f6990fcec12.jpg");
   width: 100%;
-  min-height: 600px;
+  min-height: 65vh;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -10707,6 +10707,7 @@ body {
   position: absolute;
   top: 40%;
   left: 50%;
+  width: 100%;
   display: flex;
   flex-flow: column;
   align-items: center;
