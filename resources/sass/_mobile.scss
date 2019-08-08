@@ -56,4 +56,22 @@
             }
         }
     }
+
+    // Admin page navbar
+    #navbar {
+        right: -250px;
+        transition: 0.3s ease-out;
+
+        #close {
+            display: inline;
+        }
+    }
+
+    .admin-content{
+        margin: 0 1rem;
+    }
+
+    .show-navbar {
+        right: 0!important;
+    }
 }

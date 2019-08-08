@@ -10799,7 +10799,16 @@ body {
   overflow: auto;
 }
 
-#navbar h2 {
+#navbar #close {
+  position: absolute;
+  top: -20px;
+  right: 165px;
+  color: #fff;
+  font-size: 2rem;
+  display: none;
+}
+
+#navbar h3 {
   width: 100%;
   text-align: right;
   font-size: 1.5rem;
@@ -10809,7 +10818,7 @@ body {
   margin: 0;
 }
 
-#navbar h3 {
+#navbar h4 {
   text-align: right;
   width: 100%;
   color: #fff;
@@ -10821,7 +10830,7 @@ body {
   width: 100%;
   text-align: right;
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 300;
   padding: 0.5rem 3.5rem 0.5rem 0;
 }
@@ -10829,6 +10838,19 @@ body {
 #navbar a:hover {
   background: #7e8ea1;
   text-decoration: none;
+}
+
+.navbar-toggler {
+  width: 50px;
+}
+
+.navbar-toggler i {
+  cursor: pointer;
+}
+
+.admin-content {
+  text-align: right;
+  margin-right: 275px;
 }
 
 @media screen and (max-width: 768px) {
@@ -10880,6 +10902,23 @@ body {
 
   .footer .container .footer-box {
     padding: 0.5rem;
+  }
+
+  #navbar {
+    right: -250px;
+    transition: 0.3s ease-out;
+  }
+
+  #navbar #close {
+    display: inline;
+  }
+
+  .admin-content {
+    margin: 0 1rem;
+  }
+
+  .show-navbar {
+    right: 0 !important;
   }
 }
 

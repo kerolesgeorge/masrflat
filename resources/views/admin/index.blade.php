@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div style="text-align:right;">
+<div class="admin-content">
     <h1>مرحبا ادمن!</h1>
 </div>
 
