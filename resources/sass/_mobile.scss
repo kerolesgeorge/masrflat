@@ -68,10 +68,14 @@
     }
 
     .admin-content{
-        margin: 0 1rem;
+        margin: 0 0.1rem;
     }
 
     .show-navbar {
         right: 0!important;
+    }
+
+    .show-overlay {
+        display: inline!important;
     }
 }

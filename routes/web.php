@@ -20,4 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Admin
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin', function() {
+    return view('admin.index');
+});//->middleware('auth')
+
+// Cities
+Route::get('/admin/cities/', function() {
+    return view('admin.cities.index');
+});

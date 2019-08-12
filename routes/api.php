@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Cities API
+Route::get('/admin/cities', 'CityController@index');
+Route::post('/cities', 'CityController@store');
+Route::patch('/cities/{city}', 'CityController@update');
+Route::delete('/cities/{city}', 'CityController@destroy');

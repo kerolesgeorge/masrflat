@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -13,34 +16,41 @@
 
     <title>Admin Page</title>
 </head>
-<body>
+<body id="admin-page">
+    <div id="app">
+        <!-- Navbar section -->
+        <nav>
+            <div id="navbar">
+                <a href="javascript:void(0)" id="close" onclick="slide()" dir="rtl">&times;</a>
+                <h3>شقة x مصر الجديده</h3>
+                <h4><i class="fas fa-toolbox ml-2"></i> ادارة الموقع</h4>
+                <a href="/admin/cities/">ادارة المدن</a>
+                <a href="#">ادارة الاحياء</a>
+                <a href="#">انواع العقارات</a>
+                <a href="#">انواع العقود</a>
+                <a href="#">انواع التشطيبات</a>
+                <a href="#">الواجهات</a>
+                <a href="#">العقارات</a>
+                <a href="#">خروج</a>
+            </div>
+            <div class="navbar-toggler text-right" onclick="slide()">
+                <i class="fas fa-bars fa-2x"></i>
+            </div>
+        </nav>
 
-    <!-- Navbar section -->
-    <nav>
-        <div id="navbar">
-            <a href="javascript:void(0)" id="close" onclick="slide()" dir="rtl">&times;</a>
-            <h3>شقة x مصر الجديده</h3>
-            <h4><i class="fas fa-toolbox ml-2"></i> ادارة الموقع</h4>
-            <a href="#">ادارة المدن</a>
-            <a href="#">ادارة الاحياء</a>
-            <a href="#">انواع العقارات</a>
-            <a href="#">انواع العقود</a>
-            <a href="#">انواع التشطيبات</a>
-            <a href="#">الواجهات</a>
-            <a href="#">العقارات</a>
-            <a href="#">خروج</a>
-        </div>
-        <div class="navbar-toggler text-right" onclick="slide()">
-            <i class="fas fa-bars fa-2x"></i>
-        </div>
-    </nav>
+        <!-- overlay for navbar -->
+        <div class="overlay"></div>
 
-      <!-- overlay for navbar -->
-      <div id="overlay"></div>
+        <!-- Content area -->
+        @yield('content')
+    </div>
 
-      <!-- Content area -->
-      @yield('content')
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 
-      <script src="{{ asset('js/admin.js') }}"></script>
+    {{-- <script src="{{ asset('js/bootbox.min.js') }}"></script>
+    <script src="{{ asset('js/bootbox.locales.min.js') }}"></script> --}}
+
+    <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 </html>
