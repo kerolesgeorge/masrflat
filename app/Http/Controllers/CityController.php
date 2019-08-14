@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\City;
 use Illuminate\Http\Request;
 use App\Http\Resources\City as CityResource;
+use App\Http\Resources\Neighbourhood as NeighbourhoodResource;
 
 class CityController extends Controller
 {
@@ -23,16 +24,6 @@ class CityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,28 +33,6 @@ class CityController extends Controller
     {
         $city = City::create($this->validateCity());
         return new CityResource($city);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\City  $city
-     * @return \Illuminate\Http\Response
-     */
-    public function show(City $city)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\City  $city
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(City $city)
-    {
-        //
     }
 
     /**
@@ -89,6 +58,15 @@ class CityController extends Controller
     {
         $city->delete();
         //return redirect('/admin/cities');
+    }
+
+    /**
+     * Show Neighbourhoods by city
+     */
+    public function showNeighbourhoods(City $city)
+    {
+        $neighbourhoods = $city->neighbourhoods;
+        return NeighbourhoodResource::collection($neighbourhoods);
     }
 
     /**

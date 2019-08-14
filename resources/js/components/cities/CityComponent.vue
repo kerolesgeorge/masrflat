@@ -1,10 +1,20 @@
 <template>
     <div>
         <!-- Add new city section -->
-        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createCity" @click="clearErrors">اضفة مدينة جديده</button>
+        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createCity" @click="clearErrors">اضافة مدينة جديده</button>
+
+        <!-- Page Loader -->
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+        </div>
 
         <!-- Cities list card -->
-        <div class="card">
+        <div v-if="!cities.length">
+            <h3>لا يوجد مدن</h3>
+            <p>برجاء ادخال مدن</p>
+        </div>
+
+        <div class="card" v-if="cities.length">
             <h3 class="m-3">المدن</h3>
             <table class="table p-3">
                 <thead>
@@ -103,8 +113,6 @@
 
 <script>
 export default {
-    props: [],
-
     data() {
         return {
             cities: [],
@@ -119,12 +127,17 @@ export default {
 
     mounted() {
         this.fetchCities();
+
+        // Hide loader
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut();
+        });
     },
 
     methods: {
         // Fetch all cities to display
         fetchCities() {
-            axios.get('/api/admin/cities').then(response => {
+            axios.get('/api/cities').then(response => {
                 this.cities = response.data;
             });
         },
@@ -135,7 +148,7 @@ export default {
                 this.fetchCities();
                 $('#createCity').modal('hide');
             }).catch(error => {
-                // Send the errors back to create component
+                // Get laravel validation error
                 this.errors = error.response.data.errors;
             });
         },
@@ -152,7 +165,7 @@ export default {
                 this.fetchCities();
                 $('#editCity').modal('hide');
             }).catch(error => {
-                // Send the errors back to create component
+                // Get laravel validation error
                 this.errors = error.response.data.errors;
             });
         },

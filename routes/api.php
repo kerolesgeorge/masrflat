@@ -18,7 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Cities API
-Route::get('/admin/cities', 'CityController@index');
+Route::get('/cities', 'CityController@index');
 Route::post('/cities', 'CityController@store');
 Route::patch('/cities/{city}', 'CityController@update');
 Route::delete('/cities/{city}', 'CityController@destroy');
+
+// Neighbours API
+Route::get('/neighbourhoods', 'NeighbourhoodController@index');
+Route::post('/neighbourhoods', 'NeighbourhoodController@store');
+Route::patch('/neighbourhoods/{neighbourhood}', 'NeighbourhoodController@update');
+Route::delete('/neighbourhoods/{neighbourhood}', 'NeighbourhoodController@destroy');
+
+// Cities - Neighbourhoods
+Route::get('/cities/{city}/neighbourhoods', 'CityController@showNeighbourhoods');

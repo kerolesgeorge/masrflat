@@ -23,8 +23,7 @@ export default {
 
     methods: {
         onSubmit() {
-            let city =
-            {
+            let city = {
                 id: this.id,
                 name: this.cityName
             };

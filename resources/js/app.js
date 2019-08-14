@@ -22,11 +22,18 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
- * Admin cities components
+ * Cities components
  */
 Vue.component('city-component', require('./components/cities/CityComponent.vue').default);
-Vue.component('city-edit', require('./components/cities/CityEdit.vue').default);
 Vue.component('city-create', require('./components/cities/CityCreate.vue').default);
+Vue.component('city-edit', require('./components/cities/CityEdit.vue').default);
+
+/**
+ * Neighbourhoods components
+ */
+Vue.component('neighbour-component', require('./components/neighbourhoods/NeighbourComponent.vue').default);
+Vue.component('neighbour-create', require('./components/neighbourhoods/NeighbourCreate.vue').default);
+Vue.component('neighbour-edit', require('./components/neighbourhoods/NeighbourEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

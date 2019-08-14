@@ -25,6 +25,11 @@ Route::get('/admin', function() {
 });//->middleware('auth')
 
 // Cities
-Route::get('/admin/cities/', function() {
+Route::get('/admin/cities', function() {
     return view('admin.cities.index');
+});
+
+// Neighbourhoods
+Route::get('/admin/neighbourhoods', function() {
+    return view('admin.neighbourhoods.index');
 });

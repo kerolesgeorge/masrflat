@@ -24,8 +24,8 @@
                 <a href="javascript:void(0)" id="close" onclick="slide()" dir="rtl">&times;</a>
                 <h3>شقة x مصر الجديده</h3>
                 <h4><i class="fas fa-toolbox ml-2"></i> ادارة الموقع</h4>
-                <a href="/admin/cities/">ادارة المدن</a>
-                <a href="#">ادارة الاحياء</a>
+                <a href="/admin/cities">ادارة المدن</a>
+                <a href="/admin/neighbourhoods">ادارة الاحياء</a>
                 <a href="#">انواع العقارات</a>
                 <a href="#">انواع العقود</a>
                 <a href="#">انواع التشطيبات</a>
