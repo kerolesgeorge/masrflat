@@ -26,7 +26,7 @@
         <!-- Cities list card -->
         <div v-if="!neighbourhoods.length">
             <h3>لا يوجد احياء</h3>
-            <p>برجاء اختيار مدينة او ادخال احياء</p>
+            <p>برجاء اختيار مدينة او ادخال حي جديد</p>
         </div>
 
         <div class="card" v-if="neighbourhoods.length">
@@ -175,7 +175,7 @@ export default {
             }).catch(error => {
                 // Get laravel validation error
                 this.errors = error.response.data.errors;
-                console.log(this.errors);
+                console.log(error.response.data.message);
             });
         },
 
@@ -206,7 +206,10 @@ export default {
             axios.patch(`/api/neighbourhoods/${neighbourhood.id}`, neighbourhood).then(response => {
                 this.changeCity();
                 $('#editNeighbourhood').modal('hide');
-            })
+            }).catch(error => {
+                this.errors = error.response.data.errors;
+                console.log(error.response.data.message);
+            });
         },
 
         // Get neighbourhood to delete

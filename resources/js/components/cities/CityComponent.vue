@@ -139,6 +139,8 @@ export default {
         fetchCities() {
             axios.get('/api/cities').then(response => {
                 this.cities = response.data;
+            }).catch(error => {
+                console.log(error.response.data.message);
             });
         },
 

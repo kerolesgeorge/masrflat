@@ -17,7 +17,7 @@ class NeighbourhoodController extends Controller
      */
     public function index()
     {
-        $cities = City::get();
+        $cities = City::all();
         return CityResource::collection($cities);
     }
 
@@ -71,9 +71,16 @@ class NeighbourhoodController extends Controller
 
     public function validateNeighbourhood()
     {
-        return request()->validate([
-            'name' => 'required | unique:neighbourhoods',
-            'city_id' => 'required',
-        ]);
+        $request = [];
+
+        if (request()->has('name')) {
+            $request['name'] = 'required | unique:neighbourhoods';
+        }
+
+        if (request()->has('city_id')) {
+            $request['city_id'] = 'required';
+        }
+
+        return request()->validate($request);
     }
 }

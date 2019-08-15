@@ -16,7 +16,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::get();
+        $cities = City::all();
         return CityResource::collection($cities);
         /* return view('admin/cities.index', [
             'cities' => $cities

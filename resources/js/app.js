@@ -36,6 +36,13 @@ Vue.component('neighbour-create', require('./components/neighbourhoods/Neighbour
 Vue.component('neighbour-edit', require('./components/neighbourhoods/NeighbourEdit.vue').default);
 
 /**
+ * Types components
+ */
+Vue.component('type-component', require('./components/types/TypeComponent.vue').default);
+Vue.component('type-create', require('./components/types/TypeCreate.vue').default);
+Vue.component('type-edit', require('./components/types/TypeEdit.vue').default);
+
+/**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.

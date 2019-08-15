@@ -22,13 +22,16 @@ export default {
         return {
             name: '',
             errors: [],
+            neighbourhood: {},
         }
     },
 
     methods: {
         onSubmit() {
-            let neighbourhood = {name: this.name};
-            this.$emit('neighbourhood-submitted', neighbourhood);
+            this.neighbourhood = {
+                name: this.name
+            }
+            this.$emit('neighbourhood-submitted', this.neighbourhood);
         },
     },
 

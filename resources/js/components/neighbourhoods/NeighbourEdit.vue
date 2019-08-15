@@ -31,17 +31,28 @@ export default {
         return {
             neighbourName: '',
             citySelected: '',
+            neighbourhood: {},
         }
     },
 
     methods: {
         onSubmit() {
-            let neighbourhood = {
+            this.neighbourhood = {
                 id: this.id,
-                name: this.neighbourName,
-                city_id: this.citySelected,
             };
-            this.$emit('neighbourhood-update', neighbourhood);
+
+            // Check if name is changed
+            if (this.name !== this.neighbourName) {
+                // Add changed name to neighbourhood object
+                this.neighbourhood.name = this.neighbourName;
+            }
+
+            // Check if selected city is changed
+            if (this.cityId !== this.citySelected) {
+                // Add changed city to neighbourhood object
+                this.neighbourhood.city_id = this.citySelected;
+            }
+            this.$emit('neighbourhood-update', this.neighbourhood);
         },
     },
 

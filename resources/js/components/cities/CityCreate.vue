@@ -18,13 +18,16 @@ export default {
     data() {
         return {
             name: '',
+            city: {},
         }
     },
 
     methods: {
         onSubmit() {
-            let city = {name: this.name};
-            this.$emit('city-submitted', city);
+            this.city = {
+                name: this.name
+            }
+            this.$emit('city-submitted', this.city);
             this.name = '';
         }
     },

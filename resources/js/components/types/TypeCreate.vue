@@ -2,39 +2,33 @@
     <div>
         <form>
             <div class="form-group">
-                <label for="name">اسم المدينه</label>
-                <input type="text" :class="[{'is-invalid' : isError}, 'form-control']" id="name" name="name" v-model="cityName">
+                <label for="name">اسم النوع</label>
+                <input type="text" :class="[{'is-invalid' : isError}, 'form-control']" id="name" name="name" v-model="name">
                 <div class="invalid-feedback">{{ errorMsg }}</div>
             </div>
-            <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
+            <button class="btn btn-primary" @click.prevent="onSubmit">اضافة</button>
         </form>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['id', 'name', 'submitErrors'],
+    props: ['submitErrors'],
 
     data() {
         return {
-            cityName: '',
-            city: {},
+            name: '',
+            type: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.city = {
-                id: this.id,
-                name: this.cityName
+            this.type = {
+                name: this.name
             }
-            this.$emit('city-update', this.city);
-        }
-    },
-
-    watch: {
-        name(val) {
-            this.cityName = val;
+            this.$emit('type-submitted', this.type);
+            this.name = '';
         }
     },
 

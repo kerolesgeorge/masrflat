@@ -33,3 +33,8 @@ Route::get('/admin/cities', function() {
 Route::get('/admin/neighbourhoods', function() {
     return view('admin.neighbourhoods.index');
 });
+
+// Types
+Route::get('admin/types', function() {
+    return view('admin.types.index');
+});

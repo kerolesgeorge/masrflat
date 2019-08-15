@@ -26,7 +26,7 @@
                 <h4><i class="fas fa-toolbox ml-2"></i> ادارة الموقع</h4>
                 <a href="/admin/cities">ادارة المدن</a>
                 <a href="/admin/neighbourhoods">ادارة الاحياء</a>
-                <a href="#">انواع العقارات</a>
+                <a href="/admin/types">انواع العقارات</a>
                 <a href="#">انواع العقود</a>
                 <a href="#">انواع التشطيبات</a>
                 <a href="#">الواجهات</a>
