@@ -72,7 +72,7 @@ class NeighbourhoodController extends Controller
     public function validateNeighbourhood()
     {
         return request()->validate([
-            'name' => 'required',
+            'name' => 'required | unique:neighbourhoods',
             'city_id' => 'required',
         ]);
     }

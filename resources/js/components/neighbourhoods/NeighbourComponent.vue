@@ -77,7 +77,6 @@
                         <!-- Create neighbourhood form component -->
                         <neighbour-create
                         :submitErrors="errors"
-                        :citiesOptions="cities"
                         @neighbourhood-submitted="createNeighbourhood"></neighbour-create>
 
                     </div>
@@ -168,8 +167,10 @@ export default {
 
         // Create new neighbourhood function
         createNeighbourhood(neighbourhood) {
+            // Add selected city_id to neighbourhood object
+            neighbourhood.city_id = this.selected;
             axios.post('/api/neighbourhoods', neighbourhood).then(response => {
-                //this.fetchNeighbourhoods();
+                this.changeCity();
                 $('#createNeighbourhood').modal('hide');
             }).catch(error => {
                 // Get laravel validation error

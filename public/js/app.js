@@ -2310,7 +2310,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2346,8 +2345,11 @@ __webpack_require__.r(__webpack_exports__);
     createNeighbourhood: function createNeighbourhood(neighbourhood) {
       var _this2 = this;
 
+      // Add selected city_id to neighbourhood object
+      neighbourhood.city_id = this.selected;
       axios.post('/api/neighbourhoods', neighbourhood).then(function (response) {
-        //this.fetchNeighbourhoods();
+        _this2.changeCity();
+
         $('#createNeighbourhood').modal('hide');
       })["catch"](function (error) {
         // Get laravel validation error
@@ -2433,38 +2435,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['citiesOptions', 'submitErrors'],
+  props: ['submitErrors'],
   data: function data() {
     return {
       name: '',
-      selected: '',
       errors: []
     };
   },
   methods: {
     onSubmit: function onSubmit() {
       var neighbourhood = {
-        name: this.name,
-        city_id: this.selected
+        name: this.name
       };
       this.$emit('neighbourhood-submitted', neighbourhood);
     }
   },
   computed: {
-    cityIdError: function cityIdError() {
-      var error = this.submitErrors;
-      return error.hasOwnProperty('city_id') ? error.city_id[0] : '';
-    },
     nameError: function nameError() {
       var error = this.submitErrors;
       return error.hasOwnProperty('name') ? error.name[0] : '';
@@ -39439,10 +39426,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("neighbour-create", {
-                    attrs: {
-                      submitErrors: _vm.errors,
-                      citiesOptions: _vm.cities
-                    },
+                    attrs: { submitErrors: _vm.errors },
                     on: { "neighbourhood-submitted": _vm.createNeighbourhood }
                   })
                 ],
@@ -39683,66 +39667,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("form", [
-      _c("div", { staticClass: "form-row m-1 mb-3", attrs: { dir: "rtl" } }, [
-        _c(
-          "label",
-          { staticClass: "col-md-3 col-form-label", attrs: { for: "cities" } },
-          [_vm._v("اختار مدينة")]
-        ),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selected,
-                expression: "selected"
-              }
-            ],
-            class: [
-              { "is-invalid": _vm.submitErrors.hasOwnProperty("city_id") },
-              "form-control col-md-9 p-1"
-            ],
-            attrs: { id: "cities" },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selected = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          _vm._l(_vm.citiesOptions, function(city) {
-            return _c(
-              "option",
-              { key: city.id, domProps: { value: city.id } },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(city.name) +
-                    "\n                "
-                )
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "invalid-feedback" }, [
-          _vm._v(_vm._s(_vm.cityIdError))
-        ])
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "form-row m-1 mb-3" }, [
         _c(
           "label",
