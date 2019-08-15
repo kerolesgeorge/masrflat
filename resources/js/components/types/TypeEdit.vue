@@ -3,21 +3,21 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم النوع</label>
-                <input type="text" :class="[{'is-invalid' : isError}, 'form-control']" id="name" name="name" v-model="name">
-                <div class="invalid-feedback">{{ errorMsg }}</div>
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="typeName">
+                <div class="invalid-feedback">{{ nameError }}</div>
             </div>
-            <button class="btn btn-primary" @click.prevent="onSubmit">اضافة</button>
+            <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
         </form>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['submitErrors'],
+    props: ['id', 'name', 'submitErrors'],
 
     data() {
         return {
-            name: '',
+            typeName: '',
             type: {},
         }
     },
@@ -25,22 +25,26 @@ export default {
     methods: {
         onSubmit() {
             this.type = {
-                name: this.name
+                id: this.id,
+                name: this.typeName
             }
-            this.$emit('city-submitted', this.type);
-            this.name = '';
+            this.$emit('type-update', this.type);
+            this.typeName = '';
+        }
+    },
+
+    watch: {
+        name(val) {
+            this.typeName = val;
         }
     },
 
     computed: {
-        isError() {
-             return this.submitErrors.name;
-        },
-
-        errorMsg() {
-            return this.submitErrors.name ? this.submitErrors.name[0] : '';
+        nameError() {
+            let error = this.submitErrors;
+            return error.hasOwnProperty('name') ? error.name[0] : '';
         }
-    }
+    },
 }
 </script>
 

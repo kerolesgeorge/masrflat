@@ -35,5 +35,5 @@ Route::get('/cities/{city}/neighbourhoods', 'CityController@showNeighbourhoods')
 // Types API
 Route::get('/types', 'TypeController@index');
 Route::post('/types', 'TypeController@store');
-Route::patch('/type/{type}', 'TypeController@update');
+Route::patch('/types/{type}', 'TypeController@update');
 Route::delete('/types/{type}', 'TypeController@destroy');

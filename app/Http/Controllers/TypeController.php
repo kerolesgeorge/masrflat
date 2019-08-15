@@ -38,9 +38,10 @@ class TypeController extends Controller
      * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(Type $type)
     {
-        //
+        $type->update($this->validateType());
+        return new TypeResource($type);
     }
 
     /**
@@ -51,7 +52,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
     }
 
     public function validateType() {

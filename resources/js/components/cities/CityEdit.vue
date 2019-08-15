@@ -3,8 +3,8 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم المدينه</label>
-                <input type="text" :class="[{'is-invalid' : isError}, 'form-control']" id="name" name="name" v-model="cityName">
-                <div class="invalid-feedback">{{ errorMsg }}</div>
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="cityName">
+                <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
         </form>
@@ -39,12 +39,9 @@ export default {
     },
 
     computed: {
-        isError() {
-             return this.submitErrors.name;
-        },
-
-        errorMsg() {
-            return this.submitErrors.name ? this.submitErrors.name[0] : '';
+        nameError() {
+            let error = this.submitErrors;
+            return error.hasOwnProperty('name') ? error.name[0] : '';
         }
     }
 }

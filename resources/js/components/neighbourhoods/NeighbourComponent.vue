@@ -137,11 +137,7 @@ export default {
         return {
             cities: [],
             neighbourhoods: [],
-            neighbourhood: {
-                'id': '',
-                'name': '',
-                'city_id': ''
-            },
+            neighbourhood: {},
             selected: '',
             neighbourhoodDeleteId: '',
             errors: [],
@@ -165,20 +161,6 @@ export default {
             });
         },
 
-        // Create new neighbourhood function
-        createNeighbourhood(neighbourhood) {
-            // Add selected city_id to neighbourhood object
-            neighbourhood.city_id = this.selected;
-            axios.post('/api/neighbourhoods', neighbourhood).then(response => {
-                this.changeCity();
-                $('#createNeighbourhood').modal('hide');
-            }).catch(error => {
-                // Get laravel validation error
-                this.errors = error.response.data.errors;
-                console.log(error.response.data.message);
-            });
-        },
-
         // Get neighbourhood by city id
         fetchNeighbourhoods(id) {
             axios.get(`/api/cities/${id}/neighbourhoods`).then(response => {
@@ -192,6 +174,20 @@ export default {
         changeCity() {
             this.fetchNeighbourhoods(this.selected);
             this.isInvisible = false;
+        },
+
+        // Create new neighbourhood function
+        createNeighbourhood(neighbourhood) {
+            // Add selected city_id to neighbourhood object
+            neighbourhood.city_id = this.selected;
+            axios.post('/api/neighbourhoods', neighbourhood).then(response => {
+                this.changeCity();
+                $('#createNeighbourhood').modal('hide');
+            }).catch(error => {
+                // Get laravel validation error
+                this.errors = error.response.data.errors;
+                console.log(error.response.data.message);
+            });
         },
 
         // Get neighbourhood data to update

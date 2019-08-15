@@ -27,6 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                <!-- using etype coz type seems to be a javascript keyword -->
                     <tr v-for="etype in types" :key="etype.id">
                         <th scope="row">{{ etype.id }}</th>
                         <td>{{ etype.name }}</td>
@@ -36,7 +37,7 @@
                             <a href="#" title="تعديل" @click="editType(etype);clearErrors()" data-toggle="modal" data-target="#editType"><i class="fas fa-edit"></i></a>
 
                             <!-- Delete Button -->
-                            <button class="btn btn-delete" data-toggle="modal" data-target="#deleteType" @click="getTypeToDelete(etype.id)">
+                            <button class="btn btn-delete mr-2" data-toggle="modal" data-target="#deleteType" @click="getTypeToDelete(etype.id)">
                                 <i class="fas fa-trash" style="color: red;"></i>
                             </button>
 
@@ -68,6 +69,48 @@
             </div>
         </div>
 
+        <!-- Edit type modal -->
+        <div class="modal fade" id="editType" tabindex="-1" role="dialog" aria-labelledby="editCityLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCityLabel">تعديل نوع</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Edit city form component -->
+                        <type-edit
+                        :id="type.id"
+                        :name="type.name"
+                        :submitErrors="errors"
+                        @type-update="updateType"></type-edit>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete type modal -->
+        <div class="modal fade" id="deleteType" tabindex="-1" role="dialog" aria-labelledby="deleteTypeLabel" aria-hidden="true" dir="ltr">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="flex-direction:row-reverse!important">
+                        <h5 class="modal-title" id="deleteTypeLabel">حذف نوع</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @click="deleteType">احذف</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -77,6 +120,8 @@ export default {
         return {
             types: [],
             errors: [],
+            type: {},
+            typeToDelete: '',
         }
     },
 
@@ -110,6 +155,35 @@ export default {
             })
         },
 
+        // Get type data to update
+        editType(type) {
+            this.type.id = type.id;
+            this.type.name = type.name;
+        },
+
+        // Edit type
+        updateType(type) {
+            axios.patch(`/api/types/${type.id}`, type).then(response => {
+                this.fetchTypes();
+                $('#editType').modal('hide');
+            }).catch(error => {
+                this.typeToDelete = error.response.data.errors;
+                console.log(error.response.data.message);
+            });
+        },
+
+        // Get type to delete
+        getTypeToDelete(id) {
+            this.typeToDelete = id;
+        },
+
+        deleteType() {
+            axios.delete(`/api/types/${this.typeToDelete}`).then(response => {
+                this.fetchTypes();
+                $('#deleteType').modal('hide');
+            });
+        },
+
         clearErrors() {
             this.errors = [];
         },
@@ -118,5 +192,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .card {
+        max-width: 450px;
+    }
 </style>
