@@ -13,8 +13,8 @@ class FinishTypeController extends Controller
      */
     public function index()
     {
-        $finish_type = FinishType::all();
-        return FinishTypeResource::collection($finish_type);
+        $finishType = FinishType::all();
+        return FinishTypeResource::collection($finishType);
     }
 
     /**
@@ -22,8 +22,8 @@ class FinishTypeController extends Controller
      */
     public function store()
     {
-        $finish_type = FinishType::create($this->validateRequest());
-        return new FinishTypeResource($finish_type);
+        $finishType = FinishType::create($this->validateRequest());
+        return new FinishTypeResource($finishType);
     }
 
     /**
@@ -40,8 +40,8 @@ class FinishTypeController extends Controller
      */
     public function destroy(FinishType $finishType)
     {
-        $finish_type = $finishType->delete();
-        return new FinishTypeResource($finish_type);
+        $finishType->delete();
+        return new FinishTypeResource($finishType);
     }
 
     /**

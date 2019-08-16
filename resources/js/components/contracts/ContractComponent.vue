@@ -78,7 +78,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <!-- Create contract form component -->
+                        <!-- Edit contract form component -->
                         <contract-edit
                         :id="contract.id"
                         :name="contract.name"

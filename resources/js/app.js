@@ -53,6 +53,8 @@ Vue.component('contract-edit', require('./components/contracts/ContractEdit.vue'
  * Finishes components
  */
 Vue.component('finish-component', require('./components/finishes/FinishComponent.vue').default);
+Vue.component('finish-create', require('./components/finishes/FinishCreate.vue').default);
+Vue.component('finish-edit', require('./components/finishes/FinishEdit.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
