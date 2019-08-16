@@ -12,8 +12,6 @@ class NeighbourhoodController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -23,21 +21,15 @@ class NeighbourhoodController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store()
     {
-        $neighbourhood = Neighbourhood::create($this->validateNeighbourhood());
+        $neighbourhood = Neighbourhood::create($this->validateRequest());
         return new NeighbourhoodResource($neighbourhood);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Neighbourhood  $neighbourhood
-     * @return \Illuminate\Http\Response
      */
     public function showByCity(City $city)
     {
@@ -47,29 +39,25 @@ class NeighbourhoodController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Neighbourhood  $neighbourhood
-     * @return \Illuminate\Http\Response
      */
     public function update(Neighbourhood $neighbourhood)
     {
-        $neighbourhood->update($this->validateNeighbourhood());
+        $neighbourhood->update($this->validateRequest());
         return new NeighbourhoodResource($neighbourhood);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Neighbourhood  $neighbourhood
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Neighbourhood $neighbourhood)
     {
         $neighbourhood->delete();
     }
 
-    public function validateNeighbourhood()
+    /**
+     * Validate request
+     */
+    public function validateRequest()
     {
         $request = [];
 

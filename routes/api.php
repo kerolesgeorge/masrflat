@@ -37,3 +37,9 @@ Route::get('/types', 'TypeController@index');
 Route::post('/types', 'TypeController@store');
 Route::patch('/types/{type}', 'TypeController@update');
 Route::delete('/types/{type}', 'TypeController@destroy');
+
+// Contracts API
+Route::get('/contracts', 'ContractController@index');
+Route::post('/contracts', 'ContractController@store');
+Route::patch('/contracts/{contract}', 'ContractController@update');
+Route::delete('/contracts/{contract}', 'ContractController@destroy');

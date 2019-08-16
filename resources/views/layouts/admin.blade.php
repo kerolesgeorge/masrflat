@@ -27,8 +27,8 @@
                 <a href="/admin/cities">ادارة المدن</a>
                 <a href="/admin/neighbourhoods">ادارة الاحياء</a>
                 <a href="/admin/types">انواع العقارات</a>
-                <a href="#">انواع العقود</a>
-                <a href="#">انواع التشطيبات</a>
+                <a href="/admin/contracts">العقود</a>
+                <a href="/admin/finishes">التشطيبات</a>
                 <a href="#">الواجهات</a>
                 <a href="#">العقارات</a>
                 <a href="#">خروج</a>

@@ -43,6 +43,18 @@ Vue.component('type-create', require('./components/types/TypeCreate.vue').defaul
 Vue.component('type-edit', require('./components/types/TypeEdit.vue').default);
 
 /**
+ * Contracts components
+ */
+Vue.component('contract-component', require('./components/contracts/ContractComponent.vue').default);
+Vue.component('contract-create', require('./components/contracts/ContractCreate.vue').default);
+Vue.component('contract-edit', require('./components/contracts/ContractEdit.vue').default);
+
+/**
+ * Finishes components
+ */
+Vue.component('finish-component', require('./components/finishes/FinishComponent.vue').default);
+
+/**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.

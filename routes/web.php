@@ -38,3 +38,13 @@ Route::get('/admin/neighbourhoods', function() {
 Route::get('admin/types', function() {
     return view('admin.types.index');
 });
+
+// Contracts
+Route::get('/admin/contracts', function() {
+    return view('admin.contracts.index');
+});
+
+// Finishes Types
+Route::get('/admin/finishes', function() {
+    return view('admin.finishes.index');
+});

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Add new city section -->
-        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createCity" @click="clearErrors">اضافة مدينة جديده</button>
+        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createContract" @click="clearErrors">اضافة نوع جديد</button>
 
         <!-- Page Loader -->
         <div class="loader-wrapper">
@@ -9,32 +9,32 @@
         </div>
 
         <!-- Cities list card -->
-        <div v-if="!cities.length">
-            <h3>لا يوجد مدن</h3>
-            <p>برجاء ادخال مدن</p>
+        <div v-if="!contracts.length">
+            <h3>لا يوجد عقود</h3>
+            <p>برجاء ادخال انواع جديده</p>
         </div>
 
-        <div class="card" v-if="cities.length">
-            <h3 class="m-3">المدن</h3>
+        <div class="card" v-if="contracts.length">
+            <h3 class="m-3">العقود</h3>
             <table class="table p-3">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">اسم المدينه</th>
+                        <th scope="col">نوع العقد</th>
                         <th scope="col">تعاملات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="city in cities" :key="city.id">
-                        <th scope="row">{{ city.id }}</th>
-                        <td>{{ city.name }}</td>
+                    <tr v-for="contract in contracts" :key="contract.id">
+                        <th scope="row">{{ contract.id }}</th>
+                        <td>{{ contract.name }}</td>
                         <td>
 
                             <!-- Update button -->
-                            <a href="#" title="تعديل" @click="editCity(city);clearErrors()" data-toggle="modal" data-target="#editCity"><i class="fas fa-edit"></i></a>
+                            <a href="#" title="تعديل" @click="editContract(contract);clearErrors()" data-toggle="modal" data-target="#editContract"><i class="fas fa-edit"></i></a>
 
                             <!-- Delete Button -->
-                            <button class="btn btn-delete" data-toggle="modal" data-target="#deleteCity" @click="getCityToDelete(city.id)">
+                            <button class="btn btn-delete" data-toggle="modal" data-target="#deleteContract" @click="getContractToDelete(contract.id)">
                                 <i class="fas fa-trash" style="color: red;"></i>
                             </button>
 
@@ -44,12 +44,12 @@
             </table>
         </div>
 
-        <!-- Create city modal -->
-        <div class="modal fade" id="createCity" tabindex="-1" role="dialog" aria-labelledby="createCityLabel" aria-hidden="true">
+        <!-- Create Contract modal -->
+        <div class="modal fade" id="createContract" tabindex="-1" role="dialog" aria-labelledby="createContractLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createCityLabel">اضافة مدينه جديده</h5>
+                        <h5 class="modal-title" id="createContractLabel">اضافة عقد جديد</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -57,51 +57,51 @@
                     <div class="modal-body">
 
                         <!-- Create city form component -->
-                        <city-create
+                        <contract-create
                         :submitErrors="errors"
-                        @city-submitted="createCity"></city-create>
+                        @contract-submitted="createContract"></contract-create>
 
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Edit city modal -->
-        <div class="modal fade" id="editCity" tabindex="-1" role="dialog" aria-labelledby="editCityLabel" aria-hidden="true">
+        <!-- Edit contract modal -->
+        <div class="modal fade" id="editContract" tabindex="-1" role="dialog" aria-labelledby="editContractLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editCityLabel">تعديل مدينه</h5>
+                        <h5 class="modal-title" id="editContractLabel">تعديل نوع عقد</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
 
-                        <!-- Create city form component -->
-                        <city-edit
-                        :id="city.id"
-                        :name="city.name"
+                        <!-- Create contract form component -->
+                        <contract-edit
+                        :id="contract.id"
+                        :name="contract.name"
                         :submitErrors="errors"
-                        @city-update="updateCity"></city-edit>
+                        @contract-update="updateContract"></contract-edit>
 
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Delete city modal -->
-        <div class="modal fade" id="deleteCity" tabindex="-1" role="dialog" aria-labelledby="deleteCityLabel" aria-hidden="true" dir="ltr">
+        <!-- Delete contract modal -->
+        <div class="modal fade" id="deleteContract" tabindex="-1" role="dialog" aria-labelledby="deleteContractLabel" aria-hidden="true" dir="ltr">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="flex-direction:row-reverse!important">
-                        <h5 class="modal-title" id="deleteCityLabel">حذف مدينه</h5>
+                        <h5 class="modal-title" id="deleteContractLabel">حذف نوع عقد</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" @click="deleteCity">احذف</button>
+                        <button type="button" class="btn btn-danger" @click="deleteContract">احذف</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
                     </div>
                 </div>
@@ -115,15 +115,15 @@
 export default {
     data() {
         return {
-            cities: [],
+            contracts: [],
             errors: [],
-            city: {},
-            cityDeleteId: '',
+            contract: {},
+            contractDeleteId: '',
         }
     },
 
     mounted() {
-        this.fetchCities();
+        this.fetchContracts();
 
         // Hide loader
         $(window).on("load", function() {
@@ -132,59 +132,62 @@ export default {
     },
 
     methods: {
-        // Fetch all cities to display
-        fetchCities() {
-            axios.get('/api/cities').then(response => {
-                this.cities = response.data;
+        // Fetch all contracts
+        fetchContracts() {
+            axios.get('/api/contracts').then(response => {
+                this.contracts = response.data;
             }).catch(error => {
                 console.log(error.response.data.message);
             });
         },
 
-        // Create new city
-        createCity(city) {
-            axios.post('/api/cities/', city).then(response => {
-                this.fetchCities();
-                $('#createCity').modal('hide');
+        // Create new contract
+        createContract(contract) {
+            axios.post('/api/contracts/', contract).then(response => {
+                this.fetchContracts();
+                $('#createContract').modal('hide');
             }).catch(error => {
                 // Get laravel validation error
                 this.errors = error.response.data.errors;
             });
         },
 
-        // Get city data to update
-        editCity(city) {
-            this.city.id = city.id;
-            this.city.name = city.name;
+        // Fetch contract to edit
+        editContract(contract) {
+            this.contract.id = contract.id;
+            this.contract.name = contract.name;
         },
 
-        // Update city
-        updateCity(city) {
-            axios.patch(`/api/cities/${city.id}`, city).then(response => {
-                this.fetchCities();
-                $('#editCity').modal('hide');
+        // Update contract
+        updateContract(contract) {
+            axios.patch(`/api/contracts/${contract.id}`, contract).then(response => {
+                this.fetchContracts();
+                $('#editContract').modal('hide');
             }).catch(error => {
                 // Get laravel validation error
                 this.errors = error.response.data.errors;
             });
         },
 
-        getCityToDelete(id) {
-            this.cityDeleteId = id;
+        // Fetch contract to delete
+        getContractToDelete(id) {
+            this.contractDeleteId = id;
         },
 
-        deleteCity() {
-            axios.delete(`/api/cities/${this.cityDeleteId}`).then(response => {
-                this.fetchCities();
-                $('#deleteCity').modal('hide');
+        // Delete contract
+        deleteContract() {
+            axios.delete(`/api/contracts/${this.contractDeleteId}`).then(response => {
+                this.fetchContracts();
+                $('#deleteContract').modal('hide');
             });
         },
 
         clearErrors() {
             this.errors = [];
         }
+    },
 
-    }
+
 }
 </script>
 
