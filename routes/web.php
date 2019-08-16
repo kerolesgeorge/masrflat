@@ -48,3 +48,8 @@ Route::get('/admin/contracts', function() {
 Route::get('/admin/finishes', function() {
     return view('admin.finishes.index');
 });
+
+// Views
+Route::get('/admin/views', function() {
+    return view('admin.views.index');
+});

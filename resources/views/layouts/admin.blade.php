@@ -29,8 +29,8 @@
                 <a href="/admin/types">انواع العقارات</a>
                 <a href="/admin/contracts">العقود</a>
                 <a href="/admin/finishes">التشطيبات</a>
-                <a href="#">الواجهات</a>
-                <a href="#">العقارات</a>
+                <a href="/admin/views">الواجهات</a>
+                <a href="/admin/estates">العقارات</a>
                 <a href="#">خروج</a>
             </div>
             <div class="navbar-toggler text-right" onclick="slide()">

@@ -45,7 +45,13 @@ Route::patch('/contracts/{contract}', 'ContractController@update');
 Route::delete('/contracts/{contract}', 'ContractController@destroy');
 
 // Finishes API
-Route::get('/finishes', 'FinishTypeController@index');
-Route::post('/finishes', 'FinishTypeController@store');
-Route::patch('/finishes/{finish}', 'FinishTypeController@update');
-Route::delete('/finishes/{finish}', 'FinishTypeController@destroy');
+Route::get('/finishtypes', 'FinishTypeController@index');
+Route::post('/finishtypes', 'FinishTypeController@store');
+Route::patch('/finishtypes/{finish}', 'FinishTypeController@update');
+Route::delete('/finishtypes/{finish}', 'FinishTypeController@destroy');
+
+// Views API
+Route::get('/views', 'ViewController@index');
+Route::post('/views', 'ViewController@store');
+Route::patch('/views/{view}', 'ViewController@update');
+Route::delete('/views/{view}', 'ViewController@destroy');

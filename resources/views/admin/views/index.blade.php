@@ -4,9 +4,9 @@
 
 <div class="admin-content">
     <div class="container">
-        <h1 class="mb-4">ادارة الاحياء</h1>
+        <h1 class="mb-4">ادارة الواجهات</h1>
 
-        <neighbourhood-component></neighbourhood-component>
+        <view-component></view-component>
 
     </div>
 </div>

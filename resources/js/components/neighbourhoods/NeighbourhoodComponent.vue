@@ -75,9 +75,9 @@
                     <div class="modal-body">
 
                         <!-- Create neighbourhood form component -->
-                        <neighbour-create
+                        <neighbourhood-create
                         :submitErrors="errors"
-                        @neighbourhood-submitted="createNeighbourhood"></neighbour-create>
+                        @neighbourhood-submitted="createNeighbourhood"></neighbourhood-create>
 
                     </div>
                 </div>
@@ -97,13 +97,13 @@
                     <div class="modal-body">
 
                         <!-- Edit neighbourhood form component -->
-                        <neighbour-edit
+                        <neighbourhood-edit
                         :id="neighbourhood.id"
                         :name="neighbourhood.name"
                         :cityId="neighbourhood.city_id"
                         :citiesOptions="cities"
                         :submitErrors="errors"
-                        @neighbourhood-update="updateNeighbourhood"></neighbour-edit>
+                        @neighbourhood-update="updateNeighbourhood"></neighbourhood-edit>
 
                     </div>
                 </div>

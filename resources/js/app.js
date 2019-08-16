@@ -19,42 +19,45 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 /**
- * Cities components
+ * All application components array
  */
-Vue.component('city-component', require('./components/cities/CityComponent.vue').default);
-Vue.component('city-create', require('./components/cities/CityCreate.vue').default);
-Vue.component('city-edit', require('./components/cities/CityEdit.vue').default);
+const components = [
+    // Cities components
+    {'name': 'city-component', 'location': 'cities/CityComponent.vue'},
+    {'name': 'city-create', 'location': 'cities/CityCreate.vue'},
+    {'name': 'city-edit', 'location': 'cities/CityEdit.vue'},
 
-/**
- * Neighbourhoods components
- */
-Vue.component('neighbour-component', require('./components/neighbourhoods/NeighbourComponent.vue').default);
-Vue.component('neighbour-create', require('./components/neighbourhoods/NeighbourCreate.vue').default);
-Vue.component('neighbour-edit', require('./components/neighbourhoods/NeighbourEdit.vue').default);
+    // Neighbourhoods components
+    {'name': 'neighbourhood-component', 'location': 'neighbourhoods/NeighbourhoodComponent.vue'},
+    {'name': 'neighbourhood-create', 'location': 'neighbourhoods/NeighbourhoodCreate.vue'},
+    {'name': 'neighbourhood-edit', 'location': 'neighbourhoods/NeighbourhoodEdit.vue'},
 
-/**
- * Types components
- */
-Vue.component('type-component', require('./components/types/TypeComponent.vue').default);
-Vue.component('type-create', require('./components/types/TypeCreate.vue').default);
-Vue.component('type-edit', require('./components/types/TypeEdit.vue').default);
+    // Types components
+    {'name': 'type-component', 'location': 'types/TypeComponent.vue'},
+    {'name': 'type-create', 'location': 'types/TypeCreate.vue'},
+    {'name': 'type-edit', 'location': 'types/TypeEdit.vue'},
 
-/**
- * Contracts components
- */
-Vue.component('contract-component', require('./components/contracts/ContractComponent.vue').default);
-Vue.component('contract-create', require('./components/contracts/ContractCreate.vue').default);
-Vue.component('contract-edit', require('./components/contracts/ContractEdit.vue').default);
+    // Contracts components
+    {'name': 'contract-component', 'location': 'contracts/ContractComponent.vue'},
+    {'name': 'contract-create', 'location': 'contracts/ContractCreate.vue'},
+    {'name': 'contract-edit', 'location': 'contracts/ContractEdit.vue'},
 
-/**
- * Finishes components
- */
-Vue.component('finish-component', require('./components/finishes/FinishComponent.vue').default);
-Vue.component('finish-create', require('./components/finishes/FinishCreate.vue').default);
-Vue.component('finish-edit', require('./components/finishes/FinishEdit.vue').default);
+    // Finishes components
+    {'name': 'finish-component', 'location': 'finishes/FinishComponent.vue'},
+    {'name': 'finish-create', 'location': 'finishes/FinishCreate.vue'},
+    {'name': 'finish-edit', 'location': 'finishes/FinishEdit.vue'},
+
+    // Views components
+    {'name': 'view-component', 'location': 'views/ViewComponent.vue'},
+    {'name': 'view-create', 'location': 'views/ViewCreate.vue'},
+    {'name': 'view-edit', 'location': 'views/ViewEdit.vue'},
+];
+
+// Include all components
+components.forEach(component => {
+    Vue.component(component.name, require(`./components/${component.location}`).default);
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
