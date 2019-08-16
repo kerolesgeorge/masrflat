@@ -29,7 +29,7 @@ class ViewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( View $view)
+    public function update(View $view)
     {
         $view->update($this->validateRequest());
         return new ViewResource($view);

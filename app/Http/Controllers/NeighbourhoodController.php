@@ -29,15 +29,6 @@ class NeighbourhoodController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function showByCity(City $city)
-    {
-        $neighbourhoods = $city->neighbourhoods();
-        return CityResource::collection($neighbourhoods);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Neighbourhood $neighbourhood)
@@ -52,6 +43,15 @@ class NeighbourhoodController extends Controller
     public function destroy(Neighbourhood $neighbourhood)
     {
         $neighbourhood->delete();
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showByCity(City $city)
+    {
+        $neighbourhoods = $city->neighbourhoods();
+        return CityResource::collection($neighbourhoods);
     }
 
     /**

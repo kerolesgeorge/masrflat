@@ -31,6 +31,11 @@ class FinishTypeController extends Controller
      */
     public function update(FinishType $finishType)
     {
+        /* $finishType = FinishType::find($id);
+        $validates = $this->validateRequest();
+        $finishType->name = $validates['name'];
+        $finishType->save(); */
+
         $finishType->update($this->validateRequest());
         return new FinishTypeResource($finishType);
     }
