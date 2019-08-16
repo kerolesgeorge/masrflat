@@ -29,27 +29,19 @@ class FinishTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(FinishType $finish)
+    public function update(FinishType $finishType)
     {
-        /* $finishType = FinishType::find($id);
-        $validates = $this->validateRequest();
-        $finishType->name = $validates['name'];
-        $finishType->save();
-        return new FinishTypeResource($finishType); */
-
-        // Don't know why not working
-        $finish->update($this->validateRequest());
-        return new FinishTypeResource($finish);
+        $finishType->update($this->validateRequest());
+        return new FinishTypeResource($finishType);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FinishType $finish)
+    public function destroy(FinishType $finishType)
     {
-        //$finishType = FinishType::find($id);
-        $finish->delete();
-        return new FinishTypeResource($finish);
+        $finishType->delete();
+        return new FinishTypeResource($finishType);
     }
 
     /**
