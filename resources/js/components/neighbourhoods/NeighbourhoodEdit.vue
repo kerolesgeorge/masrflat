@@ -3,7 +3,7 @@
         <form>
             <div class="form-row m-1 mb-3" dir="rtl">
                 <label for="cities" class="col-md-3 col-form-label">اختار مدينة</label>
-                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="citySelected">
+                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="neighbourhood.city_id">
                     <option v-for="city in citiesOptions" :key="city.id" :value="city.id">
                         {{ city.name }}
                     </option>
@@ -12,7 +12,7 @@
             </div>
             <div class="form-row m-1 mb-3">
                 <label for="name" class="col-md-3 col-form-label">اسم الحي</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourhood.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <div class="form-row">
@@ -25,45 +25,33 @@
 
 <script>
 export default {
-    props: ['id', 'name', 'cityId', 'citiesOptions', 'submitErrors'],
+    props: ['name', 'cityId', 'neighbourhood', 'citiesOptions', 'submitErrors'],
 
     data() {
         return {
-            neighbourName: '',
-            citySelected: '',
-            neighbourhood: {},
+            neighbourhoodUpdate: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.neighbourhood = {
-                id: this.id,
-            };
+            this.neighbourhoodUpdate = {
+                id: this.neighbourhood.id,
+            }
 
             // Check if name is changed
-            if (this.name !== this.neighbourName) {
+            if (this.neighbourhood.name != this.name) {
                 // Add changed name to neighbourhood object
-                this.neighbourhood.name = this.neighbourName;
+                this.neighbourhoodUpdate.name = this.neighbourhood.name;
             }
 
             // Check if selected city is changed
-            if (this.cityId !== this.citySelected) {
+            if (this.neighbourhood.city_id != this.cityId) {
                 // Add changed city to neighbourhood object
-                this.neighbourhood.city_id = this.citySelected;
+                this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id;
             }
-            this.$emit('neighbourhood-update', this.neighbourhood);
+            this.$emit('neighbourhood-update', this.neighbourhoodUpdate);
         },
-    },
-
-    watch: {
-        name(val) {
-            this.neighbourName = val;
-        },
-
-        cityId(val) {
-            this.citySelected = val;
-        }
     },
 
     computed: {
@@ -75,7 +63,7 @@ export default {
         nameError() {
             let error = this.submitErrors;
             return error.hasOwnProperty('name') ? error.name[0] : '';
-        }
+        },
     }
 }
 </script>

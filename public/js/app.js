@@ -1871,6 +1871,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CityCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CityCreate */ "./resources/js/components/cities/CityCreate.vue");
+/* harmony import */ var _CityEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CityEdit */ "./resources/js/components/cities/CityEdit.vue");
 //
 //
 //
@@ -1983,7 +1985,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+// Import city components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1992,6 +1996,10 @@ __webpack_require__.r(__webpack_exports__);
       city: {},
       cityDeleteId: ''
     };
+  },
+  components: {
+    CityCreate: _CityCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    CityEdit: _CityEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchCities(); // Hide loader
@@ -2134,26 +2142,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'submitErrors'],
+  props: ['city', 'submitErrors'],
   data: function data() {
     return {
-      cityName: '',
-      city: {}
+      //cityName: '',
+      cityUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.city = {
-        id: this.id,
-        name: this.cityName
+      this.cityUpdate = {
+        id: this.city.id,
+        name: this.city.name
       };
-      this.$emit('city-update', this.city);
+      this.$emit('city-update', this.cityUpdate);
     }
   },
   watch: {
-    name: function name(val) {
-      this.cityName = val;
-    }
+    /* name(val) {
+        this.cityName = val;
+    } */
   },
   computed: {
     nameError: function nameError() {
@@ -2174,6 +2182,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ContractCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContractCreate */ "./resources/js/components/contracts/ContractCreate.vue");
+/* harmony import */ var _ContractEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContractEdit */ "./resources/js/components/contracts/ContractEdit.vue");
 //
 //
 //
@@ -2286,7 +2296,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+// Import contract components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2295,6 +2307,10 @@ __webpack_require__.r(__webpack_exports__);
       contract: {},
       contractDeleteId: ''
     };
+  },
+  components: {
+    ContractCreate: _ContractCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ContractEdit: _ContractEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchContracts(); // Hide loader
@@ -2439,26 +2455,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'submitErrors'],
+  props: ['contract', 'submitErrors'],
   data: function data() {
     return {
-      contractName: '',
-      contract: {}
+      //contractName: '',
+      contractUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.contract = {
-        id: this.id,
-        name: this.contractName
+      this.contractUpdate = {
+        id: this.contract.id,
+        name: this.contract.name
       };
-      this.$emit('contract-update', this.contract);
+      this.$emit('contract-update', this.contractUpdate);
     }
   },
   watch: {
-    name: function name(val) {
-      this.contractName = val;
-    }
+    /* name(val) {
+        this.contractName = val;
+    } */
   },
   computed: {
     nameError: function nameError() {
@@ -2479,6 +2495,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FinishCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FinishCreate */ "./resources/js/components/finishes/FinishCreate.vue");
+/* harmony import */ var _FinishEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FinishEdit */ "./resources/js/components/finishes/FinishEdit.vue");
 //
 //
 //
@@ -2591,7 +2609,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+// Import finish components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2600,6 +2620,10 @@ __webpack_require__.r(__webpack_exports__);
       finish: {},
       finishDeleteId: ''
     };
+  },
+  components: {
+    FinishCreate: _FinishCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    FinishEdit: _FinishEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchFinishes(); // Hide loader
@@ -2744,26 +2768,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'submitErrors'],
+  props: ['finish', 'submitErrors'],
   data: function data() {
     return {
-      finishName: '',
-      finish: {}
+      //finishName: '',
+      finishUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.finish = {
-        id: this.id,
-        name: this.finishName
+      this.finishUpdate = {
+        id: this.finish.id,
+        name: this.finish.name
       };
-      this.$emit('finish-update', this.finish);
+      this.$emit('finish-update', this.finishUpdate);
     }
   },
   watch: {
-    name: function name(val) {
-      this.finishName = val;
-    }
+    /* name(val) {
+        this.finishName = val;
+    } */
   },
   computed: {
     nameError: function nameError() {
@@ -2784,6 +2808,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NeighbourhoodCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NeighbourhoodCreate */ "./resources/js/components/neighbourhoods/NeighbourhoodCreate.vue");
+/* harmony import */ var _NeighbourhoodEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NeighbourhoodEdit */ "./resources/js/components/neighbourhoods/NeighbourhoodEdit.vue");
 //
 //
 //
@@ -2917,6 +2943,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+// Import neighbourhood components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2928,6 +2957,10 @@ __webpack_require__.r(__webpack_exports__);
       errors: [],
       isInvisible: true
     };
+  },
+  components: {
+    NeighbourhoodCreate: _NeighbourhoodCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    NeighbourhoodEdit: _NeighbourhoodEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchCitites();
@@ -3103,40 +3136,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'cityId', 'citiesOptions', 'submitErrors'],
+  props: ['name', 'cityId', 'neighbourhood', 'citiesOptions', 'submitErrors'],
   data: function data() {
     return {
-      neighbourName: '',
-      citySelected: '',
-      neighbourhood: {}
+      neighbourhoodUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.neighbourhood = {
-        id: this.id
-      }; // Check if name is changed
+      this.neighbourhoodUpdate = {
+        id: this.neighbourhood.id // Check if name is changed
 
-      if (this.name !== this.neighbourName) {
+      };
+
+      if (this.neighbourhood.name != this.name) {
         // Add changed name to neighbourhood object
-        this.neighbourhood.name = this.neighbourName;
+        this.neighbourhoodUpdate.name = this.neighbourhood.name;
       } // Check if selected city is changed
 
 
-      if (this.cityId !== this.citySelected) {
+      if (this.neighbourhood.city_id != this.cityId) {
         // Add changed city to neighbourhood object
-        this.neighbourhood.city_id = this.citySelected;
+        this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id;
       }
 
-      this.$emit('neighbourhood-update', this.neighbourhood);
-    }
-  },
-  watch: {
-    name: function name(val) {
-      this.neighbourName = val;
-    },
-    cityId: function cityId(val) {
-      this.citySelected = val;
+      this.$emit('neighbourhood-update', this.neighbourhoodUpdate);
     }
   },
   computed: {
@@ -3162,6 +3186,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TypeCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TypeCreate */ "./resources/js/components/types/TypeCreate.vue");
+/* harmony import */ var _TypeEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TypeEdit */ "./resources/js/components/types/TypeEdit.vue");
 //
 //
 //
@@ -3277,7 +3303,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+// Import type components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3286,6 +3314,10 @@ __webpack_require__.r(__webpack_exports__);
       type: {},
       typeToDelete: ''
     };
+  },
+  components: {
+    TypeCreate: _TypeCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    TypeEdit: _TypeEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchTypes(); // Hide loader
@@ -3431,28 +3463,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'submitErrors'],
+  props: ['type', 'submitErrors'],
   data: function data() {
     return {
-      typeName: '',
-      type: {}
+      typeUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.type = {
-        id: this.id,
-        name: this.typeName
+      this.typeUpdate = {
+        id: this.type.id,
+        name: this.type.name
       };
-      this.$emit('type-update', this.type);
-      this.typeName = '';
+      this.$emit('type-update', this.typeUpdate);
     }
   },
-  watch: {
-    name: function name(val) {
-      this.typeName = val;
-    }
-  },
+
+  /* watch: {
+      name(val) {
+          this.typeName = val;
+      }
+  }, */
   computed: {
     nameError: function nameError() {
       var error = this.submitErrors;
@@ -3472,6 +3503,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ViewCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewCreate */ "./resources/js/components/views/ViewCreate.vue");
+/* harmony import */ var _ViewEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewEdit */ "./resources/js/components/views/ViewEdit.vue");
 //
 //
 //
@@ -3584,7 +3617,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+// Import views components
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3593,6 +3628,10 @@ __webpack_require__.r(__webpack_exports__);
       view: {},
       viewDeleteId: ''
     };
+  },
+  components: {
+    ViewCreate: _ViewCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ViewEdit: _ViewEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.fetchViews(); // Hide loader
@@ -3737,27 +3776,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'name', 'submitErrors'],
+  props: ['view', 'submitErrors'],
   data: function data() {
     return {
-      viewName: '',
-      view: {}
+      viewUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.view = {
-        id: this.id,
-        name: this.viewName
+      this.viewUpdate = {
+        id: this.view.id,
+        name: this.view.name
       };
-      this.$emit('view-update', this.view);
+      this.$emit('view-update', this.viewUpdate);
     }
   },
-  watch: {
-    name: function name(val) {
-      this.viewName = val;
-    }
-  },
+
+  /* watch: {
+      name(val) {
+          this.viewName = val;
+      }
+  }, */
   computed: {
     nameError: function nameError() {
       var error = this.submitErrors;
@@ -40737,11 +40776,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("city-edit", {
-                    attrs: {
-                      id: _vm.city.id,
-                      name: _vm.city.name,
-                      submitErrors: _vm.errors
-                    },
+                    attrs: { city: _vm.city, submitErrors: _vm.errors },
                     on: { "city-update": _vm.updateCity }
                   })
                 ],
@@ -41012,8 +41047,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.cityName,
-              expression: "cityName"
+              value: _vm.city.name,
+              expression: "city.name"
             }
           ],
           class: [
@@ -41021,13 +41056,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.cityName },
+          domProps: { value: _vm.city.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.cityName = $event.target.value
+              _vm.$set(_vm.city, "name", $event.target.value)
             }
           }
         }),
@@ -41225,11 +41260,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("contract-edit", {
-                    attrs: {
-                      id: _vm.contract.id,
-                      name: _vm.contract.name,
-                      submitErrors: _vm.errors
-                    },
+                    attrs: { contract: _vm.contract, submitErrors: _vm.errors },
                     on: { "contract-update": _vm.updateContract }
                   })
                 ],
@@ -41502,8 +41533,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.contractName,
-              expression: "contractName"
+              value: _vm.contract.name,
+              expression: "contract.name"
             }
           ],
           class: [
@@ -41511,13 +41542,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.contractName },
+          domProps: { value: _vm.contract.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.contractName = $event.target.value
+              _vm.$set(_vm.contract, "name", $event.target.value)
             }
           }
         }),
@@ -41715,11 +41746,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("finish-edit", {
-                    attrs: {
-                      id: _vm.finish.id,
-                      name: _vm.finish.name,
-                      submitErrors: _vm.errors
-                    },
+                    attrs: { finish: _vm.finish, submitErrors: _vm.errors },
                     on: { "finish-update": _vm.updateFinish }
                   })
                 ],
@@ -41992,8 +42019,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.finishName,
-              expression: "finishName"
+              value: _vm.finish.name,
+              expression: "finish.name"
             }
           ],
           class: [
@@ -42001,13 +42028,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.finishName },
+          domProps: { value: _vm.finish.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.finishName = $event.target.value
+              _vm.$set(_vm.finish, "name", $event.target.value)
             }
           }
         }),
@@ -42271,7 +42298,7 @@ var render = function() {
                 [
                   _c("neighbourhood-edit", {
                     attrs: {
-                      id: _vm.neighbourhood.id,
+                      neighbourhood: _vm.neighbourhood,
                       name: _vm.neighbourhood.name,
                       cityId: _vm.neighbourhood.city_id,
                       citiesOptions: _vm.cities,
@@ -42569,8 +42596,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.citySelected,
-                expression: "citySelected"
+                value: _vm.neighbourhood.city_id,
+                expression: "neighbourhood.city_id"
               }
             ],
             class: [
@@ -42588,9 +42615,11 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.citySelected = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
+                _vm.$set(
+                  _vm.neighbourhood,
+                  "city_id",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
           },
@@ -42627,8 +42656,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.neighbourName,
-              expression: "neighbourName"
+              value: _vm.neighbourhood.name,
+              expression: "neighbourhood.name"
             }
           ],
           class: [
@@ -42636,13 +42665,13 @@ var render = function() {
             "form-control col-md-9"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.neighbourName },
+          domProps: { value: _vm.neighbourhood.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.neighbourName = $event.target.value
+              _vm.$set(_vm.neighbourhood, "name", $event.target.value)
             }
           }
         }),
@@ -42844,11 +42873,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("type-edit", {
-                    attrs: {
-                      id: _vm.type.id,
-                      name: _vm.type.name,
-                      submitErrors: _vm.errors
-                    },
+                    attrs: { type: _vm.type, submitErrors: _vm.errors },
                     on: { "type-update": _vm.updateType }
                   })
                 ],
@@ -43116,8 +43141,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.typeName,
-              expression: "typeName"
+              value: _vm.type.name,
+              expression: "type.name"
             }
           ],
           class: [
@@ -43125,13 +43150,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.typeName },
+          domProps: { value: _vm.type.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.typeName = $event.target.value
+              _vm.$set(_vm.type, "name", $event.target.value)
             }
           }
         }),
@@ -43329,11 +43354,7 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("view-edit", {
-                    attrs: {
-                      id: _vm.view.id,
-                      name: _vm.view.name,
-                      submitErrors: _vm.errors
-                    },
+                    attrs: { view: _vm.view, submitErrors: _vm.errors },
                     on: { "view-update": _vm.updateView }
                   })
                 ],
@@ -43604,8 +43625,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.viewName,
-              expression: "viewName"
+              value: _vm.view.name,
+              expression: "view.name"
             }
           ],
           class: [
@@ -43613,13 +43634,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.viewName },
+          domProps: { value: _vm.view.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.viewName = $event.target.value
+              _vm.$set(_vm.view, "name", $event.target.value)
             }
           }
         }),
@@ -55821,62 +55842,26 @@ var components = [// Cities components
 {
   'name': 'city-component',
   'location': 'cities/CityComponent.vue'
-}, {
-  'name': 'city-create',
-  'location': 'cities/CityCreate.vue'
-}, {
-  'name': 'city-edit',
-  'location': 'cities/CityEdit.vue'
 }, // Neighbourhoods components
 {
   'name': 'neighbourhood-component',
   'location': 'neighbourhoods/NeighbourhoodComponent.vue'
-}, {
-  'name': 'neighbourhood-create',
-  'location': 'neighbourhoods/NeighbourhoodCreate.vue'
-}, {
-  'name': 'neighbourhood-edit',
-  'location': 'neighbourhoods/NeighbourhoodEdit.vue'
 }, // Types components
 {
   'name': 'type-component',
   'location': 'types/TypeComponent.vue'
-}, {
-  'name': 'type-create',
-  'location': 'types/TypeCreate.vue'
-}, {
-  'name': 'type-edit',
-  'location': 'types/TypeEdit.vue'
 }, // Contracts components
 {
   'name': 'contract-component',
   'location': 'contracts/ContractComponent.vue'
-}, {
-  'name': 'contract-create',
-  'location': 'contracts/ContractCreate.vue'
-}, {
-  'name': 'contract-edit',
-  'location': 'contracts/ContractEdit.vue'
 }, // Finishes components
 {
   'name': 'finish-component',
   'location': 'finishes/FinishComponent.vue'
-}, {
-  'name': 'finish-create',
-  'location': 'finishes/FinishCreate.vue'
-}, {
-  'name': 'finish-edit',
-  'location': 'finishes/FinishEdit.vue'
 }, // Views components
 {
   'name': 'view-component',
   'location': 'views/ViewComponent.vue'
-}, {
-  'name': 'view-create',
-  'location': 'views/ViewCreate.vue'
-}, {
-  'name': 'view-edit',
-  'location': 'views/ViewEdit.vue'
 }]; // Include all components
 
 components.forEach(function (component) {

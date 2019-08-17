@@ -80,8 +80,7 @@
 
                         <!-- Edit finish type form component -->
                         <finish-edit
-                        :id="finish.id"
-                        :name="finish.name"
+                        :finish="finish"
                         :submitErrors="errors"
                         @finish-update="updateFinish"></finish-edit>
 
@@ -112,6 +111,10 @@
 </template>
 
 <script>
+// Import finish components
+import FinishCreate from './FinishCreate';
+import FinishEdit from './FinishEdit';
+
 export default {
     data() {
         return {
@@ -120,6 +123,11 @@ export default {
             finish: {},
             finishDeleteId: '',
         }
+    },
+
+    components: {
+        FinishCreate,
+        FinishEdit
     },
 
     mounted() {

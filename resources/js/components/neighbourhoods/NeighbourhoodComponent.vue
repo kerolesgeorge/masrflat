@@ -98,9 +98,9 @@
 
                         <!-- Edit neighbourhood form component -->
                         <neighbourhood-edit
-                        :id="neighbourhood.id"
-                        :name="neighbourhood.name"
-                        :cityId="neighbourhood.city_id"
+                        :neighbourhood="neighbourhood"
+                        :name = "neighbourhood.name"
+                        :cityId = "neighbourhood.city_id"
                         :citiesOptions="cities"
                         :submitErrors="errors"
                         @neighbourhood-update="updateNeighbourhood"></neighbourhood-edit>
@@ -132,6 +132,10 @@
 </template>
 
 <script>
+// Import neighbourhood components
+import NeighbourhoodCreate from './NeighbourhoodCreate';
+import NeighbourhoodEdit from './NeighbourhoodEdit';
+
 export default {
     data() {
         return {
@@ -143,6 +147,11 @@ export default {
             errors: [],
             isInvisible: true,
         }
+    },
+
+    components: {
+        NeighbourhoodCreate,
+        NeighbourhoodEdit
     },
 
     mounted() {

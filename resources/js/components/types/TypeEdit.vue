@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم النوع</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="typeName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="type.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
@@ -13,31 +13,29 @@
 
 <script>
 export default {
-    props: ['id', 'name', 'submitErrors'],
+    props: ['type', 'submitErrors'],
 
     data() {
         return {
-            typeName: '',
-            type: {},
+            typeUpdate: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.type = {
-                id: this.id,
-                name: this.typeName
+            this.typeUpdate = {
+                id: this.type.id,
+                name: this.type.name
             }
-            this.$emit('type-update', this.type);
-            this.typeName = '';
+            this.$emit('type-update', this.typeUpdate);
         }
     },
 
-    watch: {
+    /* watch: {
         name(val) {
             this.typeName = val;
         }
-    },
+    }, */
 
     computed: {
         nameError() {

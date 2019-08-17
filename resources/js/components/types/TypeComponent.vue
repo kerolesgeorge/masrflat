@@ -83,8 +83,7 @@
 
                         <!-- Edit city form component -->
                         <type-edit
-                        :id="type.id"
-                        :name="type.name"
+                        :type="type"
                         :submitErrors="errors"
                         @type-update="updateType"></type-edit>
 
@@ -115,6 +114,10 @@
 </template>
 
 <script>
+// Import type components
+import TypeCreate from './TypeCreate';
+import TypeEdit from './TypeEdit';
+
 export default {
     data() {
         return {
@@ -123,6 +126,11 @@ export default {
             type: {},
             typeToDelete: '',
         }
+    },
+
+    components: {
+        TypeCreate,
+        TypeEdit
     },
 
     mounted() {

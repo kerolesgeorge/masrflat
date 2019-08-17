@@ -80,8 +80,7 @@
 
                         <!-- Create city form component -->
                         <city-edit
-                        :id="city.id"
-                        :name="city.name"
+                        :city="city"
                         :submitErrors="errors"
                         @city-update="updateCity"></city-edit>
 
@@ -112,6 +111,10 @@
 </template>
 
 <script>
+// Import city components
+import CityCreate from './CityCreate';
+import CityEdit from './CityEdit';
+
 export default {
     data() {
         return {
@@ -120,6 +123,11 @@ export default {
             city: {},
             cityDeleteId: '',
         }
+    },
+
+    components: {
+        CityCreate,
+        CityEdit
     },
 
     mounted() {

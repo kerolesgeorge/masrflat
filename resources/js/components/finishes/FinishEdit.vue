@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">نوع التشطيب</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="finishName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="finish.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
@@ -13,29 +13,29 @@
 
 <script>
 export default {
-    props: ['id', 'name', 'submitErrors'],
+    props: ['finish', 'submitErrors'],
 
     data() {
         return {
-            finishName: '',
-            finish: {},
+            //finishName: '',
+            finishUpdate: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.finish = {
-                id: this.id,
-                name: this.finishName,
+            this.finishUpdate = {
+                id: this.finish.id,
+                name: this.finish.name,
             }
-            this.$emit('finish-update', this.finish);
+            this.$emit('finish-update', this.finishUpdate);
         }
     },
 
     watch: {
-        name(val) {
+        /* name(val) {
             this.finishName = val;
-        }
+        } */
     },
 
     computed: {

@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم العقد</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="contractName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="contract.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
@@ -13,29 +13,29 @@
 
 <script>
 export default {
-    props: ['id', 'name', 'submitErrors'],
+    props: ['contract', 'submitErrors'],
 
     data() {
         return {
-            contractName: '',
-            contract: {},
+            //contractName: '',
+            contractUpdate: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.contract = {
-                id: this.id,
-                name: this.contractName
+            this.contractUpdate = {
+                id: this.contract.id,
+                name: this.contract.name
             }
-            this.$emit('contract-update', this.contract);
+            this.$emit('contract-update', this.contractUpdate);
         }
     },
 
     watch: {
-        name(val) {
+        /* name(val) {
             this.contractName = val;
-        }
+        } */
     },
 
     computed: {

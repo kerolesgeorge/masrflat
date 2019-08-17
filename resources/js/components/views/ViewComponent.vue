@@ -80,8 +80,7 @@
 
                         <!-- Edit view form component -->
                         <view-edit
-                        :id="view.id"
-                        :name="view.name"
+                        :view="view"
                         :submitErrors="errors"
                         @view-update="updateView"></view-edit>
 
@@ -112,6 +111,10 @@
 </template>
 
 <script>
+// Import views components
+import ViewCreate from './ViewCreate';
+import ViewEdit from './ViewEdit';
+
 export default {
     data() {
         return {
@@ -120,6 +123,11 @@ export default {
             view: {},
             viewDeleteId: '',
         }
+    },
+
+    components: {
+        ViewCreate,
+        ViewEdit
     },
 
     mounted() {

@@ -25,33 +25,21 @@ window.Vue = require('vue');
 const components = [
     // Cities components
     {'name': 'city-component', 'location': 'cities/CityComponent.vue'},
-    {'name': 'city-create', 'location': 'cities/CityCreate.vue'},
-    {'name': 'city-edit', 'location': 'cities/CityEdit.vue'},
 
     // Neighbourhoods components
     {'name': 'neighbourhood-component', 'location': 'neighbourhoods/NeighbourhoodComponent.vue'},
-    {'name': 'neighbourhood-create', 'location': 'neighbourhoods/NeighbourhoodCreate.vue'},
-    {'name': 'neighbourhood-edit', 'location': 'neighbourhoods/NeighbourhoodEdit.vue'},
 
     // Types components
     {'name': 'type-component', 'location': 'types/TypeComponent.vue'},
-    {'name': 'type-create', 'location': 'types/TypeCreate.vue'},
-    {'name': 'type-edit', 'location': 'types/TypeEdit.vue'},
 
     // Contracts components
     {'name': 'contract-component', 'location': 'contracts/ContractComponent.vue'},
-    {'name': 'contract-create', 'location': 'contracts/ContractCreate.vue'},
-    {'name': 'contract-edit', 'location': 'contracts/ContractEdit.vue'},
 
     // Finishes components
     {'name': 'finish-component', 'location': 'finishes/FinishComponent.vue'},
-    {'name': 'finish-create', 'location': 'finishes/FinishCreate.vue'},
-    {'name': 'finish-edit', 'location': 'finishes/FinishEdit.vue'},
 
     // Views components
     {'name': 'view-component', 'location': 'views/ViewComponent.vue'},
-    {'name': 'view-create', 'location': 'views/ViewCreate.vue'},
-    {'name': 'view-edit', 'location': 'views/ViewEdit.vue'},
 ];
 
 // Include all components

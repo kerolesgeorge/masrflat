@@ -80,8 +80,7 @@
 
                         <!-- Edit contract form component -->
                         <contract-edit
-                        :id="contract.id"
-                        :name="contract.name"
+                        :contract="contract"
                         :submitErrors="errors"
                         @contract-update="updateContract"></contract-edit>
 
@@ -112,6 +111,10 @@
 </template>
 
 <script>
+// Import contract components
+import ContractCreate from './ContractCreate';
+import ContractEdit from './ContractEdit';
+
 export default {
     data() {
         return {
@@ -120,6 +123,11 @@ export default {
             contract: {},
             contractDeleteId: '',
         }
+    },
+
+    components: {
+        ContractCreate,
+        ContractEdit
     },
 
     mounted() {

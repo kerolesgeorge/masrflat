@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">نوع الواجهه</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="viewName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="view.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
@@ -13,30 +13,29 @@
 
 <script>
 export default {
-    props: ['id', 'name', 'submitErrors'],
+    props: ['view', 'submitErrors'],
 
     data() {
         return {
-            viewName: '',
-            view: {},
+            viewUpdate: {},
         }
     },
 
     methods: {
         onSubmit() {
-            this.view = {
-                id: this.id,
-                name: this.viewName
+            this.viewUpdate = {
+                id: this.view.id,
+                name: this.view.name,
             }
-            this.$emit('view-update', this.view);
+            this.$emit('view-update', this.viewUpdate);
         }
     },
 
-    watch: {
+    /* watch: {
         name(val) {
             this.viewName = val;
         }
-    },
+    }, */
 
     computed: {
         nameError() {
