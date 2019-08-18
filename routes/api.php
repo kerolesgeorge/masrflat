@@ -18,40 +18,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Cities API
-Route::get('/cities', 'CityController@index');
-Route::post('/cities', 'CityController@store');
-Route::patch('/cities/{city}', 'CityController@update');
-Route::delete('/cities/{city}', 'CityController@destroy');
+Route::apiResource('/cities', 'CityController');
 
 // Neighbours API
-Route::get('/neighbourhoods', 'NeighbourhoodController@index');
-Route::post('/neighbourhoods', 'NeighbourhoodController@store');
-Route::patch('/neighbourhoods/{neighbourhood}', 'NeighbourhoodController@update');
-Route::delete('/neighbourhoods/{neighbourhood}', 'NeighbourhoodController@destroy');
+Route::apiResource('/neighbourhoods', 'NeighbourhoodController');
 
 // Cities - Neighbourhoods
 Route::get('/cities/{city}/neighbourhoods', 'CityController@showNeighbourhoods');
 
 // Types API
-Route::get('/types', 'TypeController@index');
-Route::post('/types', 'TypeController@store');
-Route::patch('/types/{type}', 'TypeController@update');
-Route::delete('/types/{type}', 'TypeController@destroy');
+Route::apiResource('/types', 'TypeController');
 
 // Contracts API
-Route::get('/contracts', 'ContractController@index');
-Route::post('/contracts', 'ContractController@store');
-Route::patch('/contracts/{contract}', 'ContractController@update');
-Route::delete('/contracts/{contract}', 'ContractController@destroy');
+Route::apiResource('/contracts', 'ContractController');
 
 // Finishes API
-Route::get('/finishtypes', 'FinishTypeController@index');
-Route::post('/finishtypes', 'FinishTypeController@store');
-Route::patch('/finishtypes/{finishType}', 'FinishTypeController@update');
-Route::delete('/finishtypes/{finishType}', 'FinishTypeController@destroy');
+Route::apiResource('/finishtypes', 'FinishTypeController');
 
 // Views API
-Route::get('/views', 'ViewController@index');
-Route::post('/views', 'ViewController@store');
-Route::patch('/views/{view}', 'ViewController@update');
-Route::delete('/views/{view}', 'ViewController@destroy');
+Route::apiResource('/views', 'ViewController');

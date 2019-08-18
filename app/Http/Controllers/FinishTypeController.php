@@ -13,8 +13,8 @@ class FinishTypeController extends Controller
      */
     public function index()
     {
-        $finishType = FinishType::all();
-        return FinishTypeResource::collection($finishType);
+        $finishtype = FinishType::all();
+        return FinishTypeResource::collection($finishtype);
     }
 
     /**
@@ -22,26 +22,26 @@ class FinishTypeController extends Controller
      */
     public function store()
     {
-        $finishType = FinishType::create($this->validateRequest());
-        return new FinishTypeResource($finishType);
+        $finishtype = FinishType::create($this->validateRequest());
+        return new FinishTypeResource($finishtype);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(FinishType $finishType)
+    public function update(FinishType $finishtype)
     {
-        $finishType->update($this->validateRequest());
-        return new FinishTypeResource($finishType);
+        $finishtype->update($this->validateRequest());
+        return new FinishTypeResource($finishtype);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FinishType $finishType)
+    public function destroy(FinishType $finishtype)
     {
-        $finishType->delete();
-        return new FinishTypeResource($finishType);
+        $finishtype->delete();
+        return new FinishTypeResource($finishtype);
     }
 
     /**
