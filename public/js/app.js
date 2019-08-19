@@ -41206,87 +41206,82 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.contracts.length
-      ? _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("h3", { staticClass: "m-1" }, [_vm._v("العقود")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success m-2",
-                attrs: {
-                  "data-toggle": "modal",
-                  "data-target": "#createContract"
-                },
-                on: { click: _vm.clearErrors }
-              },
-              [_vm._v("اضافة")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table p-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.contracts, function(contract) {
-                return _c("tr", { key: contract.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(contract.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(contract.name))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          title: "تعديل",
-                          "data-toggle": "modal",
-                          "data-target": "#editContract"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.editContract(contract)
-                            _vm.clearErrors()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-delete",
-                        attrs: {
-                          "data-toggle": "modal",
-                          "data-target": "#deleteContract"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getContractToDelete(contract.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash",
-                          staticStyle: { color: "red" }
-                        })
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      : _vm._e(),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("العقود")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createContract" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.contracts, function(contract) {
+            return _c("tr", { key: contract.id }, [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(contract.id))
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(contract.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editContract"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editContract(contract)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteContract"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.getContractToDelete(contract.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -43338,84 +43333,80 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.views.length
-      ? _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("h3", { staticClass: "m-1" }, [_vm._v("الواجهات")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success m-2",
-                attrs: { "data-toggle": "modal", "data-target": "#createView" },
-                on: { click: _vm.clearErrors }
-              },
-              [_vm._v("اضافة")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table p-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.views, function(view) {
-                return _c("tr", { key: view.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(view.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(view.name))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          title: "تعديل",
-                          "data-toggle": "modal",
-                          "data-target": "#editView"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.editView(view)
-                            _vm.clearErrors()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-delete",
-                        attrs: {
-                          "data-toggle": "modal",
-                          "data-target": "#deleteView"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getViewToDelete(view.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash",
-                          staticStyle: { color: "red" }
-                        })
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      : _vm._e(),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("الواجهات")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createView" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.views, function(view) {
+            return _c("tr", { key: view.id }, [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(view.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(view.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editView"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editView(view)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteView"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.getViewToDelete(view.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -57878,8 +57869,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

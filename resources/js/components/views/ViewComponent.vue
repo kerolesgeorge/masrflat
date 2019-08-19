@@ -13,7 +13,7 @@
             <p>برجاء ادخال واجهات جديده</p>
         </div>
 
-        <div class="card" v-if="views.length">
+        <div class="card">
             <div class="d-flex justify-content-between">
                 <h3 class="m-1">الواجهات</h3>
 

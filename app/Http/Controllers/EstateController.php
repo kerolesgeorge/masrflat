@@ -12,7 +12,8 @@ class EstateController extends Controller
      */
     public function index()
     {
-        //
+        // Get all related fields for insertion
+
     }
 
     /**
