@@ -10,7 +10,7 @@
             <p>برجاء ادخال انواع جديده</p>
         </div>
 
-        <div class="card" v-if="finishes.length">
+        <div class="card">
             <div class="d-flex justify-content-between">
                 <h3 class="m-1">التشطيبات</h3>
 

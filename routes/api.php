@@ -37,3 +37,6 @@ Route::apiResource('/finishtypes', 'FinishTypeController');
 
 // Views API
 Route::apiResource('/views', 'ViewController');
+
+// Estates API
+Route::apiResource('/estates', 'EstateController');

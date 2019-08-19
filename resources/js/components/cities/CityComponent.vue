@@ -11,7 +11,7 @@
             <p>برجاء ادخال مدن</p>
         </div>
 
-        <div class="card" v-if="cities.length">
+        <div class="card">
             <div class="d-flex justify-content-between">
                 <h3 class="m-1">المدن</h3>
 

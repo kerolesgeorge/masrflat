@@ -1,7 +1,7 @@
 <template>
     <div>
         <form>
-            <div class="form-row m-1 mb-3">
+            <div class="form-row mb-3">
                 <label for="name" class="col-md-3 col-form-label">اسم الحي</label>
                 <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="name">
                 <div class="invalid-feedback">{{ nameError }}</div>

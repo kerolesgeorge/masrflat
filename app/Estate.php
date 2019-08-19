@@ -8,6 +8,7 @@ class Estate extends Model
 {
     protected $fillable = [
         'neighbourhood_id',
+        'title',
         'type_id',
         'contract_id',
         'view_id',

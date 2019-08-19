@@ -13,7 +13,7 @@
             <p>برجاء ادخال انواع</p>
         </div>
 
-        <div class="card" v-if="types.length">
+        <div class="card">
             <div class="d-flex justify-content-between">
                 <h3 class="m-1">الأنواع</h3>
 

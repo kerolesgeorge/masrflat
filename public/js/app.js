@@ -2500,6 +2500,151 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EstateCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateCreate */ "./resources/js/components/estates/EstateCreate.vue");
+/* harmony import */ var _EstateEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateEdit */ "./resources/js/components/estates/EstateEdit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Import estate components
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      estates: [],
+      errors: []
+    };
+  },
+  components: {
+    EstateCreate: _EstateCreate__WEBPACK_IMPORTED_MODULE_0__["default"],
+    EstateEdit: _EstateEdit__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    this.fetchEstates(); // Hide loader
+
+    $(window).on("load", function () {
+      $(".loader-wrapper").fadeOut();
+    });
+  },
+  methods: {
+    fetchEstates: function fetchEstates() {
+      var _this = this;
+
+      axios.get('/api/estates').then(function (response) {
+        _this.estates = response.data;
+      })["catch"](function (error) {
+        console.log(error.response.data.message);
+      });
+    },
+    createEstate: function createEstate() {},
+    editEstate: function editEstate() {},
+    updateEstate: function updateEstate() {},
+    getEstateToDelete: function getEstateToDelete() {},
+    clearErrors: function clearErrors() {}
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -40720,84 +40865,80 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.cities.length
-      ? _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("h3", { staticClass: "m-1" }, [_vm._v("المدن")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success m-2",
-                attrs: { "data-toggle": "modal", "data-target": "#createCity" },
-                on: { click: _vm.clearErrors }
-              },
-              [_vm._v("اضافة")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table p-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.cities, function(city) {
-                return _c("tr", { key: city.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(city.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(city.name))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          title: "تعديل",
-                          "data-toggle": "modal",
-                          "data-target": "#editCity"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.editCity(city)
-                            _vm.clearErrors()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-delete",
-                        attrs: {
-                          "data-toggle": "modal",
-                          "data-target": "#deleteCity"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getCityToDelete(city.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash",
-                          staticStyle: { color: "red" }
-                        })
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      : _vm._e(),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("المدن")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createCity" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.cities, function(city) {
+            return _c("tr", { key: city.id }, [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(city.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(city.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editCity"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editCity(city)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteCity"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.getCityToDelete(city.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -41681,6 +41822,227 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    !_vm.estates.length
+      ? _c("div", [
+          _c("h3", [_vm._v("لا يوجد عقارات")]),
+          _vm._v(" "),
+          _c("p", [_vm._v("برجاء ادخال عقارات")])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("العقارات")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createEstate" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.estates, function(estate) {
+            return _c("tr", { key: estate.id }, [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(estate.id))
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(estate.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editEstate"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editEstate(estate)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteEstate"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.geteEstateToDelete(estate.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "createEstate",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "createEstateLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("estate-create", {
+                    attrs: { submitErrors: _vm.errors },
+                    on: { "estate-submitted": _vm.createEstate }
+                  })
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "loader-wrapper" }, [
+      _c("div", { staticClass: "loader" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("العنوان")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("تعاملات")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "createEstateLabel" } },
+        [_vm._v("اضافة عقار جديد")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          staticStyle: { margin: "-1rem auto -1rem -1rem" },
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
   return _c("div")
 }
 var staticRenderFns = []
@@ -41716,87 +42078,82 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.finishes.length
-      ? _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("h3", { staticClass: "m-1" }, [_vm._v("التشطيبات")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success m-2",
-                attrs: {
-                  "data-toggle": "modal",
-                  "data-target": "#createFinish"
-                },
-                on: { click: _vm.clearErrors }
-              },
-              [_vm._v("اضافة")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table p-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.finishes, function(finish) {
-                return _c("tr", { key: finish.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(finish.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(finish.name))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          title: "تعديل",
-                          "data-toggle": "modal",
-                          "data-target": "#editFinish"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.editFinish(finish)
-                            _vm.clearErrors()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-delete",
-                        attrs: {
-                          "data-toggle": "modal",
-                          "data-target": "#deleteFinish"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getFinishToDelete(finish.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash",
-                          staticStyle: { color: "red" }
-                        })
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      : _vm._e(),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("التشطيبات")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createFinish" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.finishes, function(finish) {
+            return _c("tr", { key: finish.id }, [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(finish.id))
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(finish.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editFinish"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editFinish(finish)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteFinish"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.getFinishToDelete(finish.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -42267,7 +42624,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.neighbourhoods.length
+    _vm.selected
       ? _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "d-flex justify-content-between" }, [
             _c("h3", { staticClass: "m-1" }, [_vm._v("الاحياء")]),
@@ -42617,7 +42974,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("form", [
-      _c("div", { staticClass: "form-row m-1 mb-3" }, [
+      _c("div", { staticClass: "form-row mb-3" }, [
         _c(
           "label",
           { staticClass: "col-md-3 col-form-label", attrs: { for: "name" } },
@@ -42850,84 +43207,80 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.types.length
-      ? _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("h3", { staticClass: "m-1" }, [_vm._v("الأنواع")]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success m-2",
-                attrs: { "data-toggle": "modal", "data-target": "#createType" },
-                on: { click: _vm.clearErrors }
-              },
-              [_vm._v("اضافة")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("table", { staticClass: "table p-3" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.types, function(etype) {
-                return _c("tr", { key: etype.id }, [
-                  _c("th", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(etype.id))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(etype.name))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href: "#",
-                          title: "تعديل",
-                          "data-toggle": "modal",
-                          "data-target": "#editType"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.editType(etype)
-                            _vm.clearErrors()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-delete mr-2",
-                        attrs: {
-                          "data-toggle": "modal",
-                          "data-target": "#deleteType"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.getTypeToDelete(etype.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash",
-                          staticStyle: { color: "red" }
-                        })
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      : _vm._e(),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("h3", { staticClass: "m-1" }, [_vm._v("الأنواع")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success m-2",
+            attrs: { "data-toggle": "modal", "data-target": "#createType" },
+            on: { click: _vm.clearErrors }
+          },
+          [_vm._v("اضافة")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table p-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.types, function(etype) {
+            return _c("tr", { key: etype.id }, [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(etype.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(etype.name))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "#",
+                      title: "تعديل",
+                      "data-toggle": "modal",
+                      "data-target": "#editType"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.editType(etype)
+                        _vm.clearErrors()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-edit" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-delete mr-2",
+                    attrs: {
+                      "data-toggle": "modal",
+                      "data-target": "#deleteType"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.getTypeToDelete(etype.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash",
+                      staticStyle: { color: "red" }
+                    })
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -56081,6 +56434,10 @@ var map = {
 	"./contracts/ContractEdit.vue": "./resources/js/components/contracts/ContractEdit.vue",
 	"./estates/EstateComponent": "./resources/js/components/estates/EstateComponent.vue",
 	"./estates/EstateComponent.vue": "./resources/js/components/estates/EstateComponent.vue",
+	"./estates/EstateCreate": "./resources/js/components/estates/EstateCreate.vue",
+	"./estates/EstateCreate.vue": "./resources/js/components/estates/EstateCreate.vue",
+	"./estates/EstateEdit": "./resources/js/components/estates/EstateEdit.vue",
+	"./estates/EstateEdit.vue": "./resources/js/components/estates/EstateEdit.vue",
 	"./finishes/FinishComponent": "./resources/js/components/finishes/FinishComponent.vue",
 	"./finishes/FinishComponent.vue": "./resources/js/components/finishes/FinishComponent.vue",
 	"./finishes/FinishCreate": "./resources/js/components/finishes/FinishCreate.vue",
@@ -56802,6 +57159,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateComponent_vue_vue_type_template_id_2ca4f2e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateComponent_vue_vue_type_template_id_2ca4f2e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateCreate.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/estates/EstateCreate.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true& */ "./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true&");
+/* harmony import */ var _EstateCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateCreate.vue?vue&type=script&lang=js& */ "./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EstateCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "e078da8a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/estates/EstateCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstateCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateCreate.vue?vue&type=template&id=e078da8a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateCreate_vue_vue_type_template_id_e078da8a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateEdit.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/estates/EstateEdit.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateEdit.vue?vue&type=template&id=37874689&scoped=true& */ "./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true&");
+/* harmony import */ var _EstateEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EstateEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "37874689",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/estates/EstateEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstateEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EstateEdit.vue?vue&type=template&id=37874689&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/estates/EstateEdit.vue?vue&type=template&id=37874689&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstateEdit_vue_vue_type_template_id_37874689_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

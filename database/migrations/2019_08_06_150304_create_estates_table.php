@@ -15,11 +15,12 @@ class CreateEstatesTable extends Migration
     {
         Schema::create('estates', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
             $table->unsignedBigInteger('neighbourhood_id');
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('contract_id');
-            $table->unsignedBigInteger('view_id');
             $table->unsignedBigInteger('finish_type_id');
+            $table->unsignedBigInteger('view_id');
             $table->decimal('area', 8, 2)->nullable();
             $table->integer('floor_number')->nullable();
             $table->integer('number_of_rooms')->nullable();

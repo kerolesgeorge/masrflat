@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Estate;
+use App\Http\Resources\Estate as EstateResource;
 use Illuminate\Http\Request;
 
 class EstateController extends Controller
@@ -12,8 +13,8 @@ class EstateController extends Controller
      */
     public function index()
     {
-        // Get all related fields for insertion
-
+        $estates = Estate::select('id', 'title')->get();
+        return EstateResource::collection($estates);
     }
 
     /**

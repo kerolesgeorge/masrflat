@@ -24,7 +24,7 @@
             <p>برجاء اختيار مدينة او ادخال حي جديد</p>
         </div>
 
-        <div class="card" v-if="neighbourhoods.length">
+        <div class="card" v-if="selected">
             <div class="d-flex justify-content-between">
                 <h3 class="m-1">الاحياء</h3>
 
