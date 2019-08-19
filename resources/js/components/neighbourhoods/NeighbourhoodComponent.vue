@@ -18,11 +18,6 @@
             </div>
         </form>
 
-        <!-- Add new city section -->
-        <button :class="[{invisible : isInvisible}, 'btn btn-success mb-3']" data-toggle="modal" data-target="#createNeighbourhood" @click="clearErrors">
-            اضافة حي جديد
-        </button>
-
         <!-- Cities list card -->
         <div v-if="!neighbourhoods.length">
             <h3>لا يوجد احياء</h3>
@@ -30,8 +25,13 @@
         </div>
 
         <div class="card" v-if="neighbourhoods.length">
+            <div class="d-flex justify-content-between">
+                <h3 class="m-1">الاحياء</h3>
 
-            <h3 class="m-3">المدن</h3>
+                <!-- Add new city section -->
+                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createNeighbourhood" @click="clearErrors">اضافة</button>
+            </div>
+
             <table class="table p-3">
                 <thead>
                     <tr>
@@ -241,8 +241,5 @@ export default {
     label {
         font-size: 1.25rem;
         font-weight: 400;
-    }
-    .invisible {
-        display: none;
     }
 </style>

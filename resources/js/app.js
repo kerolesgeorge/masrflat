@@ -24,22 +24,25 @@ window.Vue = require('vue');
  */
 const components = [
     // Cities components
-    {'name': 'city-component', 'location': 'cities/CityComponent.vue'},
+    {'name' : 'city-component', 'location' : 'cities/CityComponent.vue'},
 
     // Neighbourhoods components
-    {'name': 'neighbourhood-component', 'location': 'neighbourhoods/NeighbourhoodComponent.vue'},
+    {'name' : 'neighbourhood-component', 'location' : 'neighbourhoods/NeighbourhoodComponent.vue'},
 
     // Types components
-    {'name': 'type-component', 'location': 'types/TypeComponent.vue'},
+    {'name' : 'type-component', 'location' : 'types/TypeComponent.vue'},
 
     // Contracts components
-    {'name': 'contract-component', 'location': 'contracts/ContractComponent.vue'},
+    {'name' : 'contract-component', 'location' : 'contracts/ContractComponent.vue'},
 
     // Finishes components
-    {'name': 'finish-component', 'location': 'finishes/FinishComponent.vue'},
+    {'name' : 'finish-component', 'location' : 'finishes/FinishComponent.vue'},
 
     // Views components
-    {'name': 'view-component', 'location': 'views/ViewComponent.vue'},
+    {'name' : 'view-component', 'location' : 'views/ViewComponent.vue'},
+
+    // Estates components
+    {'name': 'estate-component', 'location' : 'estates/EstateComponent.vue'}
 ];
 
 // Include all components

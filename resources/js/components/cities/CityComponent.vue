@@ -1,8 +1,5 @@
 <template>
     <div>
-        <!-- Add new city section -->
-        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#createCity" @click="clearErrors">اضافة مدينة جديده</button>
-
         <!-- Page Loader -->
         <div class="loader-wrapper">
             <div class="loader"></div>
@@ -15,7 +12,13 @@
         </div>
 
         <div class="card" v-if="cities.length">
-            <h3 class="m-3">المدن</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="m-1">المدن</h3>
+
+                 <!-- Add new city section -->
+                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createCity" @click="clearErrors">اضافة</button>
+            </div>
+
             <table class="table p-3">
                 <thead>
                     <tr>

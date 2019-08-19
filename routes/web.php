@@ -53,3 +53,8 @@ Route::get('/admin/finishes', function() {
 Route::get('/admin/views', function() {
     return view('admin.views.index');
 });
+
+// Estates
+Route::get('/admin/estates', function() {
+    return view('admin.estates.index');
+});
