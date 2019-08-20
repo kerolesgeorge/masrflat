@@ -2582,6 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      createMode: false,
       estates: [],
       errors: []
     };
@@ -2632,7 +2633,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cities: [],
+      selectedCity: '',
+      neighbourhoods: [],
+      selectedNeighbourhood: ''
+    };
+  },
+  mounted: function mounted() {
+    this.fetchCities();
+  },
+  methods: {
+    fetchCities: function fetchCities() {
+      var _this = this;
+
+      axios.get('/api/cities').then(function (response) {
+        _this.cities = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong: \n' + error.message); //console.log(error.message);
+      });
+    },
+    fetchNeighbourhoods: function fetchNeighbourhoods() {
+      var _this2 = this;
+
+      axios.get("/api/cities/".concat(this.selectedCity, "/neighbourhoods")).then(function (response) {
+        _this2.neighbourhoods = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2981,7 +3044,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NeighbourhoodCreate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NeighbourhoodCreate */ "./resources/js/components/neighbourhoods/NeighbourhoodCreate.vue");
 /* harmony import */ var _NeighbourhoodEdit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NeighbourhoodEdit */ "./resources/js/components/neighbourhoods/NeighbourhoodEdit.vue");
-//
 //
 //
 //
@@ -41842,7 +41904,12 @@ var render = function() {
           {
             staticClass: "btn btn-success m-2",
             attrs: { "data-toggle": "modal", "data-target": "#createEstate" },
-            on: { click: _vm.clearErrors }
+            on: {
+              click: function($event) {
+                _vm.createMode = true
+                _vm.clearErrors
+              }
+            }
           },
           [_vm._v("اضافة")]
         )
@@ -41910,42 +41977,44 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "createEstate",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "createEstateLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
+    _vm.createMode
+      ? _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "createEstate",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "createEstateLabel",
+              "aria-hidden": "true"
+            }
+          },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  _c("estate-create", {
-                    attrs: { submitErrors: _vm.errors },
-                    on: { "estate-submitted": _vm.createEstate }
-                  })
-                ],
-                1
-              )
-            ])
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "modal-body" },
+                    [
+                      _c("estate-create", {
+                        attrs: { submitErrors: _vm.errors },
+                        on: { "estate-submitted": _vm.createEstate }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]
+            )
           ]
         )
-      ]
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -42019,9 +42088,152 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("form", [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-3 col-form-label", attrs: { for: "city" } },
+          [_vm._v("المدينة")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-9" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedCity,
+                  expression: "selectedCity"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "city", id: "city" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedCity = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.fetchNeighbourhoods
+                ]
+              }
+            },
+            _vm._l(_vm.cities, function(city) {
+              return _c(
+                "option",
+                { key: city.id, domProps: { value: city.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(city.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-sm-3 col-form-label",
+            attrs: { for: "neighbourhood" }
+          },
+          [_vm._v("الحي")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-9" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedNeighbourhood,
+                  expression: "selectedNeighbourhood"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "neighbourhood", id: "neighbourhood" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedNeighbourhood = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.neighbourhoods, function(neighbourhood) {
+              return _c(
+                "option",
+                {
+                  key: neighbourhood.id,
+                  domProps: { value: neighbourhood.id }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(neighbourhood.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-sm-3 col-form-label", attrs: { for: "title" } },
+        [_vm._v("عنوان الاعلان")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "title", name: "title" }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

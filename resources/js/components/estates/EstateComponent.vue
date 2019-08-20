@@ -16,7 +16,7 @@
                 <h3 class="m-1">العقارات</h3>
 
                  <!-- Add new estate section -->
-                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createEstate" @click="clearErrors">اضافة</button>
+                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createEstate" @click="createMode=true; clearErrors">اضافة</button>
             </div>
 
             <table class="table p-3">
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Create city modal -->
-        <div class="modal fade" id="createEstate" tabindex="-1" role="dialog" aria-labelledby="createEstateLabel" aria-hidden="true">
+        <div class="modal fade" id="createEstate" tabindex="-1" role="dialog" aria-labelledby="createEstateLabel" aria-hidden="true" v-if="createMode">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -80,6 +80,7 @@ import EstateEdit from './EstateEdit';
 export default {
     data() {
         return {
+            createMode: false,
             estates: [],
             errors: []
         }

@@ -47,11 +47,13 @@ class CityController extends Controller
     /**
      * Show Neighbourhoods by city
      */
-    public function showNeighbourhoods(City $city)
+    public function neighbourhoods(City $city)
     {
         $neighbourhoods = $city->neighbourhoods;
         return NeighbourhoodResource::collection($neighbourhoods);
     }
+
+
 
     /**
      * Validate city request
