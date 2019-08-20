@@ -3176,6 +3176,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 // Import neighbourhood components
 
 
@@ -42769,62 +42771,62 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("form", [
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          { staticClass: "col-sm-2 mt-3", attrs: { for: "cities" } },
-          [_vm._v("اختار من المدن")]
-        ),
+      _c("div", { staticClass: "form-group row mt-3" }, [
+        _c("label", { staticClass: "col-sm-2", attrs: { for: "cities" } }, [
+          _vm._v("اختار مدينة")
+        ]),
         _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selected,
-                expression: "selected"
-              }
-            ],
-            staticClass: "form-control p-1 col-sm-3 mt-3",
-            attrs: { id: "cities" },
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.selected = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  return _vm.changeCity()
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected,
+                  expression: "selected"
                 }
-              ]
-            }
-          },
-          _vm._l(_vm.cities, function(city) {
-            return _c(
-              "option",
-              { key: city.id, domProps: { value: city.id } },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(city.name) +
-                    "\n                "
-                )
-              ]
-            )
-          }),
-          0
-        )
+              ],
+              staticClass: "form-control p-1",
+              attrs: { id: "cities" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selected = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.changeCity()
+                  }
+                ]
+              }
+            },
+            _vm._l(_vm.cities, function(city) {
+              return _c(
+                "option",
+                { key: city.id, domProps: { value: city.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(city.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
       ])
     ]),
     _vm._v(" "),

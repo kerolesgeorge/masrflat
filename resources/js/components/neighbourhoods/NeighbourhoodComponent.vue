@@ -7,13 +7,15 @@
 
         <!-- Select city list -->
         <form>
-            <div class="form-group row">
-                <label for="cities" class="col-sm-2 mt-3">اختار من المدن</label>
-                <select id="cities" class="form-control p-1 col-sm-3 mt-3" v-model="selected" @change="changeCity()">
-                    <option v-for="city in cities" :key="city.id" :value="city.id">
-                        {{ city.name }}
-                    </option>
-                </select>
+            <div class="form-group row mt-3">
+                <label for="cities" class="col-sm-2">اختار مدينة</label>
+                <div class="col-sm-4">
+                    <select id="cities" class="form-control p-1" v-model="selected" @change="changeCity()">
+                        <option v-for="city in cities" :key="city.id" :value="city.id">
+                            {{ city.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
         </form>
 
