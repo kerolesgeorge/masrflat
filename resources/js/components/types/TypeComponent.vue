@@ -125,7 +125,7 @@ export default {
     data() {
         return {
             types: [],
-            errors: [],
+            errors: {},
             type: {},
             typeToDelete: '',
         }

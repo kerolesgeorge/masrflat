@@ -121,7 +121,7 @@ export default {
     data() {
         return {
             contracts: [],
-            errors: [],
+            errors: {},
             contract: {},
             contractDeleteId: '',
         }

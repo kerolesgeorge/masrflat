@@ -121,7 +121,7 @@ export default {
     data() {
         return {
             finishes: [],
-            errors: [],
+            errors: {},
             finish: {},
             finishDeleteId: '',
         }

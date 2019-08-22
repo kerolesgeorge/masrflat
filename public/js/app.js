@@ -1995,7 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       cities: [],
-      errors: [],
+      errors: {},
       city: {},
       cityDeleteId: ''
     };
@@ -2308,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       contracts: [],
-      errors: [],
+      errors: {},
       contract: {},
       contractDeleteId: ''
     };
@@ -2584,7 +2584,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       createMode: false,
       estates: [],
-      errors: []
+      estate: {},
+      errors: {}
     };
   },
   components: {
@@ -2663,17 +2664,169 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       cities: [],
-      selectedCity: '',
       neighbourhoods: [],
-      selectedNeighbourhood: ''
+      contracts: [],
+      types: [],
+      finishes: [],
+      views: [],
+      area: '',
+      floor: '',
+      rooms: '',
+      bathrooms: '',
+      living: '',
+      balconies: '',
+      buildYear: '',
+      garage: '',
+      elevator: '',
+      notes: '',
+      selectedCity: '',
+      selectedNeighbourhood: '',
+      selectedContract: '',
+      selectedType: '',
+      selectedFinish: '',
+      selectedView: ''
     };
   },
   mounted: function mounted() {
     this.fetchCities();
+    this.fetchContracts();
+    this.fetchTypes();
+    this.fetchFinishes();
+    this.fetchViews();
   },
   methods: {
     fetchCities: function fetchCities() {
@@ -2690,6 +2843,42 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/cities/".concat(this.selectedCity, "/neighbourhoods")).then(function (response) {
         _this2.neighbourhoods = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
+      });
+    },
+    fetchTypes: function fetchTypes() {
+      var _this3 = this;
+
+      axios.get('/api/types').then(function (response) {
+        _this3.types = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
+      });
+    },
+    fetchContracts: function fetchContracts() {
+      var _this4 = this;
+
+      axios.get('/api/contracts').then(function (response) {
+        _this4.contracts = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
+      });
+    },
+    fetchFinishes: function fetchFinishes() {
+      var _this5 = this;
+
+      axios.get('/api/finishtypes').then(function (response) {
+        _this5.finishes = response.data;
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
+      });
+    },
+    fetchViews: function fetchViews() {
+      var _this6 = this;
+
+      axios.get('/api/views').then(function (response) {
+        _this6.views = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
@@ -2850,7 +3039,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       finishes: [],
-      errors: [],
+      errors: {},
       finish: {},
       finishDeleteId: ''
     };
@@ -3189,7 +3378,7 @@ __webpack_require__.r(__webpack_exports__);
       neighbourhood: {},
       selected: '',
       neighbourhoodDeleteId: '',
-      errors: [],
+      errors: {},
       isInvisible: true
     };
   },
@@ -3314,7 +3503,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: '',
-      errors: [],
       neighbourhood: {}
     };
   },
@@ -3548,7 +3736,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       types: [],
-      errors: [],
+      errors: {},
       type: {},
       typeToDelete: ''
     };
@@ -3867,7 +4055,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       views: [],
-      errors: [],
+      errors: {},
       view: {},
       viewDeleteId: ''
     };
@@ -42097,11 +42285,11 @@ var render = function() {
       _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
-          { staticClass: "col-sm-3 col-form-label", attrs: { for: "city" } },
+          { staticClass: "col-sm-2 col-form-label", attrs: { for: "city" } },
           [_vm._v("المدينة")]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-9" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
           _c(
             "select",
             {
@@ -42113,8 +42301,8 @@ var render = function() {
                   expression: "selectedCity"
                 }
               ],
-              staticClass: "form-control",
-              attrs: { name: "city", id: "city" },
+              staticClass: "form-control p-1",
+              attrs: { id: "city" },
               on: {
                 change: [
                   function($event) {
@@ -42149,20 +42337,18 @@ var render = function() {
             }),
             0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
+        ]),
+        _vm._v(" "),
         _c(
           "label",
           {
-            staticClass: "col-sm-3 col-form-label",
+            staticClass: "col-sm-2 col-form-label",
             attrs: { for: "neighbourhood" }
           },
           [_vm._v("الحي")]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-9" }, [
+        _c("div", { staticClass: "col-sm-4" }, [
           _c(
             "select",
             {
@@ -42174,8 +42360,8 @@ var render = function() {
                   expression: "selectedNeighbourhood"
                 }
               ],
-              staticClass: "form-control",
-              attrs: { name: "neighbourhood", id: "neighbourhood" },
+              staticClass: "form-control p-1",
+              attrs: { id: "neighbourhood" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -42211,7 +42397,644 @@ var render = function() {
             0
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { for: "type" } },
+          [_vm._v("العقار")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedType,
+                  expression: "selectedType"
+                }
+              ],
+              staticClass: "form-control p-1",
+              attrs: { id: "type" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedType = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.types, function(etype) {
+              return _c(
+                "option",
+                { key: etype.id, domProps: { value: etype.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(etype.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "col-sm-2 col-form-label",
+            attrs: { for: "contract" }
+          },
+          [_vm._v("العقد")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedContract,
+                  expression: "selectedContract"
+                }
+              ],
+              staticClass: "form-control p-1",
+              attrs: { id: "contract" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedContract = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.contracts, function(contract) {
+              return _c(
+                "option",
+                { key: contract.id, domProps: { value: contract.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(contract.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { for: "finish" } },
+          [_vm._v("التشطيب")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedFinish,
+                  expression: "selectedFinish"
+                }
+              ],
+              staticClass: "form-control p-1",
+              attrs: { id: "finish" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedFinish = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.finishes, function(finish) {
+              return _c(
+                "option",
+                { key: finish.id, domProps: { value: finish.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(finish.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { for: "view" } },
+          [_vm._v("الواجهات")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-4" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedView,
+                  expression: "selectedView"
+                }
+              ],
+              staticClass: "form-control p-1",
+              attrs: { id: "view" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selectedView = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.views, function(view) {
+              return _c(
+                "option",
+                { key: view.id, domProps: { value: view.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(view.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.area,
+                expression: "area"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "area" },
+            domProps: { value: _vm.area },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.area = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "col-form-label col-sm-3", attrs: { for: "floor" } },
+          [_vm._v("الدور")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.floor,
+                expression: "floor"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "floor" },
+            domProps: { value: _vm.floor },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.floor = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-form-label col-sm-3", attrs: { for: "rooms" } },
+          [_vm._v("عدد الغرف")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.rooms,
+                expression: "rooms"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "rooms" },
+            domProps: { value: _vm.rooms },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.rooms = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "col-form-label col-sm-3",
+            attrs: { for: "bathrooms" }
+          },
+          [_vm._v("عدد الحمامات")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.bathrooms,
+                expression: "bathrooms"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "bathrooms" },
+            domProps: { value: _vm.bathrooms },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.bathrooms = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-form-label col-sm-3", attrs: { for: "living" } },
+          [_vm._v("عدد المعيشة")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.living,
+                expression: "living"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "living" },
+            domProps: { value: _vm.living },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.living = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "col-form-label col-sm-3",
+            attrs: { for: "balconies" }
+          },
+          [_vm._v("عدد البلكونات")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.balconies,
+                expression: "balconies"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "balconies" },
+            domProps: { value: _vm.balconies },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.balconies = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-form-label col-sm-3",
+            attrs: { for: "buildYear" }
+          },
+          [_vm._v("سنة البناء")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.buildYear,
+                expression: "buildYear"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "buildYear" },
+            domProps: { value: _vm.buildYear },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.buildYear = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-form-label col-sm-3", attrs: { for: "garage" } },
+          [_vm._v("جراج")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("div", { staticClass: "form-check form-check-inline" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.garage,
+                  expression: "garage"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "garage",
+                id: "garage1",
+                value: "1"
+              },
+              domProps: { checked: _vm._q(_vm.garage, "1") },
+              on: {
+                change: function($event) {
+                  _vm.garage = "1"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label mr-1",
+                attrs: { for: "garage1" }
+              },
+              [_vm._v("يوجد ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check form-check-inline" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.garage,
+                  expression: "garage"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "garage",
+                id: "garage0",
+                value: "0"
+              },
+              domProps: { checked: _vm._q(_vm.garage, "0") },
+              on: {
+                change: function($event) {
+                  _vm.garage = "0"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label mr-1",
+                attrs: { for: "garage0" }
+              },
+              [_vm._v("لا يوجد")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          {
+            staticClass: "col-form-label col-sm-3",
+            attrs: { for: "elevator" }
+          },
+          [_vm._v("اسانسير")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c("div", { staticClass: "form-check form-check-inline" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.elevator,
+                  expression: "elevator"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "elevator",
+                id: "elevator1",
+                value: "1"
+              },
+              domProps: { checked: _vm._q(_vm.elevator, "1") },
+              on: {
+                change: function($event) {
+                  _vm.elevator = "1"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label mr-1",
+                attrs: { for: "elevator1" }
+              },
+              [_vm._v("يوجد ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check form-check-inline" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.elevator,
+                  expression: "elevator"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "elevator",
+                id: "elevator0",
+                value: "0"
+              },
+              domProps: { checked: _vm._q(_vm.elevator, "0") },
+              on: {
+                change: function($event) {
+                  _vm.elevator = "0"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label mr-1",
+                attrs: { for: "elevator0" }
+              },
+              [_vm._v("لا يوجد")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-form-label col-sm-3", attrs: { for: "notes" } },
+          [_vm._v("ملاحظات")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-9" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.notes,
+                expression: "notes"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "notes", rows: "3" },
+            domProps: { value: _vm.notes },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.notes = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2)
     ])
   ])
 }
@@ -42230,8 +43053,37 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-sm-9" }, [
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "text", id: "title", name: "title" }
+          attrs: { type: "text", id: "title" }
         })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-sm-3", attrs: { for: "area" } },
+      [_vm._v("المساحة م"), _c("span", [_c("sup", [_vm._v("2")])])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-3" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary pr-4 pl-4",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("اضافة")]
+        )
       ])
     ])
   }
@@ -58578,8 +59430,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

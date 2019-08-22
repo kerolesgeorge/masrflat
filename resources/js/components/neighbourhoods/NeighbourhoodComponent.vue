@@ -145,7 +145,7 @@ export default {
             neighbourhood: {},
             selected: '',
             neighbourhoodDeleteId: '',
-            errors: [],
+            errors: {},
             isInvisible: true,
         }
     },

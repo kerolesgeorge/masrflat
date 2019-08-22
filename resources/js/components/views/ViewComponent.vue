@@ -124,7 +124,7 @@ export default {
     data() {
         return {
             views: [],
-            errors: [],
+            errors: {},
             view: {},
             viewDeleteId: '',
         }

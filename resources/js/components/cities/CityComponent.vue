@@ -122,7 +122,7 @@ export default {
     data() {
         return {
             cities: [],
-            errors: [],
+            errors: {},
             city: {},
             cityDeleteId: '',
         }

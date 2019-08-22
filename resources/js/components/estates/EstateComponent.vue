@@ -82,7 +82,8 @@ export default {
         return {
             createMode: false,
             estates: [],
-            errors: []
+            estate: {},
+            errors: {}
         }
     },
 
