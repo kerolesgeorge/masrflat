@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Estate;
 use App\Http\Resources\Estate as EstateResource;
+use App\Image;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image as InterventionImage;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 class EstateController extends Controller
@@ -22,10 +26,42 @@ class EstateController extends Controller
      */
     public function store()
     {
-        $estate = Estate::create($this->validateRequest());
+        dd(request()->all());
+        /* $estate = Estate::create($this->validateRequest());
+
         // Return last inserted id
-        //$id = $estate->id;
-        return new EstateResource($estate);
+        $estate_id = $estate->id;
+
+        // Upload images
+        if (request()->hasFile('images')) {
+            $images = Collection::wrap(request()->file('images'));
+            $images->each(function($image) {
+                $path = $image->store('uploads', 'public');
+                global $estate_id;
+                Image::create([
+                    'estate_id' => $estate_id,
+                    'url' => $path,
+                ]);
+
+                // Get image width and height and resize
+                $height = InterventionImage::make($image)->height();
+                $width = InterventionImage::make($image)->width();
+
+                // Check for image orientation
+                if ($width > $height) {
+                    InterventionImage::make($image)
+                    ->resize(1000, 700)
+                    ->save(public_path("storage/{$path}"));
+                } else {
+                    InterventionImage::make($image)
+                    ->resize(700, 1000)
+                    ->save(public_path("storage/{$path}"));
+                }
+
+            });
+        }
+
+        return new EstateResource($estate); */
     }
 
     /**

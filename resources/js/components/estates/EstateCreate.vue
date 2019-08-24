@@ -1,7 +1,6 @@
 <template>
     <div>
         <form>
-
             <!-- Estate title -->
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">عنوان الاعلان</label>
@@ -176,7 +175,7 @@
             <div class="row">
                 <label for="notes" class="col-form-label col-sm-3">ضيف صور</label>
                 <div class="col-sm-9 px-5">
-                    <div class="images" ref="imageUpload"></div>
+                    <input type="file" id="images" ref="images" multiple @change="imagesUpload">
                 </div>
             </div>
 
@@ -193,8 +192,6 @@
 </template>
 
 <script>
-// Import Dropzone for multiple file upload
-import Dropzone from 'dropzone';
 
 export default {
     props: ['submitErrors'],
@@ -218,8 +215,8 @@ export default {
             garage: null,
             elevator: null,
             notes: null,
+            images: [],
             estate: {},
-            dropzone: null,
 
             selectedCity: null,
             selectedNeighbourhood: null,
@@ -236,11 +233,6 @@ export default {
         this.fetchTypes();
         this.fetchFinishes();
         this.fetchViews();
-
-        // Dropzone
-        this.dropzone = new Dropzone(this.$refs.imageUpload, {
-            url: '/api/images'
-        });
     },
 
     methods: {
@@ -291,6 +283,10 @@ export default {
             }).catch(error => {
                 alert('Something went wrong \n' + error.message);
             });
+        },
+
+        imagesUpload() {
+
         },
 
         onSubmit() {
