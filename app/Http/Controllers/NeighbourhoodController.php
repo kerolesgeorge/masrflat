@@ -61,13 +61,13 @@ class NeighbourhoodController extends Controller
     {
         $request = [];
 
-        if (request()->has('name')) {
+        if (request()->has('name'))
             $request['name'] = 'required | unique:neighbourhoods';
-        }
 
-        if (request()->has('city_id')) {
+
+        if (request()->has('city_id'))
             $request['city_id'] = 'required';
-        }
+
 
         return request()->validate($request);
     }

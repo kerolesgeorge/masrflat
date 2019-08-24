@@ -3,7 +3,7 @@
         <form>
             <div class="form-row mb-3">
                 <label for="name" class="col-md-3 col-form-label">اسم الحي</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="name">
+                <input type="text" :class="[{'is-invalid' : checkError('name')}, 'form-control col-md-9']" id="name" name="name" v-model="name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <div class="form-row">
@@ -32,6 +32,10 @@ export default {
             }
             this.$emit('neighbourhood-submitted', this.neighbourhood);
         },
+
+        checkError(prop) {
+            return this.submitErrors.hasOwnProperty(prop);
+        }
     },
 
     computed: {

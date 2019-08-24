@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم العقد</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="name">
+                <input type="text" :class="[{'is-invalid' : checkError('name')}, 'form-control']" id="name" name="name" v-model="name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">اضافة</button>
@@ -29,6 +29,10 @@ export default {
             }
             this.$emit('contract-submitted', this.contract);
             this.name = '';
+        },
+
+        checkError(prop) {
+            return this.submitErrors.hasOwnProperty(prop);
         }
     },
 

@@ -6,7 +6,8 @@
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">عنوان الاعلان</label>
                 <div class="col-sm-9">
-                <input type="text" class="form-control" id="title">
+                    <input type="text" :class="[{'is-invalid' : checkError('title')}, 'form-control']" id="title" v-model="title">
+                    <div class="invalid-feedback">{{ getError('title') }}</div>
                 </div>
             </div>
 
@@ -23,11 +24,12 @@
 
                 <label for="neighbourhood" class="col-sm-2 col-form-label">الحي</label>
                 <div class="col-sm-4">
-                    <select id="neighbourhood" class="form-control p-1" v-model="selectedNeighbourhood">
+                    <select id="neighbourhood" :class="[{'is-invalid' : checkError('neighbourhood_id')}, 'form-control p-1']" v-model="selectedNeighbourhood">
                         <option v-for="neighbourhood in neighbourhoods" :key="neighbourhood.id" :value="neighbourhood.id">
                             {{ neighbourhood.name }}
                         </option>
                     </select>
+                    <div class="invalid-feedback">{{ getError('neighbourhood_id') }}</div>
                 </div>
             </div>
 
@@ -35,20 +37,22 @@
             <div class="form-group row">
                 <label for="type" class="col-sm-2 col-form-label">العقار</label>
                 <div class="col-sm-4">
-                    <select id="type" class="form-control p-1" v-model="selectedType">
+                    <select id="type" :class="[{'is-invalid' : checkError('type_id')}, 'form-control p-1']" v-model="selectedType">
                         <option v-for="etype in types" :key="etype.id" :value="etype.id">
                             {{ etype.name }}
                         </option>
                     </select>
+                    <div class="invalid-feedback">{{ getError('type_id') }}</div>
                 </div>
 
                 <label for="contract" class="col-sm-2 col-form-label">العقد</label>
                 <div class="col-sm-4">
-                    <select id="contract" class="form-control p-1" v-model="selectedContract">
+                    <select id="contract" :class="[{'is-invalid' : checkError('contract_id')}, 'form-control p-1']" v-model="selectedContract">
                         <option v-for="contract in contracts" :key="contract.id" :value="contract.id">
                             {{ contract.name }}
                         </option>
                     </select>
+                    <div class="invalid-feedback">{{ getError('contract_id') }}</div>
                 </div>
             </div>
 
@@ -56,32 +60,39 @@
             <div class="form-group row">
                 <label for="finish" class="col-sm-2 col-form-label">التشطيب</label>
                 <div class="col-sm-4">
-                    <select id="finish" class="form-control p-1" v-model="selectedFinish">
+                    <select id="finish" :class="[{'is-invalid' : checkError('finish_type_id')}, 'form-control p-1']" v-model="selectedFinish">
                         <option v-for="finish in finishes" :key="finish.id" :value="finish.id">
                             {{ finish.name }}
                         </option>
                     </select>
+                    <div class="invalid-feedback">{{ getError('finish_type_id') }}</div>
                 </div>
 
                 <label for="view" class="col-sm-2 col-form-label">الواجهات</label>
                 <div class="col-sm-4">
-                    <select id="view" class="form-control p-1" v-model="selectedView">
+                    <select id="view" :class="[{'is-invalid' : checkError('view_id')}, 'form-control p-1']" v-model="selectedView">
                         <option v-for="view in views" :key="view.id" :value="view.id">
                             {{ view.name }}
                         </option>
                     </select>
+                    <div class="invalid-feedback">{{ getError('view_id') }}</div>
                 </div>
             </div>
+
+            <hr>
 
             <!-- Area and floor inputs -->
             <div class="form-group row">
                 <label for="area" class="col-form-label col-sm-3">المساحة م<span><sup>2</sup></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="area" class="form-control" v-model="area">
+                    <input type="text" id="area" :class="[{'is-invalid' : checkError('area')}, 'form-control']" v-model="area">
+                    <div class="invalid-feedback">{{ getError('area') }}</div>
                 </div>
+
                 <label for="floor" class="col-form-label col-sm-3">الدور</label>
                 <div class="col-sm-3">
-                    <input type="text" id="floor" class="form-control" v-model="floor">
+                    <input type="text" id="floor" :class="[{'is-invalid' : checkError('floor_number')}, 'form-control']" v-model="floor">
+                    <div class="invalid-feedback">{{ getError('floor_number') }}</div>
                 </div>
             </div>
 
@@ -89,11 +100,14 @@
             <div class="form-group row">
                 <label for="rooms" class="col-form-label col-sm-3">عدد الغرف</label>
                 <div class="col-sm-3">
-                    <input type="text" id="rooms" class="form-control" v-model="rooms">
+                    <input type="text" id="rooms" :class="[{'is-invalid' : checkError('number_of_rooms')}, 'form-control']" v-model="rooms">
+                    <div class="invalid-feedback">{{ getError('number_of_rooms') }}</div>
                 </div>
+
                 <label for="bathrooms" class="col-form-label col-sm-3">عدد الحمامات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="bathrooms" class="form-control" v-model="bathrooms">
+                    <input type="text" id="bathrooms" :class="[{'is-invalid' : checkError('number_of_bathrooms')}, 'form-control']" v-model="bathrooms">
+                    <div class="invalid-feedback">{{ getError('number_of_bathrooms') }}</div>
                 </div>
             </div>
 
@@ -101,11 +115,14 @@
             <div class="form-group row">
                 <label for="living" class="col-form-label col-sm-3">عدد المعيشة</label>
                 <div class="col-sm-3">
-                    <input type="text" id="living" class="form-control" v-model="living">
+                    <input type="text" id="living" :class="[{'is-invalid' : checkError('number_of_living_spaces')}, 'form-control']" v-model="living">
+                    <div class="invalid-feedback">{{ getError('number_of_living_spaces') }}</div>
                 </div>
+
                 <label for="balconies" class="col-form-label col-sm-3">عدد البلكونات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="balconies" class="form-control" v-model="balconies">
+                    <input type="text" id="balconies" :class="[{'is-invalid' : checkError('number_of_balconies')}, 'form-control']" v-model="balconies">
+                    <div class="invalid-feedback">{{ getError('number_of_balconies') }}</div>
                 </div>
             </div>
 
@@ -113,7 +130,8 @@
             <div class="form-group row">
                 <label for="buildYear" class="col-form-label col-sm-3">سنة البناء</label>
                 <div class="col-sm-3">
-                    <input type="text" id="buildYear" class="form-control" v-model="buildYear">
+                    <input type="text" id="buildYear" :class="[{'is-invalid' : checkError('build_year')}, 'form-control']" v-model="buildYear">
+                    <div class="invalid-feedback">{{ getError('build_year') }}</div>
                 </div>
             </div>
 
@@ -144,6 +162,8 @@
                 </div>
             </div>
 
+            <hr>
+
             <!-- Notes input -->
             <div class="form-group row">
                 <label for="notes" class="col-form-label col-sm-3">ملاحظات</label>
@@ -152,11 +172,19 @@
                 </div>
             </div>
 
+            <!-- Image upload -->
+            <div class="row">
+                <label for="notes" class="col-form-label col-sm-3">ضيف صور</label>
+                <div class="col-sm-9 px-5">
+                    <div class="images" ref="imageUpload"></div>
+                </div>
+            </div>
+
             <!-- Submit button -->
             <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-3">
-                    <button type="submit" class="btn btn-primary pr-4 pl-4">اضافة</button>
+                    <button type="submit" class="btn btn-primary pr-4 pl-4" @click.prevent="onSubmit">اضافة</button>
                 </div>
             </div>
 
@@ -165,7 +193,12 @@
 </template>
 
 <script>
+// Import Dropzone for multiple file upload
+import Dropzone from 'dropzone';
+
 export default {
+    props: ['submitErrors'],
+
     data() {
         return {
             cities: [],
@@ -174,23 +207,26 @@ export default {
             types: [],
             finishes: [],
             views: [],
-            area: '',
-            floor: '',
-            rooms: '',
-            bathrooms: '',
-            living: '',
-            balconies: '',
-            buildYear: '',
-            garage: '',
-            elevator: '',
-            notes: '',
+            title: null,
+            area: null,
+            floor: null,
+            rooms: null,
+            bathrooms: null,
+            living: null,
+            balconies: null,
+            buildYear: null,
+            garage: null,
+            elevator: null,
+            notes: null,
+            estate: {},
+            dropzone: null,
 
-            selectedCity: '',
-            selectedNeighbourhood: '',
-            selectedContract: '',
-            selectedType: '',
-            selectedFinish: '',
-            selectedView: '',
+            selectedCity: null,
+            selectedNeighbourhood: null,
+            selectedContract: null,
+            selectedType: null,
+            selectedFinish: null,
+            selectedView: null,
         }
     },
 
@@ -200,6 +236,11 @@ export default {
         this.fetchTypes();
         this.fetchFinishes();
         this.fetchViews();
+
+        // Dropzone
+        this.dropzone = new Dropzone(this.$refs.imageUpload, {
+            url: '/api/images'
+        });
     },
 
     methods: {
@@ -250,12 +291,61 @@ export default {
             }).catch(error => {
                 alert('Something went wrong \n' + error.message);
             });
-        }
+        },
 
+        onSubmit() {
+            this.estate = {
+                'title' : this.title,
+                'neighbourhood_id' : this.selectedNeighbourhood,
+                'type_id' : this.selectedType,
+                'contract_id' : this.selectedContract,
+                'finish_type_id' : this.selectedFinish,
+                'view_id' : this.selectedView,
+                'area' : this.area,
+            }
+
+            // Check for optional properties
+            if (this.floor) this.estate.floor_number = this.floor;
+            if (this.rooms) this.estate.number_of_rooms = this.rooms;
+            if (this.bathrooms) this.estate.number_of_bathrooms = this.bathrooms;
+            if (this.living) this.estate.number_of_living_spaces = this.living;
+            if (this.balconies) this.estate.number_of_balconies = this.balconies;
+            if (this.buildYear) this.estate.build_year = this.buildYear;
+            if (this.garage) this.estate.has_garage = this.garage;
+            if (this.elevator) this.estate.has_elevator = this.elevator;
+            if (this.notes) this.estate.notes = this.notes;
+
+            this.$emit('estate-submitted', this.estate);
+        },
+
+        checkError(prop) {
+            return this.submitErrors.hasOwnProperty(prop);
+        },
+
+        getError(prop) {
+            return this.checkError(prop) ? this.submitErrors[prop][0] : '';
+        }
+    },
+
+    computed: {
+        errors() {
+            return this.submitErrors;
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    .images {
+        border: 2px dashed #c1c1c1;
+        border-radius: 0.25rem;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
 
+        &::after {
+            content: '\002B';
+        }
+    }
 </style>

@@ -27,7 +27,7 @@ class CreateEstatesTable extends Migration
             $table->integer('number_of_bathrooms')->nullable();
             $table->integer('number_of_living_spaces')->nullable();
             $table->integer('number_of_balconies')->nullable();
-            $table->date('build_year')->nullable();
+            $table->year('build_year')->nullable();
             $table->boolean('has_garage')->nullable();
             $table->boolean('has_elevator')->nullable();
             $table->text('notes')->nullable();

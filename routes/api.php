@@ -40,3 +40,6 @@ Route::apiResource('/views', 'ViewController');
 
 // Estates API
 Route::apiResource('/estates', 'EstateController');
+
+// Images
+Route::post('/images', 'ImageController@store');

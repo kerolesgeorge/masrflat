@@ -83,4 +83,7 @@
         </div>
     </div>
 
+    <!-- Image gallery test -->
+    Images test here
+
 @endsection

@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Images test
+Route::get('/image-gallery', 'ImageController@index');
+Route::delete('/images/{image}', 'ImageController@destroy');
+
 // Admin
 Route::get('/admin', function() {
     return view('admin.index');

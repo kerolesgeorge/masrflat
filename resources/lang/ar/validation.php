@@ -151,7 +151,19 @@ return [
         'q'                     => 'البحث',
         'link'                  => ' ',
         'slug'                  => ' ',
-        'city_id'               => 'المدينة'
+        'area'                  => 'المساحة',
+        'city_id'               => 'المدينة',
+        'neighbourhood_id'      => 'الحي',
+        'contract_id'           => 'العقد',
+        'finish_type_id'        => 'التشطيب',
+        'type_id'               => 'نوع العقار',
+        'view_id'               => 'الواجهة',
+        'floor_number'          => 'الدور',
+        'number_of_rooms'       => 'عدد الغرف',
+        'number_of_bathrooms'   => 'عدد الحمامات',
+        'number_of_living_spaces' => 'عدد غرف المعيشة',
+        'number_of_balconies'   => 'عدد البلكونات',
+        'build_year'            => 'سنة البناء',
     ],
 
 ];

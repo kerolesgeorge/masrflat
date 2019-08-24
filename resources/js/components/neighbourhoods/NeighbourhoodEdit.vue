@@ -40,16 +40,12 @@ export default {
             }
 
             // Check if name is changed
-            if (this.neighbourhood.name != this.name) {
-                // Add changed name to neighbourhood object
+            if (this.neighbourhood.name != this.name)
                 this.neighbourhoodUpdate.name = this.neighbourhood.name;
-            }
 
-            // Check if selected city is changed
-            if (this.neighbourhood.city_id != this.cityId) {
-                // Add changed city to neighbourhood object
+            if (this.neighbourhood.city_id != this.cityId)
                 this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id;
-            }
+
             this.$emit('neighbourhood-update', this.neighbourhoodUpdate);
         },
     },

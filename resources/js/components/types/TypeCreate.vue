@@ -3,8 +3,8 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم النوع</label>
-                <input type="text" :class="[{'is-invalid' : isError}, 'form-control']" id="name" name="name" v-model="name">
-                <div class="invalid-feedback">{{ errorMsg }}</div>
+                <input type="text" :class="[{'is-invalid' : checkError('name')}, 'form-control']" id="name" name="name" v-model="name">
+                <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">اضافة</button>
         </form>
@@ -29,16 +29,17 @@ export default {
             }
             this.$emit('type-submitted', this.type);
             this.name = '';
+        },
+
+        checkError(prop) {
+            return this.submitErrors.hasOwnProperty(prop);
         }
     },
 
     computed: {
-        isError() {
-             return this.submitErrors.name;
-        },
-
-        errorMsg() {
-            return this.submitErrors.name ? this.submitErrors.name[0] : '';
+        nameError() {
+            let error = this.submitErrors;
+            return error.hasOwnProperty('name') ? error.name[0] : '';
         }
     }
 }

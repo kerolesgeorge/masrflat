@@ -30,7 +30,7 @@
                 <tbody>
                     <tr v-for="estate in estates" :key="estate.id">
                         <th scope="row">{{ estate.id }}</th>
-                        <td>{{ estate.name }}</td>
+                        <td>{{ estate.title }}</td>
                         <td>
 
                             <!-- Update button -->
@@ -110,8 +110,14 @@ export default {
             });
         },
 
-        createEstate() {
-
+        createEstate(estate) {
+            axios.post('/api/estates', estate).then(response => {
+                this.fetchEstates();
+                $('#createEstate').modal('hide');
+            }).catch(error => {
+                // Get laravel validation error
+                this.errors = error.response.data.errors;
+            });
         },
 
         editEstate() {

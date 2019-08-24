@@ -20,9 +20,12 @@ class EstateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $estate = Estate::create($this->validateRequest());
+        // Return last inserted id
+        //$id = $estate->id;
+        return new EstateResource($estate);
     }
 
     /**
@@ -35,10 +38,6 @@ class EstateController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Estate  $estate
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Estate $estate)
     {
@@ -47,12 +46,45 @@ class EstateController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Estate  $estate
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Estate $estate)
     {
         //
+    }
+
+    /**
+     * Validate request
+     */
+    private function validateRequest()
+    {
+        $request = [
+            'title' => 'required',
+            'neighbourhood_id' => 'required',
+            'type_id' => 'required',
+            'contract_id' => 'required',
+            'finish_type_id' => 'required',
+            'view_id' => 'required',
+            'area' => 'required | numeric',
+        ];
+
+        if (request()->has('floor_number'))
+            $request['floor_number'] = 'numeric';
+
+        if (request()->has('number_of_rooms'))
+            $request['number_of_rooms'] = 'numeric';
+
+        if (request()->has('number_of_bathrooms'))
+            $request['number_of_bathrooms'] = 'numeric';
+
+        if (request()->has('number_of_living_spaces'))
+            $request['number_of_living_spaces'] = 'numeric';
+
+        if (request()->has('number_of_balconies'))
+            $request['number_of_balconies'] = 'numeric';
+
+        if (request()->has('build_year'))
+            $request['build_year'] = 'numeric';
+
+        return request()->validate($request);
     }
 }
