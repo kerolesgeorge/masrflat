@@ -69,6 +69,24 @@
             </div>
         </div>
 
+        <!-- Delete estate modal -->
+        <div class="modal fade" id="deleteEstate" tabindex="-1" role="dialog" aria-labelledby="deleteEstateLabel" aria-hidden="true" dir="ltr">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="flex-direction:row-reverse!important">
+                        <h5 class="modal-title" id="deleteEstateLabel">حذف عقار</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @click="deleteEstate">احذف</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -80,10 +98,10 @@ import EstateEdit from './EstateEdit';
 export default {
     data() {
         return {
-            createMode: false,
             estates: [],
-            estate: {},
-            errors: {}
+            errors: {},
+            estateDeleteId: null,
+            createMode: false,
         }
     },
 
@@ -111,7 +129,12 @@ export default {
         },
 
         createEstate(estate) {
-            axios.post('/api/estates', estate).then(response => {
+            axios.post('/api/estates', estate, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            ).then(response => {
                 this.fetchEstates();
                 $('#createEstate').modal('hide');
             }).catch(error => {
@@ -128,12 +151,19 @@ export default {
 
         },
 
-        getEstateToDelete() {
+        getEstateToDelete(id) {
+            this.estateDeleteId = id;
+        },
 
+        deleteEstate() {
+            axios.delete(`/api/estates/${this.estateDeleteId}`).then(response => {
+                this.fetchEstates();
+                $('#deleteEstate').modal('hide');
+            })
         },
 
         clearErrors() {
-
+            this.errors = [];
         },
     }
 }

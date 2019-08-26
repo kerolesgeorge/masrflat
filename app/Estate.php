@@ -54,4 +54,9 @@ class Estate extends Model
         return $this->belongsTo(View::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
 }

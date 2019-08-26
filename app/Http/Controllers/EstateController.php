@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 class EstateController extends Controller
 {
+    protected $estate_id;
+
     /**
      * Display a listing of the resource.
      */
@@ -26,20 +28,18 @@ class EstateController extends Controller
      */
     public function store()
     {
-        dd(request()->all());
-        /* $estate = Estate::create($this->validateRequest());
+        $estate = Estate::create($this->validateRequest());
 
         // Return last inserted id
-        $estate_id = $estate->id;
+        $this->estate_id = $estate->id;
 
         // Upload images
         if (request()->hasFile('images')) {
-            $images = Collection::wrap(request()->file('images'));
+            $images = Collection::wrap($this->validateImage());
             $images->each(function($image) {
                 $path = $image->store('uploads', 'public');
-                global $estate_id;
                 Image::create([
-                    'estate_id' => $estate_id,
+                    'estate_id' => $this->estate_id,
                     'url' => $path,
                 ]);
 
@@ -61,7 +61,7 @@ class EstateController extends Controller
             });
         }
 
-        return new EstateResource($estate); */
+        return new EstateResource($estate);
     }
 
     /**
@@ -122,5 +122,16 @@ class EstateController extends Controller
             $request['build_year'] = 'numeric';
 
         return request()->validate($request);
+    }
+
+    /**
+     * Validate images
+     */
+    private function validateImage()
+    {
+        return request()->validate([
+            'images' => 'required',
+            'images.*' => 'image'
+        ]);
     }
 }

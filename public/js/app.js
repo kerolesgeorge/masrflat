@@ -2100,14 +2100,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: '',
-      city: {}
+      city: null
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      this.city = {
-        name: this.name
-      };
+      var form = document.getElementById('city-form');
+      this.city = new FormData(form);
       this.$emit('city-submitted', this.city);
       this.name = '';
     },
@@ -2579,16 +2578,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // Import estate components
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      createMode: false,
       estates: [],
-      estate: {},
-      errors: {}
+      errors: {},
+      estateDeleteId: null,
+      createMode: false
     };
   },
   components: {
@@ -2615,7 +2632,11 @@ __webpack_require__.r(__webpack_exports__);
     createEstate: function createEstate(estate) {
       var _this2 = this;
 
-      axios.post('/api/estates', estate).then(function (response) {
+      axios.post('/api/estates', estate, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         _this2.fetchEstates();
 
         $('#createEstate').modal('hide');
@@ -2626,8 +2647,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     editEstate: function editEstate() {},
     updateEstate: function updateEstate() {},
-    getEstateToDelete: function getEstateToDelete() {},
-    clearErrors: function clearErrors() {}
+    getEstateToDelete: function getEstateToDelete(id) {
+      this.estateDeleteId = id;
+    },
+    deleteEstate: function deleteEstate() {
+      var _this3 = this;
+
+      axios["delete"]("/api/estates/".concat(this.estateDeleteId)).then(function (response) {
+        _this3.fetchEstates();
+
+        $('#deleteEstate').modal('hide');
+      });
+    },
+    clearErrors: function clearErrors() {
+      this.errors = [];
+    }
   }
 });
 
@@ -2835,6 +2869,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['submitErrors'],
   data: function data() {
@@ -2845,25 +2880,24 @@ __webpack_require__.r(__webpack_exports__);
       types: [],
       finishes: [],
       views: [],
-      title: null,
-      area: null,
-      floor: null,
-      rooms: null,
-      bathrooms: null,
-      living: null,
-      balconies: null,
-      buildYear: null,
-      garage: null,
-      elevator: null,
-      notes: null,
+      title: '',
+      area: '',
+      floor: '',
+      rooms: '',
+      bathrooms: '',
+      living: '',
+      balconies: '',
+      buildYear: '',
+      garage: '',
+      elevator: '',
+      notes: '',
       images: [],
-      estate: {},
-      selectedCity: null,
-      selectedNeighbourhood: null,
-      selectedContract: null,
-      selectedType: null,
-      selectedFinish: null,
-      selectedView: null
+      selectedCity: '',
+      selectedNeighbourhood: '',
+      selectedContract: '',
+      selectedType: '',
+      selectedFinish: '',
+      selectedView: ''
     };
   },
   mounted: function mounted() {
@@ -2928,28 +2962,39 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
-    imagesUpload: function imagesUpload() {},
+    imagesUpload: function imagesUpload() {
+      this.images = this.$refs.images.files;
+    },
     onSubmit: function onSubmit() {
-      this.estate = {
-        'title': this.title,
-        'neighbourhood_id': this.selectedNeighbourhood,
-        'type_id': this.selectedType,
-        'contract_id': this.selectedContract,
-        'finish_type_id': this.selectedFinish,
-        'view_id': this.selectedView,
-        'area': this.area // Check for optional properties
+      var estate = new FormData(); // Append mandatory data
 
-      };
-      if (this.floor) this.estate.floor_number = this.floor;
-      if (this.rooms) this.estate.number_of_rooms = this.rooms;
-      if (this.bathrooms) this.estate.number_of_bathrooms = this.bathrooms;
-      if (this.living) this.estate.number_of_living_spaces = this.living;
-      if (this.balconies) this.estate.number_of_balconies = this.balconies;
-      if (this.buildYear) this.estate.build_year = this.buildYear;
-      if (this.garage) this.estate.has_garage = this.garage;
-      if (this.elevator) this.estate.has_elevator = this.elevator;
-      if (this.notes) this.estate.notes = this.notes;
-      this.$emit('estate-submitted', this.estate);
+      estate.append('title', this.title);
+      estate.append('neighbourhood_id', this.selectedNeighbourhood);
+      estate.append('type_id', this.selectedType);
+      estate.append('contract_id', this.selectedContract);
+      estate.append('finish_type_id', this.selectedFinish);
+      estate.append('view_id', this.selectedView);
+      estate.append('area', this.area); // Append optional data
+
+      if (this.floor) estate.append('floor_number', this.floor);
+      if (this.rooms) estate.append('number_of_rooms', this.rooms);
+      if (this.bathrooms) estate.append('number_of_bathrooms', this.bathrooms);
+      if (this.living) estate.append('number_of_living_spaces', this.living);
+      if (this.balconies) estate.append('number_of_balconies', this.balconies);
+      if (this.buildYear) estate.append('build_year', this.buildYear);
+      if (this.garage) estate.append('has_garage', this.garage);
+      if (this.elevator) estate.append('has_elevator', this.elevator);
+      if (this.notes) estate.append('notes', this.notes); // Append images array
+
+      if (this.images) {
+        for (var i = 0; i < this.images.length; i++) {
+          var image = this.images[i];
+          estate.append("images[".concat(i, "]"), image);
+        }
+      }
+
+      ;
+      this.$emit('estate-submitted', estate);
     },
     checkError: function checkError(prop) {
       return this.submitErrors.hasOwnProperty(prop);
@@ -41571,30 +41616,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
+    _c("form", { attrs: { id: "city-form" } }, [
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "name" } }, [_vm._v("اسم المدينه")]),
         _vm._v(" "),
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.name,
-              expression: "name"
-            }
-          ],
           class: [{ "is-invalid": _vm.checkError("name") }, "form-control"],
-          attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.name = $event.target.value
-            }
-          }
+          attrs: { type: "text", id: "name", name: "name" }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "invalid-feedback" }, [
@@ -42326,7 +42354,54 @@ var render = function() {
             )
           ]
         )
-      : _vm._e()
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "deleteEstate",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "deleteEstateLabel",
+          "aria-hidden": "true",
+          dir: "ltr"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.deleteEstate }
+                  },
+                  [_vm._v("احذف")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("الغاء")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -42377,6 +42452,39 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal-header",
+        staticStyle: { "flex-direction": "row-reverse!important" }
+      },
+      [
+        _c(
+          "h5",
+          { staticClass: "modal-title", attrs: { id: "deleteEstateLabel" } },
+          [_vm._v("حذف عقار")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "close",
+            staticStyle: { margin: "-1rem auto -1rem -1rem" },
+            attrs: {
+              type: "button",
+              "data-dismiss": "modal",
+              "aria-label": "Close"
+            }
+          },
+          [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -43275,7 +43383,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row my-2" }, [
         _c(
           "label",
           { staticClass: "col-form-label col-sm-3", attrs: { for: "notes" } },
@@ -43285,9 +43393,17 @@ var render = function() {
         _c("div", { staticClass: "col-sm-9 px-5" }, [
           _c("input", {
             ref: "images",
-            attrs: { type: "file", id: "images", multiple: "" },
+            class: [
+              { "is-invalid": _vm.checkError("images") },
+              "form-control-file"
+            ],
+            attrs: { type: "file", id: "image", multiple: "" },
             on: { change: _vm.imagesUpload }
-          })
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v(_vm._s(_vm.getError("images")))
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -59680,8 +59796,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

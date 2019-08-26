@@ -172,10 +172,11 @@
             </div>
 
             <!-- Image upload -->
-            <div class="row">
+            <div class="row my-2">
                 <label for="notes" class="col-form-label col-sm-3">ضيف صور</label>
                 <div class="col-sm-9 px-5">
-                    <input type="file" id="images" ref="images" multiple @change="imagesUpload">
+                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload">
+                    <div class="invalid-feedback">{{ getError('images') }}</div>
                 </div>
             </div>
 
@@ -204,26 +205,25 @@ export default {
             types: [],
             finishes: [],
             views: [],
-            title: null,
-            area: null,
-            floor: null,
-            rooms: null,
-            bathrooms: null,
-            living: null,
-            balconies: null,
-            buildYear: null,
-            garage: null,
-            elevator: null,
-            notes: null,
+            title: '',
+            area: '',
+            floor: '',
+            rooms: '',
+            bathrooms: '',
+            living: '',
+            balconies: '',
+            buildYear: '',
+            garage: '',
+            elevator: '',
+            notes: '',
             images: [],
-            estate: {},
 
-            selectedCity: null,
-            selectedNeighbourhood: null,
-            selectedContract: null,
-            selectedType: null,
-            selectedFinish: null,
-            selectedView: null,
+            selectedCity: '',
+            selectedNeighbourhood: '',
+            selectedContract: '',
+            selectedType: '',
+            selectedFinish: '',
+            selectedView: '',
         }
     },
 
@@ -286,32 +286,41 @@ export default {
         },
 
         imagesUpload() {
-
+            this.images = this.$refs.images.files;
         },
 
         onSubmit() {
-            this.estate = {
-                'title' : this.title,
-                'neighbourhood_id' : this.selectedNeighbourhood,
-                'type_id' : this.selectedType,
-                'contract_id' : this.selectedContract,
-                'finish_type_id' : this.selectedFinish,
-                'view_id' : this.selectedView,
-                'area' : this.area,
-            }
+            let estate = new FormData();
 
-            // Check for optional properties
-            if (this.floor) this.estate.floor_number = this.floor;
-            if (this.rooms) this.estate.number_of_rooms = this.rooms;
-            if (this.bathrooms) this.estate.number_of_bathrooms = this.bathrooms;
-            if (this.living) this.estate.number_of_living_spaces = this.living;
-            if (this.balconies) this.estate.number_of_balconies = this.balconies;
-            if (this.buildYear) this.estate.build_year = this.buildYear;
-            if (this.garage) this.estate.has_garage = this.garage;
-            if (this.elevator) this.estate.has_elevator = this.elevator;
-            if (this.notes) this.estate.notes = this.notes;
+            // Append mandatory data
+            estate.append('title', this.title);
+            estate.append('neighbourhood_id', this.selectedNeighbourhood);
+            estate.append('type_id', this.selectedType);
+            estate.append('contract_id', this.selectedContract);
+            estate.append('finish_type_id', this.selectedFinish);
+            estate.append('view_id', this.selectedView);
+            estate.append('area', this.area);
 
-            this.$emit('estate-submitted', this.estate);
+            // Append optional data
+            if (this.floor) estate.append('floor_number', this.floor);
+            if (this.rooms) estate.append('number_of_rooms', this.rooms);
+            if (this.bathrooms) estate.append('number_of_bathrooms', this.bathrooms);
+            if (this.living) estate.append('number_of_living_spaces', this.living);
+            if (this.balconies) estate.append('number_of_balconies', this.balconies);
+            if (this.buildYear) estate.append('build_year', this.buildYear);
+            if (this.garage) estate.append('has_garage', this.garage);
+            if (this.elevator) estate.append('has_elevator', this.elevator);
+            if (this.notes) estate.append('notes', this.notes);
+
+            // Append images array
+            if (this.images) {
+                for (let i = 0; i < this.images.length; i++) {
+                    let image = this.images[i];
+                    estate.append(`images[${i}]`, image);
+                }
+            };
+
+            this.$emit('estate-submitted', estate);
         },
 
         checkError(prop) {

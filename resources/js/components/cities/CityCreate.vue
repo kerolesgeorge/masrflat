@@ -1,9 +1,9 @@
 <template>
     <div>
-        <form>
+        <form id="city-form">
             <div class="form-group">
                 <label for="name">اسم المدينه</label>
-                <input type="text" :class="[{'is-invalid' : checkError('name')}, 'form-control']" id="name" name="name" v-model="name">
+                <input type="text" :class="[{'is-invalid' : checkError('name')}, 'form-control']" id="name" name="name">
                 <div class="invalid-feedback">{{ getError('name') }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">اضافة</button>
@@ -18,15 +18,14 @@ export default {
     data() {
         return {
             name: '',
-            city: {},
+            city: null,
         }
     },
 
     methods: {
         onSubmit() {
-            this.city = {
-                name: this.name
-            }
+            let form = document.getElementById('city-form');
+            this.city = new FormData(form);
             this.$emit('city-submitted', this.city);
             this.name = '';
         },
