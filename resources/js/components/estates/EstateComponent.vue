@@ -133,8 +133,7 @@ export default {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }
-            ).then(response => {
+            }).then(response => {
                 this.fetchEstates();
                 $('#createEstate').modal('hide');
             }).catch(error => {

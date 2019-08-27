@@ -42,4 +42,4 @@ Route::apiResource('/views', 'ViewController');
 Route::apiResource('/estates', 'EstateController');
 
 // Images
-Route::post('/images', 'ImageController@store');
+Route::post('/attachments', 'EstateController@attachedImages');

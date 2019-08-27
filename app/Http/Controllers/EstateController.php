@@ -28,6 +28,11 @@ class EstateController extends Controller
      */
     public function store()
     {
+
+        if (request()->hasFile('images')) {
+
+        }
+
         $estate = Estate::create($this->validateRequest());
 
         // Return last inserted id
@@ -65,6 +70,14 @@ class EstateController extends Controller
     }
 
     /**
+     * Handle attached images
+     */
+    public function attachedImages()
+    {
+
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(Estate $estate)
@@ -86,6 +99,14 @@ class EstateController extends Controller
     public function destroy(Estate $estate)
     {
         //
+    }
+
+    /**
+     * Upload images function
+     */
+    private function attachments()
+    {
+
     }
 
     /**
