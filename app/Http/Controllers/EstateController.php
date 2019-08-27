@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 class EstateController extends Controller
 {
     protected $estate_id;
+    protected $attached = [];
 
     /**
      * Display a listing of the resource.
@@ -28,11 +29,6 @@ class EstateController extends Controller
      */
     public function store()
     {
-
-        if (request()->hasFile('images')) {
-
-        }
-
         $estate = Estate::create($this->validateRequest());
 
         // Return last inserted id
@@ -40,40 +36,50 @@ class EstateController extends Controller
 
         // Upload images
         if (request()->hasFile('images')) {
-            $images = Collection::wrap($this->validateImage());
-            $images->each(function($image) {
-                $path = $image->store('uploads', 'public');
-                Image::create([
-                    'estate_id' => $this->estate_id,
-                    'url' => $path,
-                ]);
+            Image::create([
+                'estate_id' => $this->estate_id,
+                'url' => '',
+            ]);
 
-                // Get image width and height and resize
-                $height = InterventionImage::make($image)->height();
-                $width = InterventionImage::make($image)->width();
-
-                // Check for image orientation
-                if ($width > $height) {
-                    InterventionImage::make($image)
-                    ->resize(1000, 700)
-                    ->save(public_path("storage/{$path}"));
-                } else {
-                    InterventionImage::make($image)
-                    ->resize(700, 1000)
-                    ->save(public_path("storage/{$path}"));
-                }
-
-            });
         }
 
         return new EstateResource($estate);
     }
 
     /**
-     * Handle attached images
+     * Upload images function
      */
-    public function attachedImages()
+    public function uploadImages()
     {
+        $images = Collection::wrap(request('images'));
+        $images->each(function($image) {
+            $path = $image->store('uploads', 'public');
+
+            // Push new image url to array
+            $images = [
+                "url" => $path,
+            ];
+            //$this->attached = array_merge($images, $this->attached);
+            $this->attached[] = $images;
+
+            // Get image width and height and resize
+            $height = InterventionImage::make($image)->height();
+            $width = InterventionImage::make($image)->width();
+
+            // Check for image orientation
+            if ($width > $height) {
+                InterventionImage::make($image)
+                ->resize(1000, 700)
+                ->save(public_path("storage/{$path}"));
+            } else {
+                InterventionImage::make($image)
+                ->resize(700, 1000)
+                ->save(public_path("storage/{$path}"));
+            }
+
+        });
+
+        return json_encode($this->attached);
 
     }
 
@@ -99,14 +105,6 @@ class EstateController extends Controller
     public function destroy(Estate $estate)
     {
         //
-    }
-
-    /**
-     * Upload images function
-     */
-    private function attachments()
-    {
-
     }
 
     /**

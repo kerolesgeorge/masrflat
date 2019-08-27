@@ -180,6 +180,16 @@
                 </div>
             </div>
 
+            <!-- Images show area -->
+            <div class="card-columns">
+                <div class="card" v-for="(image, index) in images" :key="index">
+                    <img :src="'/storage/' + image.url" class="card-img-top" alt="Attached Image">
+                    <div class="card-body p-1">
+                    <button class="btn btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Submit button -->
             <div class="row">
                 <div class="col-sm-3"></div>
@@ -287,8 +297,14 @@ export default {
 
         imagesUpload() {
             let attachments = this.$refs.images.files;
+            let imagesData = new FormData();
 
-            axios.post('/attachments', attachments, {
+            for (let i = 0; i < attachments.length; i++) {
+                let image = attachments[i];
+                imagesData.append(`images[${i}]`, image);
+            }
+
+            axios.post('/api/attachments', imagesData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -344,6 +360,10 @@ export default {
     computed: {
         errors() {
             return this.submitErrors;
+        },
+
+        attachedImages() {
+            return this.images.length;
         }
     }
 }

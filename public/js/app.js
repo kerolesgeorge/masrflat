@@ -2870,6 +2870,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['submitErrors'],
   data: function data() {
@@ -2963,7 +2973,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     imagesUpload: function imagesUpload() {
-      this.images = this.$refs.images.files;
+      var _this7 = this;
+
+      var attachments = this.$refs.images.files;
+      var imagesData = new FormData();
+
+      for (var i = 0; i < attachments.length; i++) {
+        var image = attachments[i];
+        imagesData.append("images[".concat(i, "]"), image);
+      }
+
+      axios.post('/api/attachments', imagesData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        _this7.images = response.data;
+      }); //this.images = this.$refs.images.files;
     },
     onSubmit: function onSubmit() {
       var estate = new FormData(); // Append mandatory data
@@ -3006,6 +3032,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     errors: function errors() {
       return this.submitErrors;
+    },
+    attachedImages: function attachedImages() {
+      return this.images.length;
     }
   }
 });
@@ -43407,6 +43436,22 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-columns" },
+        _vm._l(_vm.images, function(image, index) {
+          return _c("div", { key: index, staticClass: "card" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: { src: "/storage/" + image.url, alt: "Attached Image" }
+            }),
+            _vm._v(" "),
+            _vm._m(1, true)
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-3" }),
         _vm._v(" "),
@@ -43440,6 +43485,16 @@ var staticRenderFns = [
       { staticClass: "col-form-label col-sm-3", attrs: { for: "area" } },
       [_vm._v("المساحة م"), _c("span", [_c("sup", [_vm._v("2")])])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body p-1" }, [
+      _c("button", { staticClass: "btn btn-outline-danger" }, [
+        _vm._v("Delete")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -59796,8 +59851,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
