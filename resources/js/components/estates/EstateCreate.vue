@@ -286,7 +286,16 @@ export default {
         },
 
         imagesUpload() {
-            this.images = this.$refs.images.files;
+            let attachments = this.$refs.images.files;
+
+            axios.post('/attachments', attachments, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                this.images = response.data;
+            })
+            //this.images = this.$refs.images.files;
         },
 
         onSubmit() {
