@@ -10,7 +10,6 @@ use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Input;
 
 class EstateController extends Controller
 {
@@ -135,7 +134,18 @@ class EstateController extends Controller
      */
     public function destroy(Estate $estate)
     {
-        //
+        // Get images to delete first
+        $images = $estate->images;
+
+        // Delete images from storage
+        foreach ($images as $image) {
+            File::delete([
+                'storage/' . $image['url']
+            ]);
+        }
+
+        // Delete record
+        $estate->delete();
     }
 
     /**

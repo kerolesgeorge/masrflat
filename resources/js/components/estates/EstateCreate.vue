@@ -315,7 +315,7 @@ export default {
                 imagesData.append(`images[${i}]`, image);
             }
 
-            axios.post('/api/attachments', imagesData, this.images, {
+            axios.post('/api/attachments', imagesData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

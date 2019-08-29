@@ -37,7 +37,7 @@
                             <a href="#" title="تعديل" @click="editEstate(estate);clearErrors()" data-toggle="modal" data-target="#editEstate"><i class="fas fa-edit"></i></a>
 
                             <!-- Delete Button -->
-                            <button class="btn btn-delete" data-toggle="modal" data-target="#deleteEstate" @click="geteEstateToDelete(estate.id)">
+                            <button class="btn btn-delete" data-toggle="modal" data-target="#deleteEstate" @click="getEstateToDelete(estate.id)">
                                 <i class="fas fa-trash" style="color: red;"></i>
                             </button>
 
@@ -159,7 +159,7 @@ export default {
             axios.delete(`/api/estates/${this.estateDeleteId}`).then(response => {
                 this.fetchEstates();
                 $('#deleteEstate').modal('hide');
-            })
+            });
         },
 
         clearErrors() {
