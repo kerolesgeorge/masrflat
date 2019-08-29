@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class EstateController extends Controller
 {
@@ -35,12 +36,14 @@ class EstateController extends Controller
         $this->estate_id = $estate->id;
 
         // Upload images
-        if (request()->hasFile('images')) {
-            Image::create([
-                'estate_id' => $this->estate_id,
-                'url' => '',
-            ]);
-
+        if (request()->has('images')) {
+            $images = request('images');
+            foreach ($images as $image) {
+                Image::create([
+                    'estate_id' => $this->estate_id,
+                    'url' => $image['url'],
+                ]);
+            }
         }
 
         return new EstateResource($estate);
@@ -49,7 +52,7 @@ class EstateController extends Controller
     /**
      * Upload images function
      */
-    public function uploadImages()
+    public function uploadAttached()
     {
         $images = Collection::wrap(request('images'));
         $images->each(function($image) {
@@ -59,8 +62,8 @@ class EstateController extends Controller
             $images = [
                 "url" => $path,
             ];
-            //$this->attached = array_merge($images, $this->attached);
             $this->attached[] = $images;
+            //$this->images_array[] = $images;
 
             // Get image width and height and resize
             $height = InterventionImage::make($image)->height();
@@ -76,11 +79,20 @@ class EstateController extends Controller
                 ->resize(700, 1000)
                 ->save(public_path("storage/{$path}"));
             }
-
         });
 
         return json_encode($this->attached);
+    }
 
+    /**
+     * Delete attached images
+     */
+    public function deleteAttached()
+    {
+        File::delete([
+            'storage/' . Input::get('url')
+        ]);
+        echo "Image deleted " . Input::get('url');
     }
 
     /**

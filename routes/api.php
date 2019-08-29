@@ -42,4 +42,5 @@ Route::apiResource('/views', 'ViewController');
 Route::apiResource('/estates', 'EstateController');
 
 // Images
-Route::post('/attachments', 'EstateController@uploadImages');
+Route::post('/attachments', 'EstateController@uploadAttached');
+Route::post('/attachments/delete', 'EstateController@deleteAttached');

@@ -173,19 +173,28 @@
 
             <!-- Image upload -->
             <div class="row my-2">
-                <label for="notes" class="col-form-label col-sm-3">ضيف صور</label>
-                <div class="col-sm-9 px-5">
-                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload">
+                <label for="image" class="col-form-label col-sm-9" style="cursor: pointer">
+                    ضيف صور <i class="fas fa-cloud-upload-alt fa-2x mr-2"></i>
+                </label>
+                <div class="col-sm-3 px-5">
+                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload" style="display: none;">
                     <div class="invalid-feedback">{{ getError('images') }}</div>
                 </div>
             </div>
 
+            <!-- Attachments Loader -->
+            <div style="position: relative;">
+                <div class="attachment-loader-wrapper">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
             <!-- Images show area -->
-            <div class="card-columns">
+            <div class="card-columns" v-if="attachedImages">
                 <div class="card" v-for="(image, index) in images" :key="index">
                     <img :src="'/storage/' + image.url" class="card-img-top" alt="Attached Image">
                     <div class="card-body p-1">
-                    <button class="btn btn-outline-danger">Delete</button>
+                    <button class="btn btn-outline-danger" @click.prevent="deleteAttached(image.url, index)">Delete</button>
                     </div>
                 </div>
             </div>
@@ -251,7 +260,6 @@ export default {
                 this.cities = response.data;
             }).catch(error => {
                 alert('Something went wrong: \n' + error.message);
-                //console.log(error.message);
             });
         },
 
@@ -295,7 +303,10 @@ export default {
             });
         },
 
+        // Handle attachments upload
         imagesUpload() {
+            $(".attachment-loader-wrapper").show();
+
             let attachments = this.$refs.images.files;
             let imagesData = new FormData();
 
@@ -304,14 +315,34 @@ export default {
                 imagesData.append(`images[${i}]`, image);
             }
 
-            axios.post('/api/attachments', imagesData, {
+            axios.post('/api/attachments', imagesData, this.images, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
                 this.images = response.data;
+                $(".attachment-loader-wrapper").fadeOut();
             })
-            //this.images = this.$refs.images.files;
+        },
+
+        /**
+         * Delete attached photo
+         */
+        deleteAttached(url, index) {
+            $(".attachment-loader-wrapper").show();
+            axios.post(`/api/attachments/delete?url=${url}`).then(response => {
+                //alert(response.data);
+                this.images.splice(index, 1);
+                console.log(this.images);
+                $(".attachment-loader-wrapper").fadeOut();
+            }).catch(error => {
+                alert('Something went wrong, ' + error.response.data.message);
+            });
+        },
+
+        // Fetch uploaded attachments
+        fetchImages(){
+
         },
 
         onSubmit() {

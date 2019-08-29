@@ -2880,6 +2880,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['submitErrors'],
   data: function data() {
@@ -2924,7 +2933,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/cities').then(function (response) {
         _this.cities = response.data;
       })["catch"](function (error) {
-        alert('Something went wrong: \n' + error.message); //console.log(error.message);
+        alert('Something went wrong: \n' + error.message);
       });
     },
     fetchNeighbourhoods: function fetchNeighbourhoods() {
@@ -2972,9 +2981,11 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
+    // Handle attachments upload
     imagesUpload: function imagesUpload() {
       var _this7 = this;
 
+      $(".attachment-loader-wrapper").show();
       var attachments = this.$refs.images.files;
       var imagesData = new FormData();
 
@@ -2983,14 +2994,35 @@ __webpack_require__.r(__webpack_exports__);
         imagesData.append("images[".concat(i, "]"), image);
       }
 
-      axios.post('/api/attachments', imagesData, {
+      axios.post('/api/attachments', imagesData, this.images, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
         _this7.images = response.data;
-      }); //this.images = this.$refs.images.files;
+        $(".attachment-loader-wrapper").fadeOut();
+      });
     },
+
+    /**
+     * Delete attached photo
+     */
+    deleteAttached: function deleteAttached(url, index) {
+      var _this8 = this;
+
+      $(".attachment-loader-wrapper").show();
+      axios.post("/api/attachments/delete?url=".concat(url)).then(function (response) {
+        //alert(response.data);
+        _this8.images.splice(index, 1);
+
+        console.log(_this8.images);
+        $(".attachment-loader-wrapper").fadeOut();
+      })["catch"](function (error) {
+        alert('Something went wrong, ' + error.response.data.message);
+      });
+    },
+    // Fetch uploaded attachments
+    fetchImages: function fetchImages() {},
     onSubmit: function onSubmit() {
       var estate = new FormData(); // Append mandatory data
 
@@ -43413,19 +43445,16 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row my-2" }, [
-        _c(
-          "label",
-          { staticClass: "col-form-label col-sm-3", attrs: { for: "notes" } },
-          [_vm._v("ضيف صور")]
-        ),
+        _vm._m(1),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-9 px-5" }, [
+        _c("div", { staticClass: "col-sm-3 px-5" }, [
           _c("input", {
             ref: "images",
             class: [
               { "is-invalid": _vm.checkError("images") },
               "form-control-file"
             ],
+            staticStyle: { display: "none" },
             attrs: { type: "file", id: "image", multiple: "" },
             on: { change: _vm.imagesUpload }
           }),
@@ -43436,21 +43465,39 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-columns" },
-        _vm._l(_vm.images, function(image, index) {
-          return _c("div", { key: index, staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/storage/" + image.url, alt: "Attached Image" }
+      _vm._m(2),
+      _vm._v(" "),
+      _vm.attachedImages
+        ? _c(
+            "div",
+            { staticClass: "card-columns" },
+            _vm._l(_vm.images, function(image, index) {
+              return _c("div", { key: index, staticClass: "card" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "/storage/" + image.url, alt: "Attached Image" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body p-1" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-danger",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.deleteAttached(image.url, index)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              ])
             }),
-            _vm._v(" "),
-            _vm._m(1, true)
-          ])
-        }),
-        0
-      ),
+            0
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-3" }),
@@ -43490,9 +43537,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-1" }, [
-      _c("button", { staticClass: "btn btn-outline-danger" }, [
-        _vm._v("Delete")
+    return _c(
+      "label",
+      {
+        staticClass: "col-form-label col-sm-9",
+        staticStyle: { cursor: "pointer" },
+        attrs: { for: "image" }
+      },
+      [
+        _vm._v("\n                ضيف صور "),
+        _c("i", { staticClass: "fas fa-cloud-upload-alt fa-2x mr-2" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticStyle: { position: "relative" } }, [
+      _c("div", { staticClass: "attachment-loader-wrapper" }, [
+        _c("div", { staticClass: "loader" })
       ])
     ])
   }
@@ -59851,8 +59915,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
