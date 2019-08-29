@@ -369,12 +369,12 @@ export default {
             if (this.notes) estate.append('notes', this.notes);
 
             // Append images array
-            if (this.images) {
+            /* if (this.images) {
                 for (let i = 0; i < this.images.length; i++) {
                     let image = this.images[i];
                     estate.append(`images[${i}]`, image);
                 }
-            };
+            }; */
 
             this.$emit('estate-submitted', estate);
         },

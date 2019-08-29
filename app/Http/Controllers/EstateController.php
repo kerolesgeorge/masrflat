@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
 
 class EstateController extends Controller
@@ -54,6 +55,9 @@ class EstateController extends Controller
      */
     public function uploadAttached()
     {
+        // Get cached attached items or set empty array as default
+        $this->attached = Cache::get('attached', []);
+
         $images = Collection::wrap(request('images'));
         $images->each(function($image) {
             $path = $image->store('uploads', 'public');
@@ -81,6 +85,8 @@ class EstateController extends Controller
             }
         });
 
+
+        Cache::put('attached', $this->attached, now()->addMinutes(20));
         return json_encode($this->attached);
     }
 
@@ -89,6 +95,14 @@ class EstateController extends Controller
      */
     public function deleteAttached()
     {
+        // Update array stored in cache
+        $this->attached = Cache::get('attached');
+        $index = array_search(Input::get('url'), $this->attached);
+        dd($index);
+        array_splice($this->attached, $index, 1);
+        Cache::put('attached', $this->attached, now()->addMinutes(20));
+
+        // Delete files from storage
         File::delete([
             'storage/' . Input::get('url')
         ]);

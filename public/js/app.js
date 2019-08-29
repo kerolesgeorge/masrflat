@@ -3044,14 +3044,13 @@ __webpack_require__.r(__webpack_exports__);
       if (this.elevator) estate.append('has_elevator', this.elevator);
       if (this.notes) estate.append('notes', this.notes); // Append images array
 
-      if (this.images) {
-        for (var i = 0; i < this.images.length; i++) {
-          var image = this.images[i];
-          estate.append("images[".concat(i, "]"), image);
-        }
-      }
+      /* if (this.images) {
+          for (let i = 0; i < this.images.length; i++) {
+              let image = this.images[i];
+              estate.append(`images[${i}]`, image);
+          }
+      }; */
 
-      ;
       this.$emit('estate-submitted', estate);
     },
     checkError: function checkError(prop) {
@@ -59915,8 +59914,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
