@@ -37,15 +37,20 @@ class EstateController extends Controller
         $this->estate_id = $estate->id;
 
         // Upload images
-        if (request()->has('images')) {
-            $images = request('images');
-            foreach ($images as $image) {
-                Image::create([
-                    'estate_id' => $this->estate_id,
-                    'url' => $image['url'],
-                ]);
+        if (Cache::get('attached')) {
+            $images = Cache::get('attached');
+            if (count($images)) {
+                foreach ($images as $image) {
+                    Image::create([
+                        'estate_id' => $this->estate_id,
+                        'url' => $image['url'],
+                    ]);
+                }
             }
         }
+
+        // Remove attached items from cache
+        Cache::forget('attached');
 
         return new EstateResource($estate);
     }
@@ -93,20 +98,20 @@ class EstateController extends Controller
     /**
      * Delete attached images
      */
-    public function deleteAttached()
+    public function deleteAttached($index)
     {
-        // Update array stored in cache
+        // Get array stored in cache
         $this->attached = Cache::get('attached');
-        $index = array_search(Input::get('url'), $this->attached);
-        dd($index);
-        array_splice($this->attached, $index, 1);
-        Cache::put('attached', $this->attached, now()->addMinutes(20));
+        $delete_index = $this->attached[$index];
 
         // Delete files from storage
         File::delete([
-            'storage/' . Input::get('url')
+            'storage/' . $delete_index['url']
         ]);
-        echo "Image deleted " . Input::get('url');
+
+        // Update array and re-cache it
+        array_splice($this->attached, $index, 1);
+        Cache::put('attached', $this->attached, now()->addMinutes(20));
     }
 
     /**

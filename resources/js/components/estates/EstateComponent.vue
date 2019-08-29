@@ -135,7 +135,8 @@ export default {
                 }
             }).then(response => {
                 this.fetchEstates();
-                $('#createEstate').modal('hide');
+                //$('#createEstate').modal('hide');
+                location.reload();
             }).catch(error => {
                 // Get laravel validation error
                 this.errors = error.response.data.errors;

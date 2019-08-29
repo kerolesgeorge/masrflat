@@ -2637,9 +2637,10 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        _this2.fetchEstates();
+        _this2.fetchEstates(); //$('#createEstate').modal('hide');
 
-        $('#createEstate').modal('hide');
+
+        location.reload();
       })["catch"](function (error) {
         // Get laravel validation error
         _this2.errors = error.response.data.errors;
@@ -3007,11 +3008,11 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Delete attached photo
      */
-    deleteAttached: function deleteAttached(url, index) {
+    deleteAttached: function deleteAttached(index) {
       var _this8 = this;
 
       $(".attachment-loader-wrapper").show();
-      axios.post("/api/attachments/delete?url=".concat(url)).then(function (response) {
+      axios["delete"]("/api/attachments/".concat(index)).then(function (response) {
         //alert(response.data);
         _this8.images.splice(index, 1);
 
@@ -43485,7 +43486,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.deleteAttached(image.url, index)
+                          return _vm.deleteAttached(index)
                         }
                       }
                     },
@@ -59914,8 +59915,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

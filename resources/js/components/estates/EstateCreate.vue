@@ -194,7 +194,7 @@
                 <div class="card" v-for="(image, index) in images" :key="index">
                     <img :src="'/storage/' + image.url" class="card-img-top" alt="Attached Image">
                     <div class="card-body p-1">
-                    <button class="btn btn-outline-danger" @click.prevent="deleteAttached(image.url, index)">Delete</button>
+                    <button class="btn btn-outline-danger" @click.prevent="deleteAttached(index)">Delete</button>
                     </div>
                 </div>
             </div>
@@ -328,9 +328,9 @@ export default {
         /**
          * Delete attached photo
          */
-        deleteAttached(url, index) {
+        deleteAttached(index) {
             $(".attachment-loader-wrapper").show();
-            axios.post(`/api/attachments/delete?url=${url}`).then(response => {
+            axios.delete(`/api/attachments/${index}`).then(response => {
                 //alert(response.data);
                 this.images.splice(index, 1);
                 console.log(this.images);

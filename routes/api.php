@@ -43,4 +43,4 @@ Route::apiResource('/estates', 'EstateController');
 
 // Images
 Route::post('/attachments', 'EstateController@uploadAttached');
-Route::post('/attachments/delete', 'EstateController@deleteAttached');
+Route::delete('/attachments/{index}', 'EstateController@deleteAttached');
