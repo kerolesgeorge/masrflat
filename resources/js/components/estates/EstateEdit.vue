@@ -23,12 +23,12 @@
 
                 <label for="neighbourhood" class="col-sm-2 col-form-label">الحي</label>
                 <div class="col-sm-4">
-                    <!-- <select id="neighbourhood" :class="[{'is-invalid' : checkError('neighbourhood_id')}, 'form-control p-1']" v-model="selectedNeighbourhood">
+                    <select id="neighbourhood" :class="[{'is-invalid' : checkError('neighbourhood_id')}, 'form-control p-1']" v-model="estate.neighbourhood_id">
                         <option v-for="neighbourhood in neighbourhoods" :key="neighbourhood.id" :value="neighbourhood.id">
                             {{ neighbourhood.name }}
                         </option>
                     </select>
-                    <div class="invalid-feedback">{{ getError('neighbourhood_id') }}</div> -->
+                    <div class="invalid-feedback">{{ getError('neighbourhood_id') }}</div>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
             <div class="form-group row">
                 <label for="type" class="col-sm-2 col-form-label">العقار</label>
                 <div class="col-sm-4">
-                    <select id="type" :class="[{'is-invalid' : checkError('type_id')}, 'form-control p-1']" v-model="estate.selectedType">
+                    <select id="type" :class="[{'is-invalid' : checkError('type_id')}, 'form-control p-1']" v-model="estate.type_id">
                         <option v-for="etype in types" :key="etype.id" :value="etype.id">
                             {{ etype.name }}
                         </option>
@@ -46,7 +46,7 @@
 
                 <label for="contract" class="col-sm-2 col-form-label">العقد</label>
                 <div class="col-sm-4">
-                    <select id="contract" :class="[{'is-invalid' : checkError('contract_id')}, 'form-control p-1']" v-model="selectedContract">
+                    <select id="contract" :class="[{'is-invalid' : checkError('contract_id')}, 'form-control p-1']" v-model="estate.contract_id">
                         <option v-for="contract in contracts" :key="contract.id" :value="contract.id">
                             {{ contract.name }}
                         </option>
@@ -59,7 +59,7 @@
             <div class="form-group row">
                 <label for="finish" class="col-sm-2 col-form-label">التشطيب</label>
                 <div class="col-sm-4">
-                    <select id="finish" :class="[{'is-invalid' : checkError('finish_type_id')}, 'form-control p-1']" v-model="selectedFinish">
+                    <select id="finish" :class="[{'is-invalid' : checkError('finish_type_id')}, 'form-control p-1']" v-model="estate.finish_type_id">
                         <option v-for="finish in finishes" :key="finish.id" :value="finish.id">
                             {{ finish.name }}
                         </option>
@@ -69,7 +69,7 @@
 
                 <label for="view" class="col-sm-2 col-form-label">الواجهات</label>
                 <div class="col-sm-4">
-                    <select id="view" :class="[{'is-invalid' : checkError('view_id')}, 'form-control p-1']" v-model="selectedView">
+                    <select id="view" :class="[{'is-invalid' : checkError('view_id')}, 'form-control p-1']" v-model="estate.view_id">
                         <option v-for="view in views" :key="view.id" :value="view.id">
                             {{ view.name }}
                         </option>
@@ -84,13 +84,13 @@
             <div class="form-group row">
                 <label for="area" class="col-form-label col-sm-3">المساحة م<span><sup>2</sup></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="area" :class="[{'is-invalid' : checkError('area')}, 'form-control']" v-model="area">
+                    <input type="text" id="area" :class="[{'is-invalid' : checkError('area')}, 'form-control']" v-model="estate.area">
                     <div class="invalid-feedback">{{ getError('area') }}</div>
                 </div>
 
                 <label for="floor" class="col-form-label col-sm-3">الدور</label>
                 <div class="col-sm-3">
-                    <input type="text" id="floor" :class="[{'is-invalid' : checkError('floor_number')}, 'form-control']" v-model="floor">
+                    <input type="text" id="floor" :class="[{'is-invalid' : checkError('floor_number')}, 'form-control']" v-model="estate.floor_number">
                     <div class="invalid-feedback">{{ getError('floor_number') }}</div>
                 </div>
             </div>
@@ -99,13 +99,13 @@
             <div class="form-group row">
                 <label for="rooms" class="col-form-label col-sm-3">عدد الغرف</label>
                 <div class="col-sm-3">
-                    <input type="text" id="rooms" :class="[{'is-invalid' : checkError('number_of_rooms')}, 'form-control']" v-model="rooms">
+                    <input type="text" id="rooms" :class="[{'is-invalid' : checkError('number_of_rooms')}, 'form-control']" v-model="estate.number_of_rooms">
                     <div class="invalid-feedback">{{ getError('number_of_rooms') }}</div>
                 </div>
 
                 <label for="bathrooms" class="col-form-label col-sm-3">عدد الحمامات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="bathrooms" :class="[{'is-invalid' : checkError('number_of_bathrooms')}, 'form-control']" v-model="bathrooms">
+                    <input type="text" id="bathrooms" :class="[{'is-invalid' : checkError('number_of_bathrooms')}, 'form-control']" v-model="estate.number_of_bathrooms">
                     <div class="invalid-feedback">{{ getError('number_of_bathrooms') }}</div>
                 </div>
             </div>
@@ -114,13 +114,13 @@
             <div class="form-group row">
                 <label for="living" class="col-form-label col-sm-3">عدد المعيشة</label>
                 <div class="col-sm-3">
-                    <input type="text" id="living" :class="[{'is-invalid' : checkError('number_of_living_spaces')}, 'form-control']" v-model="living">
+                    <input type="text" id="living" :class="[{'is-invalid' : checkError('number_of_living_spaces')}, 'form-control']" v-model="estate.number_of_living_spaces">
                     <div class="invalid-feedback">{{ getError('number_of_living_spaces') }}</div>
                 </div>
 
                 <label for="balconies" class="col-form-label col-sm-3">عدد البلكونات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="balconies" :class="[{'is-invalid' : checkError('number_of_balconies')}, 'form-control']" v-model="balconies">
+                    <input type="text" id="balconies" :class="[{'is-invalid' : checkError('number_of_balconies')}, 'form-control']" v-model="estate.number_of_balconies">
                     <div class="invalid-feedback">{{ getError('number_of_balconies') }}</div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
             <div class="form-group row">
                 <label for="buildYear" class="col-form-label col-sm-3">سنة البناء</label>
                 <div class="col-sm-3">
-                    <input type="text" id="buildYear" :class="[{'is-invalid' : checkError('build_year')}, 'form-control']" v-model="buildYear">
+                    <input type="text" id="buildYear" :class="[{'is-invalid' : checkError('build_year')}, 'form-control']" v-model="estate.build_year">
                     <div class="invalid-feedback">{{ getError('build_year') }}</div>
                 </div>
             </div>
@@ -139,11 +139,11 @@
                 <label for="garage" class="col-form-label col-sm-3">جراج</label>
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="garage" id="garage1" value="1" v-model="garage">
+                        <input class="form-check-input" type="radio" name="garage" id="garage1" value="1" v-model="estate.has_garage">
                         <label class="form-check-label mr-1" for="garage1">يوجد </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="garage" id="garage0" value="0" v-model="garage">
+                        <input class="form-check-input" type="radio" name="garage" id="garage0" value="0" v-model="estate.has_garage">
                         <label class="form-check-label mr-1" for="garage0">لا يوجد</label>
                     </div>
                 </div>
@@ -151,11 +151,11 @@
                 <label for="elevator" class="col-form-label col-sm-3">اسانسير</label>
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="elevator" id="elevator1" value="1" v-model="elevator">
+                        <input class="form-check-input" type="radio" name="elevator" id="elevator1" value="1" v-model="estate.has_elevator">
                         <label class="form-check-label mr-1" for="elevator1">يوجد </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="elevator" id="elevator0" value="0" v-model="elevator">
+                        <input class="form-check-input" type="radio" name="elevator" id="elevator0" value="0" v-model="estate.has_elevator">
                         <label class="form-check-label mr-1" for="elevator0">لا يوجد</label>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
             <div class="form-group row">
                 <label for="notes" class="col-form-label col-sm-3">ملاحظات</label>
                 <div class="col-sm-9">
-                     <textarea class="form-control" id="notes" rows="3" v-model="notes"></textarea>
+                     <textarea class="form-control" id="notes" rows="3" v-model="estate.notes"></textarea>
                 </div>
             </div>
         </form>
@@ -180,12 +180,99 @@ export default {
 
     data() {
         return {
+            cities: [],
+            neighbourhoods: [],
+            contracts: [],
+            types: [],
+            finishes: [],
+            views: [],
+            title: '',
+            area: '',
+            floor: '',
+            rooms: '',
+            bathrooms: '',
+            living: '',
+            balconies: '',
+            buildYear: '',
+            garage: '',
+            elevator: '',
+            notes: '',
+            images: [],
 
+            selectedCity: '',
+            selectedNeighbourhood: '',
+            selectedContract: '',
+            selectedType: '',
+            selectedFinish: '',
+            selectedView: '',
         }
     },
 
-    methods: {
+    mounted() {
+        this.fetchCities();
+        this.fetchNeighbourhoods();
+        this.fetchTypes();
+        this.fetchContracts();
+        this.fetchFinishes();
+        this.fetchViews();
+    },
 
+    methods: {
+        fetchCities() {
+            axios.get('/api/cities').then(response => {
+                this.cities = response.data;
+            }).catch(error => {
+                alert('Something went wrong: \n' + error.message);
+            });
+        },
+
+        fetchNeighbourhoods() {
+            axios.get(`/api/cities/${this.selectedCity}/neighbourhoods`).then(response => {
+                this.neighbourhoods = response.data;
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
+        },
+
+        fetchTypes() {
+            axios.get('/api/types').then(response => {
+                this.types = response.data;
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
+        },
+
+        fetchContracts() {
+            axios.get('/api/contracts').then(response => {
+                this.contracts = response.data;
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
+        },
+
+        fetchFinishes() {
+            axios.get('/api/finishtypes').then(response => {
+                this.finishes = response.data;
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
+        },
+
+        fetchViews() {
+            axios.get('/api/views').then(response => {
+                this.views = response.data;
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
+        },
+
+        checkError(prop) {
+            return this.submitErrors.hasOwnProperty(prop);
+        },
+
+        getError(prop) {
+            return this.checkError(prop) ? this.submitErrors[prop][0] : '';
+        }
     }
 }
 </script>

@@ -69,6 +69,29 @@
             </div>
         </div>
 
+        <!-- Edit estate modal -->
+        <div class="modal fade" id="editEstate" tabindex="-1" role="dialog" aria-labelledby="editEstateLabel" aria-hidden="true" v-if="editMode">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editEstateLabel">تعديل عقار</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: -1rem auto -1rem -1rem">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Create Estate form component -->
+                        <estate-edit
+                        :estate="estate"
+                        :submitErrors="errors"
+                        @estate-update="updateEstate"></estate-edit>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Delete estate modal -->
         <div class="modal fade" id="deleteEstate" tabindex="-1" role="dialog" aria-labelledby="deleteEstateLabel" aria-hidden="true" dir="ltr">
             <div class="modal-dialog" role="document">
@@ -102,6 +125,7 @@ export default {
             errors: {},
             estateDeleteId: null,
             createMode: false,
+            editMode: false,
             estate: {},
         }
     },
@@ -146,6 +170,7 @@ export default {
 
         editEstate(estate) {
             this.estate = estate;
+            this.editMode = true;
         },
 
         updateEstate() {
