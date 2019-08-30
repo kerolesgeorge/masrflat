@@ -102,6 +102,7 @@ export default {
             errors: {},
             estateDeleteId: null,
             createMode: false,
+            estate: {},
         }
     },
 
@@ -143,8 +144,8 @@ export default {
             });
         },
 
-        editEstate() {
-
+        editEstate(estate) {
+            this.estate = estate;
         },
 
         updateEstate() {
