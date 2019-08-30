@@ -21,7 +21,8 @@ class EstateController extends Controller
      */
     public function index()
     {
-        $estates = Estate::select('id', 'title')->get();
+        //$estates = Estate::select('id', 'title')->get();
+        $estates = Estate::all();
         return EstateResource::collection($estates);
     }
 
@@ -30,7 +31,14 @@ class EstateController extends Controller
      */
     public function store()
     {
-        $estate = Estate::create($this->validateRequest());
+        $estate_data = $this->validateRequest();
+
+        // Add optional unvalidated data
+        $estate_data['has_garage'] = request('has_garage');
+        $estate_data['has_elevator'] = request('has_elevator');
+        $estate_data['notes'] = request('notes');
+
+        $estate = Estate::create($estate_data);
 
         // Return last inserted id
         $this->estate_id = $estate->id;
