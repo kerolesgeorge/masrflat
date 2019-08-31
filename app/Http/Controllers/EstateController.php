@@ -34,9 +34,12 @@ class EstateController extends Controller
         $estate_data = $this->validateRequest();
 
         // Add optional unvalidated data
-        $estate_data['has_garage'] = request('has_garage');
-        $estate_data['has_elevator'] = request('has_elevator');
-        $estate_data['notes'] = request('notes');
+        if (request()->has('has_garage'))
+            $estate_data['has_garage'] = request('has_garage');
+        if (request()->has('has_elevator'))
+            $estate_data['has_elevator'] = request('has_elevator');
+        if (request()->has('notes'))
+            $estate_data['notes'] = request('notes');
 
         $estate = Estate::create($estate_data);
 
@@ -60,6 +63,44 @@ class EstateController extends Controller
         Cache::forget('attached');
 
         return new EstateResource($estate);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Estate $estate)
+    {
+        $estate_data = $this->validateRequest();
+
+        // Add optional unvalidated data
+        if (request()->has('has_garage'))
+            $estate_data['has_garage'] = request('has_garage');
+        if (request()->has('has_elevator'))
+            $estate_data['has_elevator'] = request('has_elevator');
+        if (request()->has('notes'))
+            $estate_data['notes'] = request('notes');
+
+        $estate->update($estate_data);
+        return new EstateResource($estate);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Estate $estate)
+    {
+        // Get images to delete first
+        $images = $estate->images;
+
+        // Delete images from storage
+        foreach ($images as $image) {
+            File::delete([
+                'storage/' . $image['url']
+            ]);
+        }
+
+        // Delete record
+        $estate->delete();
     }
 
     /**
@@ -119,41 +160,6 @@ class EstateController extends Controller
         // Update array and re-cache it
         array_splice($this->attached, $index, 1);
         Cache::put('attached', $this->attached, now()->addMinutes(20));
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Estate $estate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Estate $estate)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Estate $estate)
-    {
-        // Get images to delete first
-        $images = $estate->images;
-
-        // Delete images from storage
-        foreach ($images as $image) {
-            File::delete([
-                'storage/' . $image['url']
-            ]);
-        }
-
-        // Delete record
-        $estate->delete();
     }
 
     /**

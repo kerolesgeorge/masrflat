@@ -2675,15 +2675,26 @@ __webpack_require__.r(__webpack_exports__);
       this.estate = estate;
       this.editMode = true;
     },
-    updateEstate: function updateEstate() {},
+    updateEstate: function updateEstate(estate) {
+      var _this3 = this;
+
+      axios.patch("/api/estates/".concat(estate.id), estate).then(function (response) {
+        _this3.fetchEstates();
+
+        $('#editEstate').modal('hide');
+      })["catch"](function (error) {
+        // Get laravel validation error
+        _this3.errors = error.response.data.errors;
+      });
+    },
     getEstateToDelete: function getEstateToDelete(id) {
       this.estateDeleteId = id;
     },
     deleteEstate: function deleteEstate() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"]("/api/estates/".concat(this.estateDeleteId)).then(function (response) {
-        _this3.fetchEstates();
+        _this4.fetchEstates();
 
         $('#deleteEstate').modal('hide');
       });
@@ -3286,6 +3297,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estate', 'submitErrors'],
   data: function data() {
@@ -3295,8 +3343,8 @@ __webpack_require__.r(__webpack_exports__);
       contracts: [],
       types: [],
       finishes: [],
-      views: [],
-      title: '',
+      views: []
+      /* title: '',
       area: '',
       floor: '',
       rooms: '',
@@ -3308,16 +3356,17 @@ __webpack_require__.r(__webpack_exports__);
       elevator: '',
       notes: '',
       images: [],
-      selectedCity: '',
+       selectedCity: '',
       selectedNeighbourhood: '',
       selectedContract: '',
       selectedType: '',
       selectedFinish: '',
-      selectedView: ''
+      selectedView: '', */
+
     };
   },
   mounted: function mounted() {
-    this.fetchCities();
+    //this.fetchCities();
     this.fetchNeighbourhoods();
     this.fetchTypes();
     this.fetchContracts();
@@ -3325,59 +3374,82 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchViews();
   },
   methods: {
-    fetchCities: function fetchCities() {
+    /* fetchCities() {
+        axios.get('/api/cities').then(response => {
+            this.cities = response.data;
+        }).catch(error => {
+            alert('Something went wrong: \n' + error.message);
+        });
+    }, */
+    fetchNeighbourhoods: function fetchNeighbourhoods() {
       var _this = this;
 
-      axios.get('/api/cities').then(function (response) {
-        _this.cities = response.data;
-      })["catch"](function (error) {
-        alert('Something went wrong: \n' + error.message);
-      });
-    },
-    fetchNeighbourhoods: function fetchNeighbourhoods() {
-      var _this2 = this;
-
-      axios.get("/api/cities/".concat(this.selectedCity, "/neighbourhoods")).then(function (response) {
-        _this2.neighbourhoods = response.data;
+      axios.get("/api/neighbourhoods").then(function (response) {
+        _this.neighbourhoods = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
     },
     fetchTypes: function fetchTypes() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get('/api/types').then(function (response) {
-        _this3.types = response.data;
+        _this2.types = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
     },
     fetchContracts: function fetchContracts() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get('/api/contracts').then(function (response) {
-        _this4.contracts = response.data;
+        _this3.contracts = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
     },
     fetchFinishes: function fetchFinishes() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get('/api/finishtypes').then(function (response) {
-        _this5.finishes = response.data;
+        _this4.finishes = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
     },
     fetchViews: function fetchViews() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get('/api/views').then(function (response) {
-        _this6.views = response.data;
+        _this5.views = response.data;
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
       });
+    },
+    imagesUpload: function imagesUpload() {},
+    deleteAttached: function deleteAttached(id) {},
+    onSubmit: function onSubmit() {
+      var estateUpdate = new FormData(); // Append mandatory data
+
+      estateUpdate.append('id', this.estate.id);
+      estateUpdate.append('title', this.estate.title);
+      estateUpdate.append('neighbourhood_id', this.estate.selectedNeighbourhood);
+      estateUpdate.append('type_id', this.estate.selectedType);
+      estateUpdate.append('contract_id', this.estate.selectedContract);
+      estateUpdate.append('finish_type_id', this.estate.selectedFinish);
+      estateUpdate.append('view_id', this.estate.selectedView);
+      estateUpdate.append('area', this.estate.area); // Append optional data
+
+      if (this.estate.floor) estateUpdate.append('floor_number', this.estate.floor);
+      if (this.estate.rooms) estateUpdate.append('number_of_rooms', this.estate.rooms);
+      if (this.estate.bathrooms) estateUpdate.append('number_of_bathrooms', this.estate.bathrooms);
+      if (this.estate.living) estateUpdate.append('number_of_living_spaces', this.estate.living);
+      if (this.estate.balconies) estateUpdate.append('number_of_balconies', this.estate.balconies);
+      if (this.estate.buildYear) estateUpdate.append('build_year', this.estate.buildYear);
+      if (this.estate.garage) estateUpdate.append('has_garage', this.estate.garage);
+      if (this.estate.elevator) estateUpdate.append('has_elevator', this.estate.elevator);
+      if (this.estate.notes) estateUpdate.append('notes', this.estate.notes);
+      this.$emit('estate-update', estateUpdate);
     },
     checkError: function checkError(prop) {
       return this.submitErrors.hasOwnProperty(prop);
@@ -43986,14 +44058,6 @@ var render = function() {
       _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
-          { staticClass: "col-sm-2 col-form-label", attrs: { for: "city" } },
-          [_vm._v("المدينة")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4" }),
-        _vm._v(" "),
-        _c(
-          "label",
           {
             staticClass: "col-sm-2 col-form-label",
             attrs: { for: "neighbourhood" }
@@ -44784,6 +44848,80 @@ var render = function() {
             }
           })
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row my-2" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3 px-5" }, [
+          _c("input", {
+            ref: "images",
+            class: [
+              { "is-invalid": _vm.checkError("images") },
+              "form-control-file"
+            ],
+            staticStyle: { display: "none" },
+            attrs: { type: "file", id: "image", multiple: "" },
+            on: { change: _vm.imagesUpload }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "invalid-feedback" }, [
+            _vm._v(_vm._s(_vm.getError("images")))
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-columns" },
+        _vm._l(_vm.estate.images, function(image) {
+          return _c("div", { key: image.id, staticClass: "card" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: { src: "/storage/" + image.url, alt: "Attached Image" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body p-1" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-danger",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteAttached(image.id)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            ])
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-3" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-3" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary pr-4 pl-4",
+              attrs: { type: "submit" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.onSubmit($event)
+                }
+              }
+            },
+            [_vm._v("حفظ")]
+          )
+        ])
       ])
     ])
   ])
@@ -44798,6 +44936,33 @@ var staticRenderFns = [
       { staticClass: "col-form-label col-sm-3", attrs: { for: "area" } },
       [_vm._v("المساحة م"), _c("span", [_c("sup", [_vm._v("2")])])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-form-label col-sm-9",
+        staticStyle: { cursor: "pointer" },
+        attrs: { for: "image" }
+      },
+      [
+        _vm._v("\n                ضيف صور "),
+        _c("i", { staticClass: "fas fa-cloud-upload-alt fa-2x mr-2" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticStyle: { position: "relative" } }, [
+      _c("div", { staticClass: "attachment-loader-wrapper" }, [
+        _c("div", { staticClass: "loader" })
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -61130,8 +61295,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

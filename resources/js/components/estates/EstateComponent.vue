@@ -173,8 +173,14 @@ export default {
             this.editMode = true;
         },
 
-        updateEstate() {
-
+        updateEstate(estate) {
+            axios.patch(`/api/estates/${estate.id}`, estate).then(response => {
+                this.fetchEstates();
+                $('#editEstate').modal('hide');
+            }).catch(error => {
+                // Get laravel validation error
+                this.errors = error.response.data.errors;
+            });
         },
 
         getEstateToDelete(id) {

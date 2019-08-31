@@ -12,14 +12,14 @@
 
             <!-- City and neighbourhood select -->
             <div class="form-group row">
-                <label for="city" class="col-sm-2 col-form-label">المدينة</label>
+                <!-- <label for="city" class="col-sm-2 col-form-label">المدينة</label>
                 <div class="col-sm-4">
-                    <!-- <select id="city" class="form-control p-1" v-model="selectedCity" @change="fetchNeighbourhoods">
+                    <select id="city" class="form-control p-1" v-model="selectedCity" @change="fetchNeighbourhoods">
                         <option v-for="city in cities" :key="city.id" :value="city.id">
                             {{ city.name }}
                         </option>
-                    </select> -->
-                </div>
+                    </select>
+                </div> -->
 
                 <label for="neighbourhood" class="col-sm-2 col-form-label">الحي</label>
                 <div class="col-sm-4">
@@ -170,6 +170,43 @@
                      <textarea class="form-control" id="notes" rows="3" v-model="estate.notes"></textarea>
                 </div>
             </div>
+
+             <!-- Image upload -->
+            <div class="row my-2">
+                <label for="image" class="col-form-label col-sm-9" style="cursor: pointer">
+                    ضيف صور <i class="fas fa-cloud-upload-alt fa-2x mr-2"></i>
+                </label>
+                <div class="col-sm-3 px-5">
+                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload" style="display: none;">
+                    <div class="invalid-feedback">{{ getError('images') }}</div>
+                </div>
+            </div>
+
+            <!-- Attachments Loader -->
+            <div style="position: relative;">
+                <div class="attachment-loader-wrapper">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <!-- Images show area -->
+            <div class="card-columns">
+                <div class="card" v-for="image in estate.images" :key="image.id">
+                    <img :src="'/storage/' + image.url" class="card-img-top" alt="Attached Image">
+                    <div class="card-body p-1">
+                    <button class="btn btn-outline-danger" @click.prevent="deleteAttached(image.id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary pr-4 pl-4" @click.prevent="onSubmit">حفظ</button>
+                </div>
+            </div>
+
         </form>
     </div>
 </template>
@@ -186,7 +223,7 @@ export default {
             types: [],
             finishes: [],
             views: [],
-            title: '',
+            /* title: '',
             area: '',
             floor: '',
             rooms: '',
@@ -204,12 +241,12 @@ export default {
             selectedContract: '',
             selectedType: '',
             selectedFinish: '',
-            selectedView: '',
+            selectedView: '', */
         }
     },
 
     mounted() {
-        this.fetchCities();
+        //this.fetchCities();
         this.fetchNeighbourhoods();
         this.fetchTypes();
         this.fetchContracts();
@@ -218,16 +255,16 @@ export default {
     },
 
     methods: {
-        fetchCities() {
+        /* fetchCities() {
             axios.get('/api/cities').then(response => {
                 this.cities = response.data;
             }).catch(error => {
                 alert('Something went wrong: \n' + error.message);
             });
-        },
+        }, */
 
         fetchNeighbourhoods() {
-            axios.get(`/api/cities/${this.selectedCity}/neighbourhoods`).then(response => {
+            axios.get(`/api/neighbourhoods`).then(response => {
                 this.neighbourhoods = response.data;
             }).catch(error => {
                 alert('Something went wrong \n' + error.message);
@@ -264,6 +301,41 @@ export default {
             }).catch(error => {
                 alert('Something went wrong \n' + error.message);
             });
+        },
+
+        imagesUpload() {
+
+        },
+
+        deleteAttached(id) {
+
+        },
+
+        onSubmit() {
+            let estateUpdate = new FormData();
+
+            // Append mandatory data
+            estateUpdate.append('id', this.estate.id);
+            estateUpdate.append('title', this.estate.title);
+            estateUpdate.append('neighbourhood_id', this.estate.selectedNeighbourhood);
+            estateUpdate.append('type_id', this.estate.selectedType);
+            estateUpdate.append('contract_id', this.estate.selectedContract);
+            estateUpdate.append('finish_type_id', this.estate.selectedFinish);
+            estateUpdate.append('view_id', this.estate.selectedView);
+            estateUpdate.append('area', this.estate.area);
+
+            // Append optional data
+            if (this.estate.floor) estateUpdate.append('floor_number', this.estate.floor);
+            if (this.estate.rooms) estateUpdate.append('number_of_rooms', this.estate.rooms);
+            if (this.estate.bathrooms) estateUpdate.append('number_of_bathrooms', this.estate.bathrooms);
+            if (this.estate.living) estateUpdate.append('number_of_living_spaces', this.estate.living);
+            if (this.estate.balconies) estateUpdate.append('number_of_balconies', this.estate.balconies);
+            if (this.estate.buildYear) estateUpdate.append('build_year', this.estate.buildYear);
+            if (this.estate.garage) estateUpdate.append('has_garage', this.estate.garage);
+            if (this.estate.elevator) estateUpdate.append('has_elevator', this.estate.elevator);
+            if (this.estate.notes) estateUpdate.append('notes', this.estate.notes);
+
+            this.$emit('estate-update', estateUpdate);
         },
 
         checkError(prop) {

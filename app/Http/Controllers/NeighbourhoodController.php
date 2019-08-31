@@ -15,8 +15,8 @@ class NeighbourhoodController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
-        return CityResource::collection($cities);
+        $neighbourhoods = Neighbourhood::all();
+        return CityResource::collection($neighbourhoods);
     }
 
     /**
