@@ -2675,10 +2675,11 @@ __webpack_require__.r(__webpack_exports__);
       this.estate = estate;
       this.editMode = true;
     },
-    updateEstate: function updateEstate(estate) {
+    updateEstate: function updateEstate(id, estate) {
       var _this3 = this;
 
-      axios.patch("/api/estates/".concat(estate.id), estate).then(function (response) {
+      //console.log(estate.id);
+      axios.patch("/api/estates/".concat(id), estate).then(function (response) {
         _this3.fetchEstates();
 
         $('#editEstate').modal('hide');
@@ -3433,23 +3434,23 @@ __webpack_require__.r(__webpack_exports__);
 
       estateUpdate.append('id', this.estate.id);
       estateUpdate.append('title', this.estate.title);
-      estateUpdate.append('neighbourhood_id', this.estate.selectedNeighbourhood);
-      estateUpdate.append('type_id', this.estate.selectedType);
-      estateUpdate.append('contract_id', this.estate.selectedContract);
-      estateUpdate.append('finish_type_id', this.estate.selectedFinish);
-      estateUpdate.append('view_id', this.estate.selectedView);
+      estateUpdate.append('neighbourhood_id', this.estate.neighbourhood_id);
+      estateUpdate.append('type_id', this.estate.type_id);
+      estateUpdate.append('contract_id', this.estate.contract_id);
+      estateUpdate.append('finish_type_id', this.estate.finish_type_id);
+      estateUpdate.append('view_id', this.estate.view_id);
       estateUpdate.append('area', this.estate.area); // Append optional data
 
-      if (this.estate.floor) estateUpdate.append('floor_number', this.estate.floor);
-      if (this.estate.rooms) estateUpdate.append('number_of_rooms', this.estate.rooms);
-      if (this.estate.bathrooms) estateUpdate.append('number_of_bathrooms', this.estate.bathrooms);
-      if (this.estate.living) estateUpdate.append('number_of_living_spaces', this.estate.living);
-      if (this.estate.balconies) estateUpdate.append('number_of_balconies', this.estate.balconies);
-      if (this.estate.buildYear) estateUpdate.append('build_year', this.estate.buildYear);
-      if (this.estate.garage) estateUpdate.append('has_garage', this.estate.garage);
-      if (this.estate.elevator) estateUpdate.append('has_elevator', this.estate.elevator);
+      if (this.estate.floor_number) estateUpdate.append('floor_number', this.estate.floor_number);
+      if (this.estate.number_of_rooms) estateUpdate.append('number_of_rooms', this.estate.number_of_rooms);
+      if (this.estate.number_of_bathrooms) estateUpdate.append('number_of_bathrooms', this.estate.number_of_bathrooms);
+      if (this.estate.number_of_living_spaces) estateUpdate.append('number_of_living_spaces', this.estate.number_of_living_spaces);
+      if (this.estate.number_of_balconies) estateUpdate.append('number_of_balconies', this.estate.number_of_balconies);
+      if (this.estate.build_year) estateUpdate.append('build_year', this.estate.build_year);
+      if (this.estate.has_garage) estateUpdate.append('has_garage', this.estate.has_garage);
+      if (this.estate.has_elevator) estateUpdate.append('has_elevator', this.estate.has_elevator);
       if (this.estate.notes) estateUpdate.append('notes', this.estate.notes);
-      this.$emit('estate-update', estateUpdate);
+      this.$emit('estate-update', this.estate.id, estateUpdate);
     },
     checkError: function checkError(prop) {
       return this.submitErrors.hasOwnProperty(prop);
@@ -3923,8 +3924,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 // Import neighbourhood components
 
 
@@ -3937,7 +3936,8 @@ __webpack_require__.r(__webpack_exports__);
       selected: '',
       neighbourhoodDeleteId: '',
       errors: {},
-      isInvisible: true
+      isInvisible: true,
+      editMode: false
     };
   },
   components: {
@@ -3955,7 +3955,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchCitites: function fetchCitites() {
       var _this = this;
 
-      axios.get('/api/neighbourhoods').then(function (response) {
+      axios.get('/api/cities').then(function (response) {
         _this.cities = response.data;
       });
     },
@@ -3992,18 +3992,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Get neighbourhood data to update
     editNeighbourhood: function editNeighbourhood(neighbourhood) {
-      this.neighbourhood.id = neighbourhood.id;
-      this.neighbourhood.name = neighbourhood.name;
-      this.neighbourhood.city_id = neighbourhood.city_id;
+      this.neighbourhood = neighbourhood;
+      this.editMode = true;
     },
     // Update neighbourhood
-    updateNeighbourhood: function updateNeighbourhood(neighbourhood) {
+    updateNeighbourhood: function updateNeighbourhood(id, neighbourhood) {
       var _this4 = this;
 
-      axios.patch("/api/neighbourhoods/".concat(neighbourhood.id), neighbourhood).then(function (response) {
+      axios.patch("/api/neighbourhoods/".concat(id), neighbourhood).then(function (response) {
         _this4.changeCity();
 
         $('#editNeighbourhood').modal('hide');
+        _this4.editMode = false;
       })["catch"](function (error) {
         _this4.errors = error.response.data.errors;
         console.log(error.response.data.message);
@@ -4120,21 +4120,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['name', 'cityId', 'neighbourhood', 'citiesOptions', 'submitErrors'],
+  props: ['neighbourhood', 'citiesOptions', 'submitErrors'],
   data: function data() {
     return {
-      neighbourhoodUpdate: {}
+      neighbourhoodName: this.neighbourhood.name,
+      cityId: this.neighbourhood.city_id
     };
   },
+
+  /* mounted() {
+      this.neighbourhoodName = this.neighbourhood.name;
+      this.city_id = this.neighbourhood.city_id;
+  }, */
   methods: {
     onSubmit: function onSubmit() {
-      this.neighbourhoodUpdate = {
-        id: this.neighbourhood.id // Check if name is changed
+      var neighbourhoodUpdate = new FormData();
+      neighbourhoodUpdate.append('name', this.neighbourhoodName);
+      neighbourhoodUpdate.append('city_id', this.cityId);
+      /* this.neighbourhoodUpdate = {
+          id: this.neighbourhood.id,
+      }
+       // Check if name is changed
+      if (this.neighbourhood.name != this.name)
+          this.neighbourhoodUpdate.name = this.neighbourhood.name;
+       if (this.neighbourhood.city_id != this.cityId)
+          this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id; */
 
-      };
-      if (this.neighbourhood.name != this.name) this.neighbourhoodUpdate.name = this.neighbourhood.name;
-      if (this.neighbourhood.city_id != this.cityId) this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id;
-      this.$emit('neighbourhood-update', this.neighbourhoodUpdate);
+      this.$emit('neighbourhood-update', this.neighbourhood.id, neighbourhoodUpdate);
     }
   },
   computed: {
@@ -45661,48 +45673,48 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "editNeighbourhood",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "editNeighbourhoodLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
+    _vm.editMode
+      ? _c(
           "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          {
+            staticClass: "modal fade",
+            attrs: {
+              id: "editNeighbourhood",
+              tabindex: "-1",
+              role: "dialog",
+              "aria-labelledby": "editNeighbourhoodLabel",
+              "aria-hidden": "true"
+            }
+          },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  _c("neighbourhood-edit", {
-                    attrs: {
-                      neighbourhood: _vm.neighbourhood,
-                      name: _vm.neighbourhood.name,
-                      cityId: _vm.neighbourhood.city_id,
-                      citiesOptions: _vm.cities,
-                      submitErrors: _vm.errors
-                    },
-                    on: { "neighbourhood-update": _vm.updateNeighbourhood }
-                  })
-                ],
-                1
-              )
-            ])
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "modal-body" },
+                    [
+                      _c("neighbourhood-edit", {
+                        attrs: {
+                          neighbourhood: _vm.neighbourhood,
+                          citiesOptions: _vm.cities,
+                          submitErrors: _vm.errors
+                        },
+                        on: { "neighbourhood-update": _vm.updateNeighbourhood }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ]
+            )
           ]
         )
-      ]
-    ),
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -45985,8 +45997,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.neighbourhood.city_id,
-                expression: "neighbourhood.city_id"
+                value: _vm.cityId,
+                expression: "cityId"
               }
             ],
             class: [
@@ -46004,11 +46016,9 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.$set(
-                  _vm.neighbourhood,
-                  "city_id",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
+                _vm.cityId = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
               }
             }
           },
@@ -46045,8 +46055,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.neighbourhood.name,
-              expression: "neighbourhood.name"
+              value: _vm.neighbourhoodName,
+              expression: "neighbourhoodName"
             }
           ],
           class: [
@@ -46054,13 +46064,13 @@ var render = function() {
             "form-control col-md-9"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.neighbourhood.name },
+          domProps: { value: _vm.neighbourhoodName },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.neighbourhood, "name", $event.target.value)
+              _vm.neighbourhoodName = $event.target.value
             }
           }
         }),
@@ -61295,8 +61305,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

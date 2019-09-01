@@ -173,8 +173,9 @@ export default {
             this.editMode = true;
         },
 
-        updateEstate(estate) {
-            axios.patch(`/api/estates/${estate.id}`, estate).then(response => {
+        updateEstate(id, estate) {
+            //console.log(estate.id);
+            axios.patch(`/api/estates/${id}`, estate).then(response => {
                 this.fetchEstates();
                 $('#editEstate').modal('hide');
             }).catch(error => {

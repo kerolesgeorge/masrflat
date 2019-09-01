@@ -86,7 +86,7 @@
         </div>
 
         <!-- Edit neighbourhood modal -->
-        <div class="modal fade" id="editNeighbourhood" tabindex="-1" role="dialog" aria-labelledby="editNeighbourhoodLabel" aria-hidden="true">
+        <div class="modal fade" id="editNeighbourhood" tabindex="-1" role="dialog" aria-labelledby="editNeighbourhoodLabel" aria-hidden="true" v-if="editMode">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -100,8 +100,6 @@
                         <!-- Edit neighbourhood form component -->
                         <neighbourhood-edit
                         :neighbourhood="neighbourhood"
-                        :name = "neighbourhood.name"
-                        :cityId = "neighbourhood.city_id"
                         :citiesOptions="cities"
                         :submitErrors="errors"
                         @neighbourhood-update="updateNeighbourhood"></neighbourhood-edit>
@@ -147,6 +145,7 @@ export default {
             neighbourhoodDeleteId: '',
             errors: {},
             isInvisible: true,
+            editMode: false,
         }
     },
 
@@ -166,7 +165,7 @@ export default {
     methods: {
         // Fetch citites to show in list
         fetchCitites() {
-            axios.get('/api/neighbourhoods').then(response => {
+            axios.get('/api/cities').then(response => {
                 this.cities = response.data;
             });
         },
@@ -202,16 +201,16 @@ export default {
 
         // Get neighbourhood data to update
         editNeighbourhood(neighbourhood) {
-            this.neighbourhood.id = neighbourhood.id;
-            this.neighbourhood.name = neighbourhood.name;
-            this.neighbourhood.city_id = neighbourhood.city_id;
+            this.neighbourhood = neighbourhood;
+            this.editMode = true;
         },
 
         // Update neighbourhood
-        updateNeighbourhood(neighbourhood) {
-            axios.patch(`/api/neighbourhoods/${neighbourhood.id}`, neighbourhood).then(response => {
+        updateNeighbourhood(id, neighbourhood) {
+            axios.patch(`/api/neighbourhoods/${id}`, neighbourhood).then(response => {
                 this.changeCity();
                 $('#editNeighbourhood').modal('hide');
+                this.editMode = false;
             }).catch(error => {
                 this.errors = error.response.data.errors;
                 console.log(error.response.data.message);

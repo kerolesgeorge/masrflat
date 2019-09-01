@@ -3,7 +3,7 @@
         <form>
             <div class="form-row m-1 mb-3" dir="rtl">
                 <label for="cities" class="col-md-3 col-form-label">اختار مدينة</label>
-                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="neighbourhood.city_id">
+                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="cityId">
                     <option v-for="city in citiesOptions" :key="city.id" :value="city.id">
                         {{ city.name }}
                     </option>
@@ -12,7 +12,7 @@
             </div>
             <div class="form-row m-1 mb-3">
                 <label for="name" class="col-md-3 col-form-label">اسم الحي</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourhood.name">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourhoodName">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <div class="form-row">
@@ -25,17 +25,26 @@
 
 <script>
 export default {
-    props: ['name', 'cityId', 'neighbourhood', 'citiesOptions', 'submitErrors'],
+    props: ['neighbourhood', 'citiesOptions', 'submitErrors'],
 
     data() {
         return {
-            neighbourhoodUpdate: {},
+            neighbourhoodName: this.neighbourhood.name,
+            cityId: this.neighbourhood.city_id,
         }
     },
 
+    /* mounted() {
+        this.neighbourhoodName = this.neighbourhood.name;
+        this.city_id = this.neighbourhood.city_id;
+    }, */
+
     methods: {
         onSubmit() {
-            this.neighbourhoodUpdate = {
+            let neighbourhoodUpdate = new FormData();
+            neighbourhoodUpdate.append('name', this.neighbourhoodName);
+            neighbourhoodUpdate.append('city_id', this.cityId);
+            /* this.neighbourhoodUpdate = {
                 id: this.neighbourhood.id,
             }
 
@@ -44,9 +53,9 @@ export default {
                 this.neighbourhoodUpdate.name = this.neighbourhood.name;
 
             if (this.neighbourhood.city_id != this.cityId)
-                this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id;
+                this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id; */
 
-            this.$emit('neighbourhood-update', this.neighbourhoodUpdate);
+            this.$emit('neighbourhood-update', this.neighbourhood.id, neighbourhoodUpdate);
         },
     },
 

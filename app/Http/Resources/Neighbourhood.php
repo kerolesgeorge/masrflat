@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\City as CityResource;
 
 class Neighbourhood extends JsonResource
 {
@@ -19,6 +20,7 @@ class Neighbourhood extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'city_id' => $this->city_id,
+            //'city' => CityResource::collection($this->city),
         ];
     }
 }
