@@ -4122,30 +4122,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['neighbourhood', 'citiesOptions', 'submitErrors'],
   data: function data() {
-    return {
-      neighbourhoodName: this.neighbourhood.name,
-      cityId: this.neighbourhood.city_id
+    return {//
     };
   },
-
-  /* mounted() {
-      this.neighbourhoodName = this.neighbourhood.name;
-      this.city_id = this.neighbourhood.city_id;
-  }, */
   methods: {
     onSubmit: function onSubmit() {
-      var neighbourhoodUpdate = new FormData();
-      neighbourhoodUpdate.append('name', this.neighbourhoodName);
-      neighbourhoodUpdate.append('city_id', this.cityId);
-      /* this.neighbourhoodUpdate = {
-          id: this.neighbourhood.id,
-      }
-       // Check if name is changed
-      if (this.neighbourhood.name != this.name)
-          this.neighbourhoodUpdate.name = this.neighbourhood.name;
-       if (this.neighbourhood.city_id != this.cityId)
-          this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id; */
-
+      var neighbourhoodUpdate = {
+        'name': this.neighbourhood.name,
+        'city_id': this.neighbourhood.city_id
+      };
       this.$emit('neighbourhood-update', this.neighbourhood.id, neighbourhoodUpdate);
     }
   },
@@ -45997,8 +45982,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.cityId,
-                expression: "cityId"
+                value: _vm.neighbourhood.city_id,
+                expression: "neighbourhood.city_id"
               }
             ],
             class: [
@@ -46016,9 +46001,11 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.cityId = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
+                _vm.$set(
+                  _vm.neighbourhood,
+                  "city_id",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
           },
@@ -46055,8 +46042,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.neighbourhoodName,
-              expression: "neighbourhoodName"
+              value: _vm.neighbourhood.name,
+              expression: "neighbourhood.name"
             }
           ],
           class: [
@@ -46064,13 +46051,13 @@ var render = function() {
             "form-control col-md-9"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.neighbourhoodName },
+          domProps: { value: _vm.neighbourhood.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.neighbourhoodName = $event.target.value
+              _vm.$set(_vm.neighbourhood, "name", $event.target.value)
             }
           }
         }),
@@ -61305,8 +61292,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

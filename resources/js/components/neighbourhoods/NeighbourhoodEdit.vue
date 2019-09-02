@@ -3,7 +3,7 @@
         <form>
             <div class="form-row m-1 mb-3" dir="rtl">
                 <label for="cities" class="col-md-3 col-form-label">اختار مدينة</label>
-                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="cityId">
+                <select id="cities" :class="[{'is-invalid' : submitErrors.hasOwnProperty('city_id')}, 'form-control col-md-9 p-1']" v-model="neighbourhood.city_id">
                     <option v-for="city in citiesOptions" :key="city.id" :value="city.id">
                         {{ city.name }}
                     </option>
@@ -12,7 +12,7 @@
             </div>
             <div class="form-row m-1 mb-3">
                 <label for="name" class="col-md-3 col-form-label">اسم الحي</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourhoodName">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control col-md-9']" id="name" name="name" v-model="neighbourhood.name">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <div class="form-row">
@@ -29,31 +29,16 @@ export default {
 
     data() {
         return {
-            neighbourhoodName: this.neighbourhood.name,
-            cityId: this.neighbourhood.city_id,
+            //
         }
     },
 
-    /* mounted() {
-        this.neighbourhoodName = this.neighbourhood.name;
-        this.city_id = this.neighbourhood.city_id;
-    }, */
-
     methods: {
         onSubmit() {
-            let neighbourhoodUpdate = new FormData();
-            neighbourhoodUpdate.append('name', this.neighbourhoodName);
-            neighbourhoodUpdate.append('city_id', this.cityId);
-            /* this.neighbourhoodUpdate = {
-                id: this.neighbourhood.id,
+            let neighbourhoodUpdate = {
+                'name': this.neighbourhood.name,
+                'city_id': this.neighbourhood.city_id
             }
-
-            // Check if name is changed
-            if (this.neighbourhood.name != this.name)
-                this.neighbourhoodUpdate.name = this.neighbourhood.name;
-
-            if (this.neighbourhood.city_id != this.cityId)
-                this.neighbourhoodUpdate.city_id = this.neighbourhood.city_id; */
 
             this.$emit('neighbourhood-update', this.neighbourhood.id, neighbourhoodUpdate);
         },

@@ -33,7 +33,6 @@ class NeighbourhoodController extends Controller
      */
     public function update(Neighbourhood $neighbourhood)
     {
-        dd(request()->all());
         $neighbourhood->update($this->validateRequest());
         return new NeighbourhoodResource($neighbourhood);
     }
@@ -60,15 +59,9 @@ class NeighbourhoodController extends Controller
      */
     public function validateRequest()
     {
-        $request = [];
-
-        //if (request()->has('name'))
-            $request['name'] = 'required | unique:neighbourhoods';
-
-        //if (request()->has('city_id'))
-            $request['city_id'] = 'required';
-
-
-        return request()->validate($request);
+        return request()->validate([
+            'name' => 'required',
+            'city_id' => 'required'
+        ]);
     }
 }
