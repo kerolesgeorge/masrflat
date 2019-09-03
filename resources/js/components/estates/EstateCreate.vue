@@ -346,37 +346,38 @@ export default {
         },
 
         onSubmit() {
-            let estate = new FormData();
-
             // Append mandatory data
-            estate.append('title', this.title);
-            estate.append('neighbourhood_id', this.selectedNeighbourhood);
-            estate.append('type_id', this.selectedType);
-            estate.append('contract_id', this.selectedContract);
-            estate.append('finish_type_id', this.selectedFinish);
-            estate.append('view_id', this.selectedView);
-            estate.append('area', this.area);
+            let estate = {
+                'title': this.title,
+                'neighbourhood_id': this.selectedNeighbourhood,
+                'type_id': this.selectedType,
+                'contract_id': this.selectedContract,
+                'finish_type_id': this.selectedFinish,
+                'view_id': this.selectedView,
+                'area': this.area,
+            }
 
             // Append optional data
-            if (this.floor) estate.append('floor_number', this.floor);
-            if (this.rooms) estate.append('number_of_rooms', this.rooms);
-            if (this.bathrooms) estate.append('number_of_bathrooms', this.bathrooms);
-            if (this.living) estate.append('number_of_living_spaces', this.living);
-            if (this.balconies) estate.append('number_of_balconies', this.balconies);
-            if (this.buildYear) estate.append('build_year', this.buildYear);
-            if (this.garage) estate.append('has_garage', this.garage);
-            if (this.elevator) estate.append('has_elevator', this.elevator);
-            if (this.notes) estate.append('notes', this.notes);
+            if (this.floor) estate.floor_number= this.floor;
+            if (this.rooms) estate.number_of_rooms= this.rooms;
+            if (this.bathrooms) estate.number_of_bathrooms= this.bathrooms;
+            if (this.living) estate.number_of_living_spaces= this.living;
+            if (this.balconies) estate.number_of_balconies= this.balconies;
+            if (this.buildYear) estate.build_year= this.buildYear;
+            if (this.garage) estate.has_garage= this.garage;
+            if (this.elevator) estate.has_elevator= this.elevator;
+            if (this.notes) estate.notes= this.notes;
 
             // Append images array
             /* if (this.images) {
                 for (let i = 0; i < this.images.length; i++) {
                     let image = this.images[i];
-                    estate.append(`images[${i}]`, image);
+                    estate[`images${i}`] = image;
                 }
             }; */
 
-            this.$emit('estate-submitted', estate);
+            //this.$emit('estate-submitted', estate);
+            console.log(estate);
         },
 
         checkError(prop) {

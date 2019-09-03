@@ -312,30 +312,29 @@ export default {
         },
 
         onSubmit() {
-            let estateUpdate = new FormData();
-
             // Append mandatory data
-            estateUpdate.append('id', this.estate.id);
-            estateUpdate.append('title', this.estate.title);
-            estateUpdate.append('neighbourhood_id', this.estate.selectedNeighbourhood);
-            estateUpdate.append('type_id', this.estate.selectedType);
-            estateUpdate.append('contract_id', this.estate.selectedContract);
-            estateUpdate.append('finish_type_id', this.estate.selectedFinish);
-            estateUpdate.append('view_id', this.estate.selectedView);
-            estateUpdate.append('area', this.estate.area);
+            let estateUpdate = {
+                'title': this.estate.title,
+                'neighbourhood_id': this.estate.neighbourhood_id,
+                'type_id': this.estate.type_id,
+                'contract_id': this.estate.contract_id,
+                'finish_type_id': this.estate.finish_type_id,
+                'view_id': this.estate.view_id,
+                'area': this.estate.area,
+            }
 
             // Append optional data
-            if (this.estate.floor_number) estateUpdate.append('floor_number', this.estate.floor);
-            if (this.estate.number_of_rooms) estateUpdate.append('number_of_rooms', this.estate.rooms);
-            if (this.estate.number_of_bathrooms) estateUpdate.append('number_of_bathrooms', this.estate.bathrooms);
-            if (this.estate.number_of_living_spaces) estateUpdate.append('number_of_living_spaces', this.estate.living);
-            if (this.estate.number_of_balconies) estateUpdate.append('number_of_balconies', this.estate.balconies);
-            if (this.estate.build_year) estateUpdate.append('build_year', this.estate.buildYear);
-            if (this.estate.has_garage) estateUpdate.append('has_garage', this.estate.garage);
-            if (this.estate.has_elevator) estateUpdate.append('has_elevator', this.estate.elevator);
-            if (this.estate.notes) estateUpdate.append('notes', this.estate.notes);
+            if (this.estate.floor_number) estateUpdate.floor_number = this.estate.floor_number;
+            if (this.estate.number_of_rooms) estateUpdate.number_of_rooms = this.estate.number_of_rooms;
+            if (this.estate.number_of_bathrooms) estateUpdate.number_of_bathrooms = this.estate.number_of_bathrooms;
+            if (this.estate.number_of_living_spaces) estateUpdate.number_of_living_spaces = this.estate.number_of_living_spaces;
+            if (this.estate.number_of_balconies) estateUpdate.number_of_balconies = this.estate.number_of_balconies;
+            if (this.estate.build_year) estateUpdate.build_year = this.estate.build_year;
+            if (this.estate.has_garage) estateUpdate.has_garage = this.estate.has_garage;
+            if (this.estate.has_elevator) estateUpdate.has_elevator = this.estate.has_elevator;
+            if (this.estate.notes) estateUpdate.notes = this.estate.notes;
 
-            this.$emit('estate-update', estateUpdate);
+            this.$emit('estate-update', this.estate.id, estateUpdate);
         },
 
         checkError(prop) {
