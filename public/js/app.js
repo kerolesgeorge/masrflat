@@ -3082,8 +3082,6 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong, ' + error.response.data.message);
       });
     },
-    // Fetch uploaded attachments
-    fetchImages: function fetchImages() {},
     onSubmit: function onSubmit() {
       // Append mandatory data
       this.estate = {
@@ -3508,13 +3506,21 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
-    getCity: function getCity() {
-      axios.get("/api/neighbourhoods/".concat(this.neighbourhoodId, "/city")).then(function (response) {
-        console.log(response.data.id);
+    imagesUpload: function imagesUpload() {},
+    deleteImage: function deleteImage(id) {
+      var _this6 = this;
+
+      // Delete image from server
+      axios["delete"]("/images/".concat(id)).then(function (response) {
+        for (var i = 0; i < _this6.images.length; i++) {
+          if (_this6.images[i]['id'] == id) {
+            _this6.images.splice(i, 1);
+          }
+        }
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
       });
     },
-    imagesUpload: function imagesUpload() {},
-    deleteAttached: function deleteAttached(id) {},
     onSubmit: function onSubmit() {
       // Append mandatory data
       var estateUpdate = {
@@ -44933,7 +44939,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.deleteAttached(image.id)
+                      return _vm.deleteImage(image.id)
                     }
                   }
                 },
@@ -61337,8 +61343,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

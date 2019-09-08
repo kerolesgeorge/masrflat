@@ -202,7 +202,7 @@
                 <div class="card" v-for="image in images" :key="image.id">
                     <img :src="'/storage/' + image.url" class="card-img-top" alt="Attached Image">
                     <div class="card-body p-1">
-                    <button class="btn btn-outline-danger" @click.prevent="deleteAttached(image.id)">Delete</button>
+                    <button class="btn btn-outline-danger" @click.prevent="deleteImage(image.id)">Delete</button>
                     </div>
                 </div>
             </div>
@@ -352,18 +352,21 @@ export default {
             });
         },
 
-        getCity() {
-            axios.get(`/api/neighbourhoods/${this.neighbourhoodId}/city`).then(response => {
-                console.log(response.data.id);
-            });
-        },
-
         imagesUpload() {
 
         },
 
-        deleteAttached(id) {
-
+        deleteImage(id) {
+            // Delete image from server
+            axios.delete(`/images/${id}`).then(response => {
+                for (let i = 0; i < this.images.length; i++) {
+                    if(this.images[i]['id'] == id) {
+                        this.images.splice(i, 1);
+                    }
+                }
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
+            });
         },
 
         onSubmit() {

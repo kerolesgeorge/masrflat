@@ -163,6 +163,14 @@ class EstateController extends Controller
     }
 
     /**
+     * Delete estate image
+     */
+    public function deleteImage($id)
+    {
+
+    }
+
+    /**
      * Validate request
      */
     private function validateRequest()

@@ -349,11 +349,6 @@ export default {
             });
         },
 
-        // Fetch uploaded attachments
-        fetchImages(){
-
-        },
-
         onSubmit() {
             // Append mandatory data
             this.estate = {

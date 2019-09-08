@@ -69,8 +69,8 @@ class ImageController extends Controller
         ]);
 
         // Delete Record
-        $image->delete();
+        $deleted = $image->delete();
+        return json_encode($deleted);
 
-        return redirect('/image-gallery');
     }
 }
