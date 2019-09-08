@@ -16,7 +16,7 @@
                 <h3 class="m-1">العقارات</h3>
 
                  <!-- Add new estate section -->
-                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createEstate" @click="createMode=true; clearErrors">اضافة</button>
+                <button class="btn btn-success m-2" data-toggle="modal" data-target="#createEstate" @click="clearErrors">اضافة</button>
             </div>
 
             <table class="table p-3">
@@ -34,7 +34,7 @@
                         <td>
 
                             <!-- Update button -->
-                            <a href="#" title="تعديل" @click="editEstate(estate);clearErrors()" data-toggle="modal" data-target="#editEstate"><i class="fas fa-edit"></i></a>
+                            <a href="#" title="تعديل" @click="editEstate(estate); clearErrors()" data-toggle="modal" data-target="#editEstate"><i class="fas fa-edit"></i></a>
 
                             <!-- Delete Button -->
                             <button class="btn btn-delete" data-toggle="modal" data-target="#deleteEstate" @click="getEstateToDelete(estate.id)">
@@ -47,8 +47,8 @@
             </table>
         </div>
 
-        <!-- Create city modal -->
-        <div class="modal fade" id="createEstate" tabindex="-1" role="dialog" aria-labelledby="createEstateLabel" aria-hidden="true" v-if="createMode">
+        <!-- Create estate modal -->
+        <div class="modal fade" id="createEstate" tabindex="-1" role="dialog" aria-labelledby="createEstateLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Edit estate modal -->
-        <div class="modal fade" id="editEstate" tabindex="-1" role="dialog" aria-labelledby="editEstateLabel" aria-hidden="true" v-if="editMode">
+        <div class="modal fade" id="editEstate" tabindex="-1" role="dialog" aria-labelledby="editEstateLabel" aria-hidden="true" v-if="estate">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -81,9 +81,26 @@
                     </div>
                     <div class="modal-body">
 
-                        <!-- Create Estate form component -->
+                        <!-- Edit Estate form component -->
                         <estate-edit
-                        :estate="estate"
+                        :id="estate.id"
+                        :title="estate.title"
+                        :neighbourhoodId="estate.neighbourhood_id"
+                        :typeId="estate.type_id"
+                        :contractId="estate.contract_id"
+                        :finishTypeId="estate.finish_type_id"
+                        :viewId="estate.view_id"
+                        :area="estate.area"
+                        :floorNumber="estate.floor_number"
+                        :numberOfRooms="estate.number_of_rooms"
+                        :numberOfBathrooms="estate.number_of_bathrooms"
+                        :numberOfLivingSpaces="estate.number_of_living_spaces"
+                        :numberOfBalconies="estate.number_of_balconies"
+                        :buildYear="estate.build_year"
+                        :hasGarage="estate.has_garage"
+                        :hasElevator="estate.has_elevator"
+                        :notes="estate.notes"
+                        :images="estate.images"
                         :submitErrors="errors"
                         @estate-update="updateEstate"></estate-edit>
 
@@ -154,11 +171,7 @@ export default {
         },
 
         createEstate(estate) {
-            axios.post('/api/estates', estate, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(response => {
+            axios.post('/api/estates', estate).then(response => {
                 this.fetchEstates();
                 //$('#createEstate').modal('hide');
                 location.reload();
@@ -170,7 +183,6 @@ export default {
 
         editEstate(estate) {
             this.estate = estate;
-            this.editMode = true;
         },
 
         updateEstate(id, estate) {
@@ -198,7 +210,7 @@ export default {
         clearErrors() {
             this.errors = [];
         },
-    }
+    },
 }
 </script>
 

@@ -48,10 +48,11 @@ class NeighbourhoodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showByCity(City $city)
+    public function getCityNeighbourhoods(Neighbourhood $neighbourhood)
     {
-        $neighbourhoods = $city->neighbourhoods();
-        return CityResource::collection($neighbourhoods);
+        $city = $neighbourhood->city;
+        $cityNeighbourhoods = $city->neighbourhoods;
+        return NeighbourhoodResource::collection($cityNeighbourhoods);
     }
 
     /**

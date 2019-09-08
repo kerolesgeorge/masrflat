@@ -189,6 +189,7 @@ export default {
         createNeighbourhood(neighbourhood) {
             // Add selected city_id to neighbourhood object
             neighbourhood.city_id = this.selected;
+
             axios.post('/api/neighbourhoods', neighbourhood).then(response => {
                 this.changeCity();
                 $('#createNeighbourhood').modal('hide');

@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label for="name">اسم المدينه</label>
-                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="city.name">
+                <input type="text" :class="[{'is-invalid' : submitErrors.hasOwnProperty('name')}, 'form-control']" id="name" name="name" v-model="cityName">
                 <div class="invalid-feedback">{{ nameError }}</div>
             </div>
             <button class="btn btn-primary" @click.prevent="onSubmit">حفظ</button>
@@ -13,11 +13,11 @@
 
 <script>
 export default {
-    props: ['city', 'submitErrors'],
+    props: ['id', 'name', 'submitErrors'],
 
     data() {
         return {
-            //cityName: '',
+            cityName: '',
             cityUpdate: {},
         }
     },
@@ -25,17 +25,16 @@ export default {
     methods: {
         onSubmit() {
             this.cityUpdate = {
-                id: this.city.id,
-                name: this.city.name,
+                name: this.cityName,
             }
-            this.$emit('city-update', this.cityUpdate);
+            this.$emit('city-update',this.id, this.cityUpdate);
         }
     },
 
     watch: {
-        /* name(val) {
+        name(val) {
             this.cityName = val;
-        } */
+        }
     },
 
     computed: {

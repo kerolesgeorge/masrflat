@@ -83,7 +83,8 @@
 
                         <!-- Create city form component -->
                         <city-edit
-                        :city="city"
+                        :id="city.id"
+                        :name="city.name"
                         :submitErrors="errors"
                         @city-update="updateCity"></city-edit>
 
@@ -165,13 +166,12 @@ export default {
 
         // Get city data to update
         editCity(city) {
-            this.city.id = city.id;
-            this.city.name = city.name;
+            this.city = city;
         },
 
         // Update city
-        updateCity(city) {
-            axios.patch(`/api/cities/${city.id}`, city).then(response => {
+        updateCity(id, city) {
+            axios.patch(`/api/cities/${id}`, city).then(response => {
                 this.fetchCities();
                 $('#editCity').modal('hide');
             }).catch(error => {

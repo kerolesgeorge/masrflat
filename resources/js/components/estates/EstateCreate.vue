@@ -1,14 +1,17 @@
 <template>
     <div>
-        <form>
+        <form id="estateForm">
+
             <!-- Estate title -->
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">عنوان الاعلان</label>
                 <div class="col-sm-9">
-                    <input type="text" :class="[{'is-invalid' : checkError('title')}, 'form-control']" id="title" v-model="title">
+                    <input type="text" :class="[{'is-invalid' : checkError('title')}, 'form-control']" id="title" name="title" v-model="title">
                     <div class="invalid-feedback">{{ getError('title') }}</div>
                 </div>
             </div>
+
+            <hr>
 
             <!-- City and neighbourhood select -->
             <div class="form-group row">
@@ -23,7 +26,7 @@
 
                 <label for="neighbourhood" class="col-sm-2 col-form-label">الحي</label>
                 <div class="col-sm-4">
-                    <select id="neighbourhood" :class="[{'is-invalid' : checkError('neighbourhood_id')}, 'form-control p-1']" v-model="selectedNeighbourhood">
+                    <select id="neighbourhood" name="neighbourhood_id" :class="[{'is-invalid' : checkError('neighbourhood_id')}, 'form-control p-1']" v-model="selectedNeighbourhood">
                         <option v-for="neighbourhood in neighbourhoods" :key="neighbourhood.id" :value="neighbourhood.id">
                             {{ neighbourhood.name }}
                         </option>
@@ -36,7 +39,7 @@
             <div class="form-group row">
                 <label for="type" class="col-sm-2 col-form-label">العقار</label>
                 <div class="col-sm-4">
-                    <select id="type" :class="[{'is-invalid' : checkError('type_id')}, 'form-control p-1']" v-model="selectedType">
+                    <select id="type" name="type_id" :class="[{'is-invalid' : checkError('type_id')}, 'form-control p-1']" v-model="selectedType">
                         <option v-for="etype in types" :key="etype.id" :value="etype.id">
                             {{ etype.name }}
                         </option>
@@ -46,7 +49,7 @@
 
                 <label for="contract" class="col-sm-2 col-form-label">العقد</label>
                 <div class="col-sm-4">
-                    <select id="contract" :class="[{'is-invalid' : checkError('contract_id')}, 'form-control p-1']" v-model="selectedContract">
+                    <select id="contract" name="contract_id" :class="[{'is-invalid' : checkError('contract_id')}, 'form-control p-1']" v-model="selectedContract">
                         <option v-for="contract in contracts" :key="contract.id" :value="contract.id">
                             {{ contract.name }}
                         </option>
@@ -59,7 +62,7 @@
             <div class="form-group row">
                 <label for="finish" class="col-sm-2 col-form-label">التشطيب</label>
                 <div class="col-sm-4">
-                    <select id="finish" :class="[{'is-invalid' : checkError('finish_type_id')}, 'form-control p-1']" v-model="selectedFinish">
+                    <select id="finish" name="finish_type_id" :class="[{'is-invalid' : checkError('finish_type_id')}, 'form-control p-1']" v-model="selectedFinish">
                         <option v-for="finish in finishes" :key="finish.id" :value="finish.id">
                             {{ finish.name }}
                         </option>
@@ -69,7 +72,7 @@
 
                 <label for="view" class="col-sm-2 col-form-label">الواجهات</label>
                 <div class="col-sm-4">
-                    <select id="view" :class="[{'is-invalid' : checkError('view_id')}, 'form-control p-1']" v-model="selectedView">
+                    <select id="view" name="view_id" :class="[{'is-invalid' : checkError('view_id')}, 'form-control p-1']" v-model="selectedView">
                         <option v-for="view in views" :key="view.id" :value="view.id">
                             {{ view.name }}
                         </option>
@@ -84,13 +87,13 @@
             <div class="form-group row">
                 <label for="area" class="col-form-label col-sm-3">المساحة م<span><sup>2</sup></span></label>
                 <div class="col-sm-3">
-                    <input type="text" id="area" :class="[{'is-invalid' : checkError('area')}, 'form-control']" v-model="area">
+                    <input type="text" id="area" name="area" :class="[{'is-invalid' : checkError('area')}, 'form-control']" v-model="area">
                     <div class="invalid-feedback">{{ getError('area') }}</div>
                 </div>
 
                 <label for="floor" class="col-form-label col-sm-3">الدور</label>
                 <div class="col-sm-3">
-                    <input type="text" id="floor" :class="[{'is-invalid' : checkError('floor_number')}, 'form-control']" v-model="floor">
+                    <input type="text" id="floor" name="floor_number" :class="[{'is-invalid' : checkError('floor_number')}, 'form-control']" v-model="floor">
                     <div class="invalid-feedback">{{ getError('floor_number') }}</div>
                 </div>
             </div>
@@ -99,13 +102,13 @@
             <div class="form-group row">
                 <label for="rooms" class="col-form-label col-sm-3">عدد الغرف</label>
                 <div class="col-sm-3">
-                    <input type="text" id="rooms" :class="[{'is-invalid' : checkError('number_of_rooms')}, 'form-control']" v-model="rooms">
+                    <input type="text" id="rooms" name="number_of_rooms" :class="[{'is-invalid' : checkError('number_of_rooms')}, 'form-control']" v-model="rooms">
                     <div class="invalid-feedback">{{ getError('number_of_rooms') }}</div>
                 </div>
 
                 <label for="bathrooms" class="col-form-label col-sm-3">عدد الحمامات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="bathrooms" :class="[{'is-invalid' : checkError('number_of_bathrooms')}, 'form-control']" v-model="bathrooms">
+                    <input type="text" id="bathrooms" name="number_of_bathrooms" :class="[{'is-invalid' : checkError('number_of_bathrooms')}, 'form-control']" v-model="bathrooms">
                     <div class="invalid-feedback">{{ getError('number_of_bathrooms') }}</div>
                 </div>
             </div>
@@ -114,13 +117,13 @@
             <div class="form-group row">
                 <label for="living" class="col-form-label col-sm-3">عدد المعيشة</label>
                 <div class="col-sm-3">
-                    <input type="text" id="living" :class="[{'is-invalid' : checkError('number_of_living_spaces')}, 'form-control']" v-model="living">
+                    <input type="text" id="living" name="number_of_living_spaces" :class="[{'is-invalid' : checkError('number_of_living_spaces')}, 'form-control']" v-model="living">
                     <div class="invalid-feedback">{{ getError('number_of_living_spaces') }}</div>
                 </div>
 
                 <label for="balconies" class="col-form-label col-sm-3">عدد البلكونات</label>
                 <div class="col-sm-3">
-                    <input type="text" id="balconies" :class="[{'is-invalid' : checkError('number_of_balconies')}, 'form-control']" v-model="balconies">
+                    <input type="text" id="balconies" name="number_of_balconies" :class="[{'is-invalid' : checkError('number_of_balconies')}, 'form-control']" v-model="balconies">
                     <div class="invalid-feedback">{{ getError('number_of_balconies') }}</div>
                 </div>
             </div>
@@ -129,35 +132,39 @@
             <div class="form-group row">
                 <label for="buildYear" class="col-form-label col-sm-3">سنة البناء</label>
                 <div class="col-sm-3">
-                    <input type="text" id="buildYear" :class="[{'is-invalid' : checkError('build_year')}, 'form-control']" v-model="buildYear">
+                    <input type="text" id="buildYear" name="build_year" :class="[{'is-invalid' : checkError('build_year')}, 'form-control']" v-model="buildYear">
                     <div class="invalid-feedback">{{ getError('build_year') }}</div>
                 </div>
             </div>
+
+            <hr>
 
             <!-- Garage and elevator inputs -->
             <div class="form-group row">
                 <label for="garage" class="col-form-label col-sm-3">جراج</label>
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="garage" id="garage1" value="1" v-model="garage">
+                        <input class="form-check-input" type="checkbox" name="has_garage" id="garage" v-model="garage">
                         <label class="form-check-label mr-1" for="garage1">يوجد </label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="garage" id="garage0" value="0" v-model="garage">
+                    <!-- <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="has_garage" id="garage0" value="0" v-model="garage">
                         <label class="form-check-label mr-1" for="garage0">لا يوجد</label>
-                    </div>
+                    </div> -->
                 </div>
+            </div>
 
+            <div class="form-group row">
                 <label for="elevator" class="col-form-label col-sm-3">اسانسير</label>
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="elevator" id="elevator1" value="1" v-model="elevator">
+                        <input class="form-check-input" type="checkbox" name="has_elevator" id="elevator" v-model="elevator">
                         <label class="form-check-label mr-1" for="elevator1">يوجد </label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="elevator" id="elevator0" value="0" v-model="elevator">
+                    <!-- <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="has_elevator" id="elevator0" value="0" v-model="elevator">
                         <label class="form-check-label mr-1" for="elevator0">لا يوجد</label>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -167,9 +174,11 @@
             <div class="form-group row">
                 <label for="notes" class="col-form-label col-sm-3">ملاحظات</label>
                 <div class="col-sm-9">
-                     <textarea class="form-control" id="notes" rows="3" v-model="notes"></textarea>
+                     <textarea class="form-control" id="notes" name="notes" rows="3" v-model="notes"></textarea>
                 </div>
             </div>
+
+            <hr>
 
             <!-- Image upload -->
             <div class="row my-2">
@@ -347,7 +356,7 @@ export default {
 
         onSubmit() {
             // Append mandatory data
-            let estate = {
+            this.estate = {
                 'title': this.title,
                 'neighbourhood_id': this.selectedNeighbourhood,
                 'type_id': this.selectedType,
@@ -358,15 +367,15 @@ export default {
             }
 
             // Append optional data
-            if (this.floor) estate.floor_number= this.floor;
-            if (this.rooms) estate.number_of_rooms= this.rooms;
-            if (this.bathrooms) estate.number_of_bathrooms= this.bathrooms;
-            if (this.living) estate.number_of_living_spaces= this.living;
-            if (this.balconies) estate.number_of_balconies= this.balconies;
-            if (this.buildYear) estate.build_year= this.buildYear;
-            if (this.garage) estate.has_garage= this.garage;
-            if (this.elevator) estate.has_elevator= this.elevator;
-            if (this.notes) estate.notes= this.notes;
+            if (this.floor) this.estate.floor_number = this.floor;
+            if (this.rooms) this.estate.number_of_rooms = this.rooms;
+            if (this.bathrooms) this.estate.number_of_bathrooms = this.bathrooms;
+            if (this.living) this.estate.number_of_living_spaces = this.living;
+            if (this.balconies) this.estate.number_of_balconies = this.balconies;
+            if (this.buildYear) this.estate.build_year = this.buildYear;
+            if (this.garage) this.estate.has_garage = this.garage;
+            if (this.elevator) this.estate.has_elevator = this.elevator;
+            if (this.notes) this.estate.notes= this.notes;
 
             // Append images array
             /* if (this.images) {
@@ -376,8 +385,8 @@ export default {
                 }
             }; */
 
-            //this.$emit('estate-submitted', estate);
-            console.log(estate);
+            this.$emit('estate-submitted', this.estate);
+            //console.log(estate);
         },
 
         checkError(prop) {

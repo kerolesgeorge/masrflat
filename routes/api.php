@@ -24,6 +24,7 @@ Route::apiResource('/cities', 'CityController');
 Route::apiResource('/neighbourhoods', 'NeighbourhoodController');
 
 // Cities - Neighbourhoods
+Route::get('/neighbourhoods/{neighbourhood}/city', 'NeighbourhoodController@getCityNeighbourhoods');
 Route::get('/cities/{city}/neighbourhoods', 'CityController@neighbourhoods');
 
 // Types API

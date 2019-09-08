@@ -1988,6 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // Import city components
 
 
@@ -2037,14 +2038,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Get city data to update
     editCity: function editCity(city) {
-      this.city.id = city.id;
-      this.city.name = city.name;
+      this.city = city;
     },
     // Update city
-    updateCity: function updateCity(city) {
+    updateCity: function updateCity(id, city) {
       var _this3 = this;
 
-      axios.patch("/api/cities/".concat(city.id), city).then(function (response) {
+      axios.patch("/api/cities/".concat(id), city).then(function (response) {
         _this3.fetchCities();
 
         $('#editCity').modal('hide');
@@ -2144,26 +2144,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['city', 'submitErrors'],
+  props: ['id', 'name', 'submitErrors'],
   data: function data() {
     return {
-      //cityName: '',
+      cityName: '',
       cityUpdate: {}
     };
   },
   methods: {
     onSubmit: function onSubmit() {
       this.cityUpdate = {
-        id: this.city.id,
-        name: this.city.name
+        name: this.cityName
       };
-      this.$emit('city-update', this.cityUpdate);
+      this.$emit('city-update', this.id, this.cityUpdate);
     }
   },
   watch: {
-    /* name(val) {
-        this.cityName = val;
-    } */
+    name: function name(val) {
+      this.cityName = val;
+    }
   },
   computed: {
     nameError: function nameError() {
@@ -2619,6 +2618,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // Import estate components
 
 
@@ -2657,11 +2673,7 @@ __webpack_require__.r(__webpack_exports__);
     createEstate: function createEstate(estate) {
       var _this2 = this;
 
-      axios.post('/api/estates', estate, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
+      axios.post('/api/estates', estate).then(function (response) {
         _this2.fetchEstates(); //$('#createEstate').modal('hide');
 
 
@@ -2673,7 +2685,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     editEstate: function editEstate(estate) {
       this.estate = estate;
-      this.editMode = true;
     },
     updateEstate: function updateEstate(id, estate) {
       var _this3 = this;
@@ -2717,6 +2728,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3066,7 +3086,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchImages: function fetchImages() {},
     onSubmit: function onSubmit() {
       // Append mandatory data
-      var estate = {
+      this.estate = {
         'title': this.title,
         'neighbourhood_id': this.selectedNeighbourhood,
         'type_id': this.selectedType,
@@ -3076,15 +3096,15 @@ __webpack_require__.r(__webpack_exports__);
         'area': this.area // Append optional data
 
       };
-      if (this.floor) estate.floor_number = this.floor;
-      if (this.rooms) estate.number_of_rooms = this.rooms;
-      if (this.bathrooms) estate.number_of_bathrooms = this.bathrooms;
-      if (this.living) estate.number_of_living_spaces = this.living;
-      if (this.balconies) estate.number_of_balconies = this.balconies;
-      if (this.buildYear) estate.build_year = this.buildYear;
-      if (this.garage) estate.has_garage = this.garage;
-      if (this.elevator) estate.has_elevator = this.elevator;
-      if (this.notes) estate.notes = this.notes; // Append images array
+      if (this.floor) this.estate.floor_number = this.floor;
+      if (this.rooms) this.estate.number_of_rooms = this.rooms;
+      if (this.bathrooms) this.estate.number_of_bathrooms = this.bathrooms;
+      if (this.living) this.estate.number_of_living_spaces = this.living;
+      if (this.balconies) this.estate.number_of_balconies = this.balconies;
+      if (this.buildYear) this.estate.build_year = this.buildYear;
+      if (this.garage) this.estate.has_garage = this.garage;
+      if (this.elevator) this.estate.has_elevator = this.elevator;
+      if (this.notes) this.estate.notes = this.notes; // Append images array
 
       /* if (this.images) {
           for (let i = 0; i < this.images.length; i++) {
@@ -3092,9 +3112,8 @@ __webpack_require__.r(__webpack_exports__);
               estate[`images${i}`] = image;
           }
       }; */
-      //this.$emit('estate-submitted', estate);
 
-      console.log(estate);
+      this.$emit('estate-submitted', this.estate); //console.log(estate);
     },
     checkError: function checkError(prop) {
       return this.submitErrors.hasOwnProperty(prop);
@@ -3337,8 +3356,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['estate', 'submitErrors'],
+  props: ['id', 'title', 'neighbourhoodId', 'typeId', 'contractId', 'finishTypeId', 'viewId', 'area', 'floorNumber', 'numberOfRooms', 'numberOfBathrooms', 'numberOfLivingSpaces', 'numberOfBalconies', 'buildYear', 'hasGarage', 'hasElevator', 'notes', 'images', 'submitErrors'],
   data: function data() {
     return {
       cities: [],
@@ -3346,26 +3373,24 @@ __webpack_require__.r(__webpack_exports__);
       contracts: [],
       types: [],
       finishes: [],
-      views: []
-      /* title: '',
-      area: '',
-      floor: '',
-      rooms: '',
-      bathrooms: '',
-      living: '',
-      balconies: '',
-      buildYear: '',
-      garage: '',
-      elevator: '',
-      notes: '',
-      images: [],
-       selectedCity: '',
-      selectedNeighbourhood: '',
-      selectedContract: '',
-      selectedType: '',
-      selectedFinish: '',
-      selectedView: '', */
-
+      views: [],
+      cityId: '',
+      estateTitle: '',
+      estateNeighbourhood: '',
+      estateType: '',
+      estateContract: '',
+      estateView: '',
+      estateFinish: '',
+      estateArea: '',
+      estateFloor: '',
+      estateRooms: '',
+      estateBathrooms: '',
+      estateLiving: '',
+      estateBalconies: '',
+      estateBuild: '',
+      estateGarage: '',
+      estateElevator: '',
+      estateNotes: ''
     };
   },
   mounted: function mounted() {
@@ -3375,6 +3400,57 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchContracts();
     this.fetchFinishes();
     this.fetchViews();
+  },
+  watch: {
+    title: function title(val) {
+      this.estateTitle = val;
+    },
+    neighbourhoodId: function neighbourhoodId(val) {
+      this.estateNeighbourhood = val;
+      this.fetchNeighbourhoods();
+    },
+    typeId: function typeId(val) {
+      this.estateType = val;
+    },
+    contractId: function contractId(val) {
+      this.estateContract = val;
+    },
+    viewId: function viewId(val) {
+      this.estateView = val;
+    },
+    finishTypeId: function finishTypeId(val) {
+      this.estateFinish = val;
+    },
+    area: function area(val) {
+      this.estateArea = val;
+    },
+    floorNumber: function floorNumber(val) {
+      this.estateFloor = val;
+    },
+    numberOfRooms: function numberOfRooms(val) {
+      this.estateRooms = val;
+    },
+    numberOfBathrooms: function numberOfBathrooms(val) {
+      this.estateBathrooms = val;
+    },
+    numberOfLivingSpaces: function numberOfLivingSpaces(val) {
+      this.estateLiving = val;
+    },
+    numberOfBalconies: function numberOfBalconies(val) {
+      this.estateBalconies = val;
+    },
+    buildYear: function buildYear(val) {
+      this.estateBuild = val;
+    },
+    hasGarage: function hasGarage(val) {
+      this.estateGarage = val;
+    },
+    hasElevator: function hasElevator(val) {
+      this.estateElevator = val;
+    },
+    notes: function notes(val) {
+      this.estateNotes = val;
+    }
   },
   methods: {
     /* fetchCities() {
@@ -3387,11 +3463,14 @@ __webpack_require__.r(__webpack_exports__);
     fetchNeighbourhoods: function fetchNeighbourhoods() {
       var _this = this;
 
-      axios.get("/api/neighbourhoods").then(function (response) {
-        _this.neighbourhoods = response.data;
-      })["catch"](function (error) {
-        alert('Something went wrong \n' + error.message);
-      });
+      // Don't call the method if neighbourhoodId is undefined
+      if (this.neighbourhoodId) {
+        axios.get("/api/neighbourhoods/".concat(this.neighbourhoodId, "/city")).then(function (response) {
+          _this.neighbourhoods = response.data;
+        })["catch"](function (error) {
+          alert('Something went wrong \n' + error.message);
+        });
+      }
     },
     fetchTypes: function fetchTypes() {
       var _this2 = this;
@@ -3429,36 +3508,48 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
+    getCity: function getCity() {
+      axios.get("/api/neighbourhoods/".concat(this.neighbourhoodId, "/city")).then(function (response) {
+        console.log(response.data.id);
+      });
+    },
     imagesUpload: function imagesUpload() {},
     deleteAttached: function deleteAttached(id) {},
     onSubmit: function onSubmit() {
       // Append mandatory data
       var estateUpdate = {
-        'title': this.estate.title,
-        'neighbourhood_id': this.estate.neighbourhood_id,
-        'type_id': this.estate.type_id,
-        'contract_id': this.estate.contract_id,
-        'finish_type_id': this.estate.finish_type_id,
-        'view_id': this.estate.view_id,
-        'area': this.estate.area // Append optional data
+        'title': this.estateTitle,
+        'neighbourhood_id': this.estateNeighbourhood,
+        'type_id': this.estateType,
+        'contract_id': this.estateContract,
+        'finish_type_id': this.estateFinish,
+        'view_id': this.estateView,
+        'area': this.estateArea // Append optional data
 
       };
-      if (this.estate.floor_number) estateUpdate.floor_number = this.estate.floor_number;
-      if (this.estate.number_of_rooms) estateUpdate.number_of_rooms = this.estate.number_of_rooms;
-      if (this.estate.number_of_bathrooms) estateUpdate.number_of_bathrooms = this.estate.number_of_bathrooms;
-      if (this.estate.number_of_living_spaces) estateUpdate.number_of_living_spaces = this.estate.number_of_living_spaces;
-      if (this.estate.number_of_balconies) estateUpdate.number_of_balconies = this.estate.number_of_balconies;
-      if (this.estate.build_year) estateUpdate.build_year = this.estate.build_year;
-      if (this.estate.has_garage) estateUpdate.has_garage = this.estate.has_garage;
-      if (this.estate.has_elevator) estateUpdate.has_elevator = this.estate.has_elevator;
-      if (this.estate.notes) estateUpdate.notes = this.estate.notes;
-      this.$emit('estate-update', this.estate.id, estateUpdate);
+      estateUpdate.floor_number = this.estateFloor ? this.estateFloor : null;
+      estateUpdate.number_of_rooms = this.estateRooms ? this.estateRooms : null;
+      estateUpdate.number_of_bathrooms = this.estateBathrooms ? this.estateBathrooms : null;
+      estateUpdate.number_of_living_spaces = this.estateLiving ? this.estateLiving : null;
+      estateUpdate.number_of_balconies = this.estateBalconies ? this.estateBalconies : null;
+      estateUpdate.build_year = this.estateBuild ? this.estateBuild : null;
+      estateUpdate.has_garage = this.estateGarage ? this.estateGarage : null;
+      estateUpdate.has_elevator = this.estateElevator ? this.estateElevator : null;
+      estateUpdate.notes = this.estateNotes ? this.estateNotes : '';
+      this.$emit('estate-update', this.id, estateUpdate);
     },
     checkError: function checkError(prop) {
       return this.submitErrors.hasOwnProperty(prop);
     },
     getError: function getError(prop) {
       return this.checkError(prop) ? this.submitErrors[prop][0] : '';
+    }
+  },
+  computed: {
+    neighbourhoodCityId: function neighbourhoodCityId() {
+      if (this.neighbourhoodId) {
+        return this.neighbourhoodId;
+      }
     }
   }
 });
@@ -41857,7 +41948,11 @@ var render = function() {
                 { staticClass: "modal-body" },
                 [
                   _c("city-edit", {
-                    attrs: { city: _vm.city, submitErrors: _vm.errors },
+                    attrs: {
+                      id: _vm.city.id,
+                      name: _vm.city.name,
+                      submitErrors: _vm.errors
+                    },
                     on: { "city-update": _vm.updateCity }
                   })
                 ],
@@ -42108,8 +42203,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.city.name,
-              expression: "city.name"
+              value: _vm.cityName,
+              expression: "cityName"
             }
           ],
           class: [
@@ -42117,13 +42212,13 @@ var render = function() {
             "form-control"
           ],
           attrs: { type: "text", id: "name", name: "name" },
-          domProps: { value: _vm.city.name },
+          domProps: { value: _vm.cityName },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.city, "name", $event.target.value)
+              _vm.cityName = $event.target.value
             }
           }
         }),
@@ -42674,12 +42769,7 @@ var render = function() {
           {
             staticClass: "btn btn-success m-2",
             attrs: { "data-toggle": "modal", "data-target": "#createEstate" },
-            on: {
-              click: function($event) {
-                _vm.createMode = true
-                _vm.clearErrors
-              }
-            }
+            on: { click: _vm.clearErrors }
           },
           [_vm._v("اضافة")]
         )
@@ -42747,46 +42837,44 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.createMode
-      ? _c(
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "createEstate",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "createEstateLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
           "div",
-          {
-            staticClass: "modal fade",
-            attrs: {
-              id: "createEstate",
-              tabindex: "-1",
-              role: "dialog",
-              "aria-labelledby": "createEstateLabel",
-              "aria-hidden": "true"
-            }
-          },
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
-            _c(
-              "div",
-              { staticClass: "modal-dialog", attrs: { role: "document" } },
-              [
-                _c("div", { staticClass: "modal-content" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "modal-body" },
-                    [
-                      _c("estate-create", {
-                        attrs: { submitErrors: _vm.errors },
-                        on: { "estate-submitted": _vm.createEstate }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              ]
-            )
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("estate-create", {
+                    attrs: { submitErrors: _vm.errors },
+                    on: { "estate-submitted": _vm.createEstate }
+                  })
+                ],
+                1
+              )
+            ])
           ]
         )
-      : _vm._e(),
+      ]
+    ),
     _vm._v(" "),
-    _vm.editMode
+    _vm.estate
       ? _c(
           "div",
           {
@@ -42812,7 +42900,28 @@ var render = function() {
                     { staticClass: "modal-body" },
                     [
                       _c("estate-edit", {
-                        attrs: { estate: _vm.estate, submitErrors: _vm.errors },
+                        attrs: {
+                          id: _vm.estate.id,
+                          title: _vm.estate.title,
+                          neighbourhoodId: _vm.estate.neighbourhood_id,
+                          typeId: _vm.estate.type_id,
+                          contractId: _vm.estate.contract_id,
+                          finishTypeId: _vm.estate.finish_type_id,
+                          viewId: _vm.estate.view_id,
+                          area: _vm.estate.area,
+                          floorNumber: _vm.estate.floor_number,
+                          numberOfRooms: _vm.estate.number_of_rooms,
+                          numberOfBathrooms: _vm.estate.number_of_bathrooms,
+                          numberOfLivingSpaces:
+                            _vm.estate.number_of_living_spaces,
+                          numberOfBalconies: _vm.estate.number_of_balconies,
+                          buildYear: _vm.estate.build_year,
+                          hasGarage: _vm.estate.has_garage,
+                          hasElevator: _vm.estate.has_elevator,
+                          notes: _vm.estate.notes,
+                          images: _vm.estate.images,
+                          submitErrors: _vm.errors
+                        },
                         on: { "estate-update": _vm.updateEstate }
                       })
                     ],
@@ -43004,7 +43113,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
+    _c("form", { attrs: { id: "estateForm" } }, [
       _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
@@ -43023,7 +43132,7 @@ var render = function() {
               }
             ],
             class: [{ "is-invalid": _vm.checkError("title") }, "form-control"],
-            attrs: { type: "text", id: "title" },
+            attrs: { type: "text", id: "title", name: "title" },
             domProps: { value: _vm.title },
             on: {
               input: function($event) {
@@ -43040,6 +43149,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "form-group row" }, [
         _c(
@@ -43123,7 +43234,7 @@ var render = function() {
                 { "is-invalid": _vm.checkError("neighbourhood_id") },
                 "form-control p-1"
               ],
-              attrs: { id: "neighbourhood" },
+              attrs: { id: "neighbourhood", name: "neighbourhood_id" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -43188,7 +43299,7 @@ var render = function() {
                 { "is-invalid": _vm.checkError("type_id") },
                 "form-control p-1"
               ],
-              attrs: { id: "type" },
+              attrs: { id: "type", name: "type_id" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -43251,7 +43362,7 @@ var render = function() {
                 { "is-invalid": _vm.checkError("contract_id") },
                 "form-control p-1"
               ],
-              attrs: { id: "contract" },
+              attrs: { id: "contract", name: "contract_id" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -43313,7 +43424,7 @@ var render = function() {
                 { "is-invalid": _vm.checkError("finish_type_id") },
                 "form-control p-1"
               ],
-              attrs: { id: "finish" },
+              attrs: { id: "finish", name: "finish_type_id" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -43373,7 +43484,7 @@ var render = function() {
                 { "is-invalid": _vm.checkError("view_id") },
                 "form-control p-1"
               ],
-              attrs: { id: "view" },
+              attrs: { id: "view", name: "view_id" },
               on: {
                 change: function($event) {
                   var $$selectedVal = Array.prototype.filter
@@ -43428,7 +43539,7 @@ var render = function() {
               }
             ],
             class: [{ "is-invalid": _vm.checkError("area") }, "form-control"],
-            attrs: { type: "text", id: "area" },
+            attrs: { type: "text", id: "area", name: "area" },
             domProps: { value: _vm.area },
             on: {
               input: function($event) {
@@ -43465,7 +43576,7 @@ var render = function() {
               { "is-invalid": _vm.checkError("floor_number") },
               "form-control"
             ],
-            attrs: { type: "text", id: "floor" },
+            attrs: { type: "text", id: "floor", name: "floor_number" },
             domProps: { value: _vm.floor },
             on: {
               input: function($event) {
@@ -43504,7 +43615,7 @@ var render = function() {
               { "is-invalid": _vm.checkError("number_of_rooms") },
               "form-control"
             ],
-            attrs: { type: "text", id: "rooms" },
+            attrs: { type: "text", id: "rooms", name: "number_of_rooms" },
             domProps: { value: _vm.rooms },
             on: {
               input: function($event) {
@@ -43544,7 +43655,11 @@ var render = function() {
               { "is-invalid": _vm.checkError("number_of_bathrooms") },
               "form-control"
             ],
-            attrs: { type: "text", id: "bathrooms" },
+            attrs: {
+              type: "text",
+              id: "bathrooms",
+              name: "number_of_bathrooms"
+            },
             domProps: { value: _vm.bathrooms },
             on: {
               input: function($event) {
@@ -43583,7 +43698,11 @@ var render = function() {
               { "is-invalid": _vm.checkError("number_of_living_spaces") },
               "form-control"
             ],
-            attrs: { type: "text", id: "living" },
+            attrs: {
+              type: "text",
+              id: "living",
+              name: "number_of_living_spaces"
+            },
             domProps: { value: _vm.living },
             on: {
               input: function($event) {
@@ -43623,7 +43742,11 @@ var render = function() {
               { "is-invalid": _vm.checkError("number_of_balconies") },
               "form-control"
             ],
-            attrs: { type: "text", id: "balconies" },
+            attrs: {
+              type: "text",
+              id: "balconies",
+              name: "number_of_balconies"
+            },
             domProps: { value: _vm.balconies },
             on: {
               input: function($event) {
@@ -43665,7 +43788,7 @@ var render = function() {
               { "is-invalid": _vm.checkError("build_year") },
               "form-control"
             ],
-            attrs: { type: "text", id: "buildYear" },
+            attrs: { type: "text", id: "buildYear", name: "build_year" },
             domProps: { value: _vm.buildYear },
             on: {
               input: function($event) {
@@ -43682,6 +43805,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "form-group row" }, [
         _c(
@@ -43702,16 +43827,31 @@ var render = function() {
                 }
               ],
               staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "garage",
-                id: "garage1",
-                value: "1"
+              attrs: { type: "checkbox", name: "has_garage", id: "garage" },
+              domProps: {
+                checked: Array.isArray(_vm.garage)
+                  ? _vm._i(_vm.garage, null) > -1
+                  : _vm.garage
               },
-              domProps: { checked: _vm._q(_vm.garage, "1") },
               on: {
                 change: function($event) {
-                  _vm.garage = "1"
+                  var $$a = _vm.garage,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.garage = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.garage = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.garage = $$c
+                  }
                 }
               }
             }),
@@ -43724,44 +43864,11 @@ var render = function() {
               },
               [_vm._v("يوجد ")]
             )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-check form-check-inline" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.garage,
-                  expression: "garage"
-                }
-              ],
-              staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "garage",
-                id: "garage0",
-                value: "0"
-              },
-              domProps: { checked: _vm._q(_vm.garage, "0") },
-              on: {
-                change: function($event) {
-                  _vm.garage = "0"
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label mr-1",
-                attrs: { for: "garage0" }
-              },
-              [_vm._v("لا يوجد")]
-            )
           ])
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
           {
@@ -43783,16 +43890,31 @@ var render = function() {
                 }
               ],
               staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "elevator",
-                id: "elevator1",
-                value: "1"
+              attrs: { type: "checkbox", name: "has_elevator", id: "elevator" },
+              domProps: {
+                checked: Array.isArray(_vm.elevator)
+                  ? _vm._i(_vm.elevator, null) > -1
+                  : _vm.elevator
               },
-              domProps: { checked: _vm._q(_vm.elevator, "1") },
               on: {
                 change: function($event) {
-                  _vm.elevator = "1"
+                  var $$a = _vm.elevator,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.elevator = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.elevator = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.elevator = $$c
+                  }
                 }
               }
             }),
@@ -43804,41 +43926,6 @@ var render = function() {
                 attrs: { for: "elevator1" }
               },
               [_vm._v("يوجد ")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-check form-check-inline" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.elevator,
-                  expression: "elevator"
-                }
-              ],
-              staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "elevator",
-                id: "elevator0",
-                value: "0"
-              },
-              domProps: { checked: _vm._q(_vm.elevator, "0") },
-              on: {
-                change: function($event) {
-                  _vm.elevator = "0"
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label mr-1",
-                attrs: { for: "elevator0" }
-              },
-              [_vm._v("لا يوجد")]
             )
           ])
         ])
@@ -43864,7 +43951,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { id: "notes", rows: "3" },
+            attrs: { id: "notes", name: "notes", rows: "3" },
             domProps: { value: _vm.notes },
             on: {
               input: function($event) {
@@ -43877,6 +43964,8 @@ var render = function() {
           })
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "row my-2" }, [
         _vm._m(1),
@@ -44031,19 +44120,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.title,
-                expression: "estate.title"
+                value: _vm.estateTitle,
+                expression: "estateTitle"
               }
             ],
             class: [{ "is-invalid": _vm.checkError("title") }, "form-control"],
             attrs: { type: "text", id: "title" },
-            domProps: { value: _vm.estate.title },
+            domProps: { value: _vm.estateTitle },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "title", $event.target.value)
+                _vm.estateTitle = $event.target.value
               }
             }
           }),
@@ -44053,6 +44142,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "form-group row" }, [
         _c(
@@ -44072,8 +44163,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.neighbourhood_id,
-                  expression: "estate.neighbourhood_id"
+                  value: _vm.estateNeighbourhood,
+                  expression: "estateNeighbourhood"
                 }
               ],
               class: [
@@ -44091,11 +44182,9 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.$set(
-                    _vm.estate,
-                    "neighbourhood_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                  _vm.estateNeighbourhood = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
                 }
               }
             },
@@ -44139,8 +44228,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.type_id,
-                  expression: "estate.type_id"
+                  value: _vm.estateType,
+                  expression: "estateType"
                 }
               ],
               class: [
@@ -44158,11 +44247,9 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.$set(
-                    _vm.estate,
-                    "type_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                  _vm.estateType = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
                 }
               }
             },
@@ -44204,8 +44291,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.contract_id,
-                  expression: "estate.contract_id"
+                  value: _vm.estateContract,
+                  expression: "estateContract"
                 }
               ],
               class: [
@@ -44223,11 +44310,9 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.$set(
-                    _vm.estate,
-                    "contract_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                  _vm.estateContract = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
                 }
               }
             },
@@ -44268,8 +44353,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.finish_type_id,
-                  expression: "estate.finish_type_id"
+                  value: _vm.estateFinish,
+                  expression: "estateFinish"
                 }
               ],
               class: [
@@ -44287,11 +44372,9 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.$set(
-                    _vm.estate,
-                    "finish_type_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                  _vm.estateFinish = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
                 }
               }
             },
@@ -44330,8 +44413,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.view_id,
-                  expression: "estate.view_id"
+                  value: _vm.estateView,
+                  expression: "estateView"
                 }
               ],
               class: [
@@ -44349,11 +44432,9 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.$set(
-                    _vm.estate,
-                    "view_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                  _vm.estateView = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
                 }
               }
             },
@@ -44390,19 +44471,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.area,
-                expression: "estate.area"
+                value: _vm.estateArea,
+                expression: "estateArea"
               }
             ],
             class: [{ "is-invalid": _vm.checkError("area") }, "form-control"],
             attrs: { type: "text", id: "area" },
-            domProps: { value: _vm.estate.area },
+            domProps: { value: _vm.estateArea },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "area", $event.target.value)
+                _vm.estateArea = $event.target.value
               }
             }
           }),
@@ -44424,8 +44505,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.floor_number,
-                expression: "estate.floor_number"
+                value: _vm.estateFloor,
+                expression: "estateFloor"
               }
             ],
             class: [
@@ -44433,13 +44514,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "floor" },
-            domProps: { value: _vm.estate.floor_number },
+            domProps: { value: _vm.estateFloor },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "floor_number", $event.target.value)
+                _vm.estateFloor = $event.target.value
               }
             }
           }),
@@ -44463,8 +44544,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.number_of_rooms,
-                expression: "estate.number_of_rooms"
+                value: _vm.estateRooms,
+                expression: "estateRooms"
               }
             ],
             class: [
@@ -44472,13 +44553,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "rooms" },
-            domProps: { value: _vm.estate.number_of_rooms },
+            domProps: { value: _vm.estateRooms },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "number_of_rooms", $event.target.value)
+                _vm.estateRooms = $event.target.value
               }
             }
           }),
@@ -44503,8 +44584,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.number_of_bathrooms,
-                expression: "estate.number_of_bathrooms"
+                value: _vm.estateBathrooms,
+                expression: "estateBathrooms"
               }
             ],
             class: [
@@ -44512,13 +44593,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "bathrooms" },
-            domProps: { value: _vm.estate.number_of_bathrooms },
+            domProps: { value: _vm.estateBathrooms },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "number_of_bathrooms", $event.target.value)
+                _vm.estateBathrooms = $event.target.value
               }
             }
           }),
@@ -44542,8 +44623,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.number_of_living_spaces,
-                expression: "estate.number_of_living_spaces"
+                value: _vm.estateLiving,
+                expression: "estateLiving"
               }
             ],
             class: [
@@ -44551,17 +44632,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "living" },
-            domProps: { value: _vm.estate.number_of_living_spaces },
+            domProps: { value: _vm.estateLiving },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(
-                  _vm.estate,
-                  "number_of_living_spaces",
-                  $event.target.value
-                )
+                _vm.estateLiving = $event.target.value
               }
             }
           }),
@@ -44586,8 +44663,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.number_of_balconies,
-                expression: "estate.number_of_balconies"
+                value: _vm.estateBalconies,
+                expression: "estateBalconies"
               }
             ],
             class: [
@@ -44595,13 +44672,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "balconies" },
-            domProps: { value: _vm.estate.number_of_balconies },
+            domProps: { value: _vm.estateBalconies },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "number_of_balconies", $event.target.value)
+                _vm.estateBalconies = $event.target.value
               }
             }
           }),
@@ -44628,8 +44705,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.build_year,
-                expression: "estate.build_year"
+                value: _vm.estateBuild,
+                expression: "estateBuild"
               }
             ],
             class: [
@@ -44637,13 +44714,13 @@ var render = function() {
               "form-control"
             ],
             attrs: { type: "text", id: "buildYear" },
-            domProps: { value: _vm.estate.build_year },
+            domProps: { value: _vm.estateBuild },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "build_year", $event.target.value)
+                _vm.estateBuild = $event.target.value
               }
             }
           }),
@@ -44653,6 +44730,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "form-group row" }, [
         _c(
@@ -44668,21 +44747,36 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.has_garage,
-                  expression: "estate.has_garage"
+                  value: _vm.estateGarage,
+                  expression: "estateGarage"
                 }
               ],
               staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "garage",
-                id: "garage1",
-                value: "1"
+              attrs: { type: "checkbox", name: "has_garage", id: "garage" },
+              domProps: {
+                checked: Array.isArray(_vm.estateGarage)
+                  ? _vm._i(_vm.estateGarage, null) > -1
+                  : _vm.estateGarage
               },
-              domProps: { checked: _vm._q(_vm.estate.has_garage, "1") },
               on: {
                 change: function($event) {
-                  return _vm.$set(_vm.estate, "has_garage", "1")
+                  var $$a = _vm.estateGarage,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.estateGarage = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.estateGarage = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.estateGarage = $$c
+                  }
                 }
               }
             }),
@@ -44695,44 +44789,11 @@ var render = function() {
               },
               [_vm._v("يوجد ")]
             )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-check form-check-inline" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.estate.has_garage,
-                  expression: "estate.has_garage"
-                }
-              ],
-              staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "garage",
-                id: "garage0",
-                value: "0"
-              },
-              domProps: { checked: _vm._q(_vm.estate.has_garage, "0") },
-              on: {
-                change: function($event) {
-                  return _vm.$set(_vm.estate, "has_garage", "0")
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label mr-1",
-                attrs: { for: "garage0" }
-              },
-              [_vm._v("لا يوجد")]
-            )
           ])
-        ]),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
           {
@@ -44749,21 +44810,36 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estate.has_elevator,
-                  expression: "estate.has_elevator"
+                  value: _vm.estateElevator,
+                  expression: "estateElevator"
                 }
               ],
               staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "elevator",
-                id: "elevator1",
-                value: "1"
+              attrs: { type: "checkbox", name: "has_elevator", id: "elevator" },
+              domProps: {
+                checked: Array.isArray(_vm.estateElevator)
+                  ? _vm._i(_vm.estateElevator, null) > -1
+                  : _vm.estateElevator
               },
-              domProps: { checked: _vm._q(_vm.estate.has_elevator, "1") },
               on: {
                 change: function($event) {
-                  return _vm.$set(_vm.estate, "has_elevator", "1")
+                  var $$a = _vm.estateElevator,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.estateElevator = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.estateElevator = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.estateElevator = $$c
+                  }
                 }
               }
             }),
@@ -44775,41 +44851,6 @@ var render = function() {
                 attrs: { for: "elevator1" }
               },
               [_vm._v("يوجد ")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-check form-check-inline" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.estate.has_elevator,
-                  expression: "estate.has_elevator"
-                }
-              ],
-              staticClass: "form-check-input",
-              attrs: {
-                type: "radio",
-                name: "elevator",
-                id: "elevator0",
-                value: "0"
-              },
-              domProps: { checked: _vm._q(_vm.estate.has_elevator, "0") },
-              on: {
-                change: function($event) {
-                  return _vm.$set(_vm.estate, "has_elevator", "0")
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label mr-1",
-                attrs: { for: "elevator0" }
-              },
-              [_vm._v("لا يوجد")]
             )
           ])
         ])
@@ -44830,24 +44871,26 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.estate.notes,
-                expression: "estate.notes"
+                value: _vm.notes,
+                expression: "notes"
               }
             ],
             staticClass: "form-control",
             attrs: { id: "notes", rows: "3" },
-            domProps: { value: _vm.estate.notes },
+            domProps: { value: _vm.notes },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.estate, "notes", $event.target.value)
+                _vm.notes = $event.target.value
               }
             }
           })
         ])
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "row my-2" }, [
         _vm._m(1),
@@ -44875,7 +44918,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "card-columns" },
-        _vm._l(_vm.estate.images, function(image) {
+        _vm._l(_vm.images, function(image) {
           return _c("div", { key: image.id, staticClass: "card" }, [
             _c("img", {
               staticClass: "card-img-top",

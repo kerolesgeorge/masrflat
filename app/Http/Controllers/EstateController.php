@@ -178,22 +178,22 @@ class EstateController extends Controller
         ];
 
         if (request()->has('floor_number'))
-            $request['floor_number'] = 'numeric';
+                $request['floor_number'] = request('floor_number') != null ? 'numeric' : '';
 
         if (request()->has('number_of_rooms'))
-            $request['number_of_rooms'] = 'numeric';
+                $request['number_of_rooms'] = request('number_of_rooms') != null ? 'numeric' : '';
 
         if (request()->has('number_of_bathrooms'))
-            $request['number_of_bathrooms'] = 'numeric';
+                $request['number_of_bathrooms'] = request('number_of_bathrooms') != null ? 'numeric' : '';
 
         if (request()->has('number_of_living_spaces'))
-            $request['number_of_living_spaces'] = 'numeric';
+                $request['number_of_living_spaces'] = request('number_of_living_spaces') != null ? 'numeric' : '';
 
         if (request()->has('number_of_balconies'))
-            $request['number_of_balconies'] = 'numeric';
+            $request['number_of_balconies'] = request('number_of_balconies') != null ? 'numeric' : '';
 
         if (request()->has('build_year'))
-            $request['build_year'] = 'numeric';
+            $request['build_year'] = request('build_year') != null ? 'numeric' : '';
 
         return request()->validate($request);
     }
