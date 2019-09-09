@@ -331,7 +331,7 @@ export default {
             }).then(response => {
                 this.images = response.data;
                 $(".attachment-loader-wrapper").fadeOut();
-            })
+            });
         },
 
         /**
@@ -346,6 +346,7 @@ export default {
                 $(".attachment-loader-wrapper").fadeOut();
             }).catch(error => {
                 alert('Something went wrong, ' + error.response.data.message);
+                $(".attachment-loader-wrapper").fadeOut();
             });
         },
 

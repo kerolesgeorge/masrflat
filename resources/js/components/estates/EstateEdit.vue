@@ -353,19 +353,40 @@ export default {
         },
 
         imagesUpload() {
+            $(".attachment-loader-wrapper").show();
 
+            let attachments = this.$refs.images.files;
+            let imagesData = new FormData();
+
+            for (let i = 0; i < attachments.length; i++) {
+                let image = attachments[i];
+                imagesData.append(`images[${i}]`, image);
+            }
+
+            axios.post('/api/attachments', imagesData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                this.images.push(response.data);
+                $(".attachment-loader-wrapper").fadeOut();
+            });
         },
 
         deleteImage(id) {
             // Delete image from server
+            $(".attachment-loader-wrapper").show();
             axios.delete(`/images/${id}`).then(response => {
-                for (let i = 0; i < this.images.length; i++) {
-                    if(this.images[i]['id'] == id) {
-                        this.images.splice(i, 1);
-                    }
-                }
+
+                // Remove the image from images array
+                this.images.forEach((image, i) => {
+                    if (image.id == id) this.images.splice(i, 1);
+                });
+
+                $(".attachment-loader-wrapper").fadeOut();
             }).catch(error => {
                 alert('Something went wrong \n' + error.message);
+                $(".attachment-loader-wrapper").fadeOut();
             });
         },
 

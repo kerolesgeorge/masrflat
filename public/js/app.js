@@ -3080,6 +3080,7 @@ __webpack_require__.r(__webpack_exports__);
         $(".attachment-loader-wrapper").fadeOut();
       })["catch"](function (error) {
         alert('Something went wrong, ' + error.response.data.message);
+        $(".attachment-loader-wrapper").fadeOut();
       });
     },
     onSubmit: function onSubmit() {
@@ -3506,19 +3507,43 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
-    imagesUpload: function imagesUpload() {},
-    deleteImage: function deleteImage(id) {
+    imagesUpload: function imagesUpload() {
       var _this6 = this;
 
-      // Delete image from server
-      axios["delete"]("/images/".concat(id)).then(function (response) {
-        for (var i = 0; i < _this6.images.length; i++) {
-          if (_this6.images[i]['id'] == id) {
-            _this6.images.splice(i, 1);
-          }
+      $(".attachment-loader-wrapper").show();
+      var attachments = this.$refs.images.files;
+      var imagesData = new FormData();
+
+      for (var i = 0; i < attachments.length; i++) {
+        var image = attachments[i];
+        imagesData.append("images[".concat(i, "]"), image);
+      }
+
+      axios.post('/api/attachments', imagesData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
+      }).then(function (response) {
+        _this6.images.push(response.data);
+
+        $(".attachment-loader-wrapper").fadeOut();
+      });
+    },
+    deleteImage: function deleteImage(id) {
+      var _this7 = this;
+
+      // Delete image from server
+      $(".attachment-loader-wrapper").show();
+      axios["delete"]("/images/".concat(id)).then(function (response) {
+        // Remove the image from images array
+        _this7.images.forEach(function (image, i) {
+          if (image.id == id) _this7.images.splice(i, 1);
+        });
+
+        $(".attachment-loader-wrapper").fadeOut();
       })["catch"](function (error) {
         alert('Something went wrong \n' + error.message);
+        $(".attachment-loader-wrapper").fadeOut();
       });
     },
     onSubmit: function onSubmit() {
