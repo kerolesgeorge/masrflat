@@ -138,6 +138,41 @@ class EstateController extends Controller
             }
         });
 
+        Cache::put('attached', $this->attached, now()->addMinutes(20));
+        return json_encode($this->attached);
+    }
+
+    /**
+     * Update attached images
+     */
+    public function updateAttached(Estate $estate)
+    {
+        $images = Collection::wrap(request('images'));
+        $images->each(function($image) {
+            $path = $image->store('uploads', 'public');
+
+            // Push new image url to array
+            $images = [
+                "url" => $path,
+            ];
+            $this->attached[] = $images;
+            //$this->images_array[] = $images;
+
+            // Get image width and height and resize
+            $height = InterventionImage::make($image)->height();
+            $width = InterventionImage::make($image)->width();
+
+            // Check for image orientation
+            if ($width > $height) {
+                InterventionImage::make($image)
+                ->resize(1000, 700)
+                ->save(public_path("storage/{$path}"));
+            } else {
+                InterventionImage::make($image)
+                ->resize(700, 1000)
+                ->save(public_path("storage/{$path}"));
+            }
+        });
 
         Cache::put('attached', $this->attached, now()->addMinutes(20));
         return json_encode($this->attached);
@@ -160,14 +195,6 @@ class EstateController extends Controller
         // Update array and re-cache it
         array_splice($this->attached, $index, 1);
         Cache::put('attached', $this->attached, now()->addMinutes(20));
-    }
-
-    /**
-     * Delete estate image
-     */
-    public function deleteImage($id)
-    {
-
     }
 
     /**

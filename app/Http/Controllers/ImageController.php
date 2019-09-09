@@ -15,8 +15,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        return view('images', compact('images'));
+
     }
 
     /**
@@ -24,30 +23,7 @@ class ImageController extends Controller
      */
     public function store()
     {
-        $images = Collection::wrap(request()->file('file'));
-        $images->each(function($image) {
-            $path = $image->store('uploads', 'public');
-            Image::create([
-                'url' => $path,
-                'estate_id' => 1,
-            ]);
 
-            // Get image width and height and resize
-            $height = InterventionImage::make($image)->height();
-            $width = InterventionImage::make($image)->width();
-
-            // Check for image orientation
-            if ($width > $height) {
-                InterventionImage::make($image)
-                ->resize(1000, 700)
-                ->save(public_path("storage/{$path}"));
-            } else {
-                InterventionImage::make($image)
-                ->resize(700, 1000)
-                ->save(public_path("storage/{$path}"));
-            }
-
-        });
     }
 
     /**
