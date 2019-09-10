@@ -182,11 +182,11 @@
 
             <!-- Image upload -->
             <div class="row my-2">
-                <label for="image" class="col-form-label col-sm-9" style="cursor: pointer">
+                <label for="attachments" class="col-form-label col-sm-9" style="cursor: pointer">
                     ضيف صور <i class="fas fa-cloud-upload-alt fa-2x mr-2"></i>
                 </label>
                 <div class="col-sm-3 px-5">
-                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload" style="display: none;">
+                    <input type="file" id="attachments" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload" style="display: none;">
                     <div class="invalid-feedback">{{ getError('images') }}</div>
                 </div>
             </div>
@@ -314,6 +314,7 @@ export default {
 
         // Handle attachments upload
         imagesUpload() {
+            //alert('Estate Create File input changed');
             $(".attachment-loader-wrapper").show();
 
             let attachments = this.$refs.images.files;
@@ -331,6 +332,8 @@ export default {
             }).then(response => {
                 this.images = response.data;
                 $(".attachment-loader-wrapper").fadeOut();
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
             });
         },
 
@@ -340,9 +343,7 @@ export default {
         deleteAttached(index) {
             $(".attachment-loader-wrapper").show();
             axios.delete(`/api/attachments/${index}`).then(response => {
-                //alert(response.data);
                 this.images.splice(index, 1);
-                console.log(this.images);
                 $(".attachment-loader-wrapper").fadeOut();
             }).catch(error => {
                 alert('Something went wrong, ' + error.response.data.message);
@@ -351,6 +352,7 @@ export default {
         },
 
         onSubmit() {
+
             // Append mandatory data
             this.estate = {
                 'title': this.title,

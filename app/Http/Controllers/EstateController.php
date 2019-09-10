@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Estate;
 use App\Http\Resources\Estate as EstateResource;
 use App\Image;
+use App\Http\Resources\Image as ImageResource;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Collection;
@@ -147,16 +148,23 @@ class EstateController extends Controller
      */
     public function updateAttached(Estate $estate)
     {
+        //$estate = Estate::findOrFail($id);
         $images = Collection::wrap(request('images'));
-        $images->each(function($image) {
+        $images->each(function($image) use($estate) {
             $path = $image->store('uploads', 'public');
+
+            $imageStore = Image::create([
+                'estate_id' => $estate->id,
+                'url' => $path
+            ]);
 
             // Push new image url to array
             $images = [
-                "url" => $path,
+                'id' => $imageStore->id,
+                'estate_id' => $estate->id,
+                'url' => $path,
             ];
             $this->attached[] = $images;
-            //$this->images_array[] = $images;
 
             // Get image width and height and resize
             $height = InterventionImage::make($image)->height();
@@ -174,8 +182,8 @@ class EstateController extends Controller
             }
         });
 
-        Cache::put('attached', $this->attached, now()->addMinutes(20));
         return json_encode($this->attached);
+        $this->attached = [];
     }
 
     /**

@@ -42,8 +42,10 @@ Route::apiResource('/views', 'ViewController');
 // Estates API
 Route::apiResource('/estates', 'EstateController');
 
-// Images
+// Estate upload attachments
 Route::post('/attachments', 'EstateController@uploadAttached');
 Route::delete('/attachments/{index}', 'EstateController@deleteAttached');
 
+// Estate edit attachments
+Route::post('/attachments/{estate}', 'EstateController@updateAttached');
 Route::delete('/images/{image}', 'ImageController@destroy');

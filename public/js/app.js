@@ -3046,6 +3046,7 @@ __webpack_require__.r(__webpack_exports__);
     imagesUpload: function imagesUpload() {
       var _this7 = this;
 
+      //alert('Estate Create File input changed');
       $(".attachment-loader-wrapper").show();
       var attachments = this.$refs.images.files;
       var imagesData = new FormData();
@@ -3062,6 +3063,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this7.images = response.data;
         $(".attachment-loader-wrapper").fadeOut();
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
       });
     },
 
@@ -3073,10 +3076,8 @@ __webpack_require__.r(__webpack_exports__);
 
       $(".attachment-loader-wrapper").show();
       axios["delete"]("/api/attachments/".concat(index)).then(function (response) {
-        //alert(response.data);
         _this8.images.splice(index, 1);
 
-        console.log(_this8.images);
         $(".attachment-loader-wrapper").fadeOut();
       })["catch"](function (error) {
         alert('Something went wrong, ' + error.response.data.message);
@@ -3507,9 +3508,10 @@ __webpack_require__.r(__webpack_exports__);
         alert('Something went wrong \n' + error.message);
       });
     },
-    imagesUpload: function imagesUpload() {
+    imagesUpdate: function imagesUpdate() {
       var _this6 = this;
 
+      //alert('Estate Edit File input changed');
       $(".attachment-loader-wrapper").show();
       var attachments = this.$refs.images.files;
       var imagesData = new FormData();
@@ -3519,13 +3521,17 @@ __webpack_require__.r(__webpack_exports__);
         imagesData.append("images[".concat(i, "]"), image);
       }
 
-      axios.post('/api/attachments', imagesData, {
+      axios.post("/api/attachments/".concat(this.id), imagesData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        _this6.images.push(response.data);
-
+        response.data.forEach(function (image) {
+          _this6.images.push(image);
+        });
+        $(".attachment-loader-wrapper").fadeOut();
+      })["catch"](function (error) {
+        alert('Something went wrong \n' + error.message);
         $(".attachment-loader-wrapper").fadeOut();
       });
     },
@@ -3534,7 +3540,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // Delete image from server
       $(".attachment-loader-wrapper").show();
-      axios["delete"]("/images/".concat(id)).then(function (response) {
+      axios["delete"]("/api/images/".concat(id)).then(function (response) {
         // Remove the image from images array
         _this7.images.forEach(function (image, i) {
           if (image.id == id) _this7.images.splice(i, 1);
@@ -44009,7 +44015,7 @@ var render = function() {
               "form-control-file"
             ],
             staticStyle: { display: "none" },
-            attrs: { type: "file", id: "image", multiple: "" },
+            attrs: { type: "file", id: "attachments", multiple: "" },
             on: { change: _vm.imagesUpload }
           }),
           _vm._v(" "),
@@ -44096,7 +44102,7 @@ var staticRenderFns = [
       {
         staticClass: "col-form-label col-sm-9",
         staticStyle: { cursor: "pointer" },
-        attrs: { for: "image" }
+        attrs: { for: "attachments" }
       },
       [
         _vm._v("\n                ضيف صور "),
@@ -44935,7 +44941,7 @@ var render = function() {
             ],
             staticStyle: { display: "none" },
             attrs: { type: "file", id: "image", multiple: "" },
-            on: { change: _vm.imagesUpload }
+            on: { change: _vm.imagesUpdate }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "invalid-feedback" }, [
@@ -61368,8 +61374,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\masrflat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/www/html/projects/masrflat/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

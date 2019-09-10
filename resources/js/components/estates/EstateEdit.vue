@@ -185,7 +185,7 @@
                     ضيف صور <i class="fas fa-cloud-upload-alt fa-2x mr-2"></i>
                 </label>
                 <div class="col-sm-3 px-5">
-                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpload" style="display: none;">
+                    <input type="file" id="image" ref="images" :class="[{'is-invalid' : checkError('images')}, 'form-control-file']" multiple @change="imagesUpdate" style="display: none;">
                     <div class="invalid-feedback">{{ getError('images') }}</div>
                 </div>
             </div>
@@ -352,7 +352,8 @@ export default {
             });
         },
 
-        imagesUpload() {
+        imagesUpdate() {
+            //alert('Estate Edit File input changed');
             $(".attachment-loader-wrapper").show();
 
             let attachments = this.$refs.images.files;
@@ -363,12 +364,17 @@ export default {
                 imagesData.append(`images[${i}]`, image);
             }
 
-            axios.post('/api/attachments', imagesData, {
+            axios.post(`/api/attachments/${this.id}`, imagesData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                this.images.push(response.data);
+                response.data.forEach(image => {
+                    this.images.push(image);
+                });
+                $(".attachment-loader-wrapper").fadeOut();
+            }).catch(error => {
+                alert('Something went wrong \n' + error.message);
                 $(".attachment-loader-wrapper").fadeOut();
             });
         },
@@ -376,7 +382,7 @@ export default {
         deleteImage(id) {
             // Delete image from server
             $(".attachment-loader-wrapper").show();
-            axios.delete(`/images/${id}`).then(response => {
+            axios.delete(`/api/images/${id}`).then(response => {
 
                 // Remove the image from images array
                 this.images.forEach((image, i) => {
