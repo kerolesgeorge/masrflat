@@ -11,19 +11,24 @@
 |
 */
 
+/**
+ * Web pages routes
+ */
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/estates', function () {
+    return view('estates');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Images test
-Route::get('/image-gallery', 'ImageController@index');
-Route::delete('/images/{image}', 'ImageController@destroy');
-
-// Admin
+/**
+ * Admin Routes
+ */
 Route::get('/admin', function() {
     return view('admin.index');
 });//->middleware('auth')

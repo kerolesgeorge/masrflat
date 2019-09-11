@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() == 'ar'? 'rtl' : 'ltr' }}">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="utf-8">
@@ -30,7 +30,7 @@
                     <div class="collapse navbar-collapse mr-3" id="navbarNavAltMarkup">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">عقارات</a>
+                                <a class="nav-link" href="/estates">عقارات</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">من نحن</a>
