@@ -18,6 +18,7 @@
 <body>
 
     <div id="app">
+
         <!-- Navbar section -->
         <div class="nav-container-fluid">
             <div class="container nav-container">
@@ -26,7 +27,7 @@
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <a class="navbar-brand" href="#">شقة في مصر الجديده</a>
+                    <a class="navbar-brand" href="/">شقة في مصر الجديده</a>
                     <div class="collapse navbar-collapse mr-3" id="navbarNavAltMarkup">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
@@ -44,6 +45,7 @@
             </div>
         </div>
 
+        <!-- Content Section -->
         @yield('content')
 
         <!-- Footer section -->
